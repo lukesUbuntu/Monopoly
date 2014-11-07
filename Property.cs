@@ -61,7 +61,7 @@ namespace MolopolyGame
             return (ConsoleColor)(int)this.getGroup();
         }
 
-        public IEnum.PropertyGroup getGroup()
+        public virtual IEnum.PropertyGroup getGroup()
         {
             //Returns the current group as string
             
@@ -83,7 +83,7 @@ namespace MolopolyGame
         }
 
 
-        public bool ownsAllProps(Property theProperty)
+        public virtual bool ownsAllProps(Property theProperty)
         {
            return (returnGroupProperties(theProperty) != null);
         }
@@ -105,6 +105,12 @@ namespace MolopolyGame
         public virtual decimal mortgageProperty()
         {
             return this.dMortgageValue / 2;
+        }
+
+        public virtual int ownsHowMany(Property theProperty)
+        {
+            //@todo need to test if the array is null what will it return;
+            return ((ArrayList)returnGroupProperties(theProperty)).Count;
         }
     }
 

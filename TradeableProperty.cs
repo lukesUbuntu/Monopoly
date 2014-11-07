@@ -10,6 +10,7 @@ namespace MolopolyGame
         protected decimal dPrice;
         protected decimal dMortgageValue;
         protected decimal dRent;
+        protected decimal dGroup;
         //protected IEnum.PropertyGroup group;
         //decimal dMortgageValue;
         public TradeableProperty()
@@ -127,7 +128,7 @@ namespace MolopolyGame
 
 
 
-        public override ArrayList returnGroupProperties(Property theProperty)
+        public override ArrayList returnGroupProperties(Property theProperty,bool checkOwnsAll = false)
         {
             //Store temp props
             ArrayList tmpProps = new ArrayList();
@@ -139,7 +140,8 @@ namespace MolopolyGame
             //go through all the properties
             for (int i = 0; i < Board.access().getProperties().Count; i++)
             {
-                if (Board.access().getProperty(i).getGroup() == theGroup)
+                IEnum.PropertyGroup AlltheGroup = Board.access().getProperty(i).getGroup();
+                if (AlltheGroup == theGroup)
                     total_group++;
 
                 //owned by this player
@@ -154,21 +156,38 @@ namespace MolopolyGame
             //return propertiesOwned;
 
             //owns all groups of prop
+            if (checkOwnsAll)
             if (tmpProps.Count == total_group)
             {
                 return tmpProps;
             }
 
-            return null;
+            if (tmpProps.Count <= 0) return null;
+
+            return tmpProps;
 
         }
 
-        public bool ownsAllProps(Property theProperty)
+        public override bool ownsAllProps(Property theProperty)
         {
-            return (returnGroupProperties(theProperty) != null);
+            return (returnGroupProperties(theProperty,true) != null);
         }
 
+        public override int ownsHowMany(Property theProperty)
+        {
+            //@todo need to test if the array is null what will it return;
+            ArrayList theArray = returnGroupProperties(theProperty);
+            int count = theArray.Count;
 
+            return count;
+        }
+
+        public override IEnum.PropertyGroup getGroup()
+        {
+            //Returns the current group as string
+
+            return this.group;
+        }
         
        
     }

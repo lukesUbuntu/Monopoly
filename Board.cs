@@ -55,6 +55,7 @@ namespace MolopolyGame
         public void setSquares()
         {
             //set the squares of the board
+            //@todo need to test this out for 
             this.SQUARES = this.properties.Count;
         }
         public void addProperty(Property property)

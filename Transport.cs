@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -22,6 +23,22 @@ namespace MolopolyGame
         public override string ToString()
         {
             return base.ToString();
+        }
+
+
+        public override string landOn(ref Player player)
+        {
+            //Pay rent if needed
+            if ((this.getOwner() != Banker.access()) && (this.getOwner() != player))
+            {
+                //How many 
+                int tmpProps = this.ownsHowMany(this);
+                //pay rent
+                //this.payRent(ref player);
+                return string.Format("You rolled a total of ");
+            }
+            else
+                return base.landOn(ref player);
         }
     }
 }
