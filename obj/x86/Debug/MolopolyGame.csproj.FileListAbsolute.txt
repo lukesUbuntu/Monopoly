@@ -178,3 +178,14 @@ C:\Users\Luke Hardiman\Documents\GitHub\Monopoly\bin\Debug\nunit.util.dll
 C:\Users\Luke Hardiman\Documents\GitHub\Monopoly\bin\Debug\NUnit.VisualStudio.TestAdapter.dll
 C:\Users\Luke Hardiman\Documents\GitHub\Monopoly\bin\Debug\nunit.framework.xml
 C:\Users\Luke Hardiman\Documents\GitHub\Monopoly\obj\x86\Debug\MolopolyGame.csprojResolveAssemblyReference.cache
+E:\github\Monopoly\obj\x86\Debug\MolopolyGame.exe
+E:\github\Monopoly\obj\x86\Debug\MolopolyGame.pdb
+E:\github\Monopoly\obj\x86\Debug\MolopolyGame.csprojResolveAssemblyReference.cache
+E:\github\Monopoly\bin\Debug\MolopolyGame.exe
+E:\github\Monopoly\bin\Debug\MolopolyGame.pdb
+E:\github\Monopoly\bin\Debug\nunit.core.dll
+E:\github\Monopoly\bin\Debug\nunit.core.interfaces.dll
+E:\github\Monopoly\bin\Debug\nunit.framework.dll
+E:\github\Monopoly\bin\Debug\nunit.util.dll
+E:\github\Monopoly\bin\Debug\NUnit.VisualStudio.TestAdapter.dll
+E:\github\Monopoly\bin\Debug\nunit.framework.xml

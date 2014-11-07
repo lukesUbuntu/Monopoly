@@ -2,7 +2,7 @@ using System.Collections;
 using System.Text;
 
 
-namespace MolopolyGame 
+namespace MonopolyGame_9901623 
 {
     /// <summary>
     /// This is class for singleton Board that has properties and traders on it.

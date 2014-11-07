@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
 
     /// <summary>
@@ -128,6 +128,13 @@ namespace MolopolyGame
             this.endOfGame();
         }
 
+        public void displayWelcome()
+        {   //monoploy
+
+
+            String intro = String.Format("Welcome to  Console by {0}\n Running version :{1}", "luke hardiman (9901623)", "v1.2");
+            Console.WriteLine(intro);
+        }
         public void displayMainChoiceMenu()
         {
             int resp = 0;

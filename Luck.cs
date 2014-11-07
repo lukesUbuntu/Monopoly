@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
 
     

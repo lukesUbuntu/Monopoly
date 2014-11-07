@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
 
         class ConsoleOveride : TextWriter
@@ -117,6 +117,30 @@ namespace MolopolyGame
 
                 //publish console
                 //originalOut.WriteLine("->{0}", consoleMessage);
+            }
+
+
+            public static String colorString(String theString){
+
+                Random randomGen = new Random();
+                String newString = "";
+                //String[] colorNames = ConsoleColor.GetNames(typeof(ConsoleColor));
+                String[] colorNames = new String[8] { 
+                    "Cyan", "Green", "Yellow", "Red", "Magenta", "Gray", "Blue", "DarkYellow"
+                };
+
+                int numColors = colorNames.Length;
+
+                //split all the strings
+                 foreach (char singleString in theString)
+                 {
+                     string colorName = colorNames[randomGen.Next(numColors)];
+                     newString += String.Format("<color:{0}>{1}</color>", colorName, singleString.ToString());
+                 }
+
+                
+                
+                return newString;
             }
         }
     

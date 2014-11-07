@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
     [TestFixture]
     public class _FactoriesTest
