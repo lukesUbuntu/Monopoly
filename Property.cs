@@ -89,7 +89,7 @@ namespace MolopolyGame
         }
 
 
-        public virtual ArrayList returnGroupProperties(Property theProperty)
+        public virtual ArrayList returnGroupProperties(Property theProperty, bool checkOwnsAll = true)
         {
             ArrayList tmpProps = new ArrayList();
             return tmpProps;

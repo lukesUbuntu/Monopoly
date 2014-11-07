@@ -127,8 +127,8 @@ namespace MolopolyGame
         }
 
 
-
-        public override ArrayList returnGroupProperties(Property theProperty,bool checkOwnsAll = false)
+        //need to grab all the groups for that property and then return list to another method
+        public override ArrayList returnGroupProperties(Property theProperty,bool checkOwnsAll = true)
         {
             //Store temp props
             ArrayList tmpProps = new ArrayList();
@@ -155,28 +155,30 @@ namespace MolopolyGame
             }
             //return propertiesOwned;
 
-            //owns all groups of prop
+            //only runs if we are checking they have all props
             if (checkOwnsAll)
-            if (tmpProps.Count == total_group)
             {
-                return tmpProps;
+                if (tmpProps.Count == total_group)
+                {
+                    return tmpProps;
+                }
+
+                if (tmpProps.Count <= 0) return null;
             }
-
-            if (tmpProps.Count <= 0) return null;
-
+           
             return tmpProps;
 
         }
 
         public override bool ownsAllProps(Property theProperty)
         {
-            return (returnGroupProperties(theProperty,true) != null);
+            return (returnGroupProperties(theProperty) != null);
         }
 
         public override int ownsHowMany(Property theProperty)
         {
             //@todo need to test if the array is null what will it return;
-            ArrayList theArray = returnGroupProperties(theProperty);
+            ArrayList theArray = returnGroupProperties(theProperty,false);
             int count = theArray.Count;
 
             return count;
