@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
      
     public class Utility : TradeableProperty
     {
-        static int rentMultiplier = 6; //factor to multiply times roll of dice to getRent
+        static int rentMultiplied = 6; //factor to multiply times roll of dice to getRent
 
         public Utility() : this("Utility"){}
 
-        public Utility(String name, IEnum.PropertyGroup dGroup = IEnum.PropertyGroup.NONE)
+        public Utility(String name, Game.PropertyGroup dGroup = Game.PropertyGroup.NONE)
         {
             this.sName = name;
             this.owner = Banker.access();
@@ -31,7 +31,12 @@ namespace MolopolyGame
 
         public decimal getRent(ref Player player)
         {
-            return (rentMultiplier * player.getLastMove());
+            return (this.rentMultiplier() * player.getLastMove());
+        }
+
+        public int rentMultiplier()
+        {
+            return rentMultiplied * this.ownsHowMany(this);
         }
 
         public override string landOn(ref Player player)
@@ -39,10 +44,10 @@ namespace MolopolyGame
             //Pay rent if needed
             if ((this.getOwner() != Banker.access()) && (this.getOwner() != player))
             {
-                ArrayList tmpProps = this.returnGroupProperties(this);
+                
                 //pay rent
                 this.payRent(ref player);
-                return string.Format("You rolled a total of {0}. So your rent is {0} x {1} = ${2}.", player.getLastMove(), Utility.rentMultiplier, (player.getLastMove() * Utility.rentMultiplier));
+                return string.Format("You rolled a total of {0}. So your rent is {0} x {1} = ${2}.", player.getLastMove(), this.rentMultiplier(), (player.getLastMove() * this.rentMultiplier()));
             }
             else
                 return base.landOn(ref player);

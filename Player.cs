@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
    
     /// <summary>
@@ -102,7 +102,7 @@ namespace MolopolyGame
 
         public string BriefDetailsToString()
         {
-            return String.Format("You are on {0}.\tYou have ${1}.", Board.access().getProperty(this.getLocation()).getName(), this.getBalance());
+            return String.Format("You are on {0}.\tYou have <color:White>$</color><color:Yellow>{1}</color>.", Board.access().getProperty(this.getLocation()).getName(), this.getBalance());
         }
 
         public override string ToString()
@@ -112,7 +112,7 @@ namespace MolopolyGame
 
         public string FullDetailsToString()
         {
-            return String.Format("Player:{0}.\n Balance: ${1}\nLocation: {2} (Square {3}) \nProperties Owned:\n{4}", 
+            return String.Format("Player:{0}.\n Balance: <color:White>$</color><color:Yellow>{1}</color>\nLocation: {2} (Square {3}) \nProperties Owned:\n{4}", 
                                 this.getName(), this.getBalance(), Board.access().getProperty(this.getLocation()), this.getLocation(), this.PropertiesOwnedToString());
         }
 
@@ -178,7 +178,7 @@ namespace MolopolyGame
         {
             int total_group = 0;
             int owned_group = 0;
-            IEnum.PropertyGroup theGroup = theProperty.getGroup();
+            Game.PropertyGroup theGroup = theProperty.getGroup();
 
             //go through all the properties
             for (int i = 0; i < Board.access().getProperties().Count; i++)
@@ -203,7 +203,7 @@ namespace MolopolyGame
         {
             int total_group = 0;
             int owned_group = 0;
-            IEnum.PropertyGroup theGroup = theProperty.getGroup();
+            Game.PropertyGroup theGroup = theProperty.getGroup();
 
             //go through all the properties
             for (int i = 0; i < Board.access().getProperties().Count; i++)
@@ -237,7 +237,7 @@ namespace MolopolyGame
 
             int total_group = 0;
             int owned_group = 0;
-            IEnum.PropertyGroup theGroup = theProperty.getGroup();
+            Game.PropertyGroup theGroup = theProperty.getGroup();
 
             //go through all the properties
             for (int i = 0; i < Board.access().getProperties().Count; i++)

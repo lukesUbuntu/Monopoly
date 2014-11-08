@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
 
     
@@ -11,12 +11,12 @@ namespace MolopolyGame
     {
         bool isBenefitNotPenalty;
         decimal penaltyOrBenefitAmount;
-        IEnum.Game luckType;
+        Game.CardType luckType;
         //private CommunityManager theManager;
 
         public Luck() : this("Luck Property", true, 50) { }
 
-        public Luck(string sName, bool isBenefitNotPenalty, decimal amount, IEnum.Game luckType = IEnum.Game.None)
+        public Luck(string sName, bool isBenefitNotPenalty, decimal amount, Game.CardType luckType = Game.CardType.None)
         {
             this.sName = sName;
             this.isBenefitNotPenalty = isBenefitNotPenalty;
@@ -33,9 +33,10 @@ namespace MolopolyGame
         {
            
             //if is a benefit player receives amount else pay amount
-            if (this.luckType == IEnum.Game.CommunityChest)
+            if (this.luckType == Game.CardType.CommunityChest)
             {
 
+                
                 //@todo apply land on to community card
                 CommunityManager.access().draw_card(ref player);
                 return base.landOn(ref player) + String.Format("{0} has recieved {2}.", player.getName(), this.getName(), this.penaltyOrBenefitAmount);

@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
     public class UtilityFactory : PropertyFactory
     {
-        public Utility create(string sName, IEnum.PropertyGroup dGroup = IEnum.PropertyGroup.NONE)
+        public Utility create(string sName, Game.PropertyGroup dGroup = Game.PropertyGroup.NONE)
         {
+            
             return new Utility(sName, dGroup);
         }
     }

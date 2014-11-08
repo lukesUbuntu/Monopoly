@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
 
      /// <summary>
@@ -30,5 +30,27 @@ namespace MolopolyGame
             }
             printWinner();
         }
+
+        public enum CardType
+        {
+            CommunityChest,
+            Chance,
+            None
+        };
+        public enum PropertyGroup
+        {
+            GROUP_1 = ConsoleColor.Gray,
+            GROUP_2 = ConsoleColor.DarkCyan,
+            GROUP_3 = ConsoleColor.Magenta,
+            GROUP_4 = ConsoleColor.DarkYellow,
+            GROUP_5 = ConsoleColor.Red,
+            GROUP_6 = ConsoleColor.Yellow,
+            GROUP_7 = ConsoleColor.Green,
+            GROUP_8 = ConsoleColor.DarkBlue,
+            UTILITY_GROUP = ConsoleColor.DarkMagenta,
+            TRANSPORT_GROUP = ConsoleColor.DarkGreen,
+            //no group spare
+            NONE = ConsoleColor.White
+        };
     }
 }

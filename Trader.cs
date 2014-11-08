@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Text;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
     
     /// <summary>

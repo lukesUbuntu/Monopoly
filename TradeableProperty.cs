@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
     public class TradeableProperty : Property //should be abstract but not to make testing easier
     {
         protected decimal dPrice;
         protected decimal dMortgageValue;
         protected decimal dRent;
-        //protected IEnum.PropertyGroup group;
+        protected decimal dGroup;
+        //protected Game.PropertyGroup group;
         //decimal dMortgageValue;
         public TradeableProperty()
         {
@@ -126,49 +127,73 @@ namespace MolopolyGame
         }
 
 
-
-        public override ArrayList returnGroupProperties(Property theProperty)
+        //need to grab all the groups for that property and then return list to another method
+        public override ArrayList returnGroupProperties(Property theProperty,bool checkOwnsAll = true)
         {
             //Store temp props
             ArrayList tmpProps = new ArrayList();
 
             int total_group = 0;
             int owned_group = 0;
-            IEnum.PropertyGroup theGroup = theProperty.getGroup();
+            Game.PropertyGroup theGroup = theProperty.getGroup();
+            ArrayList propGroups = Board.access().getPropGroups(theGroup);
 
             //go through all the properties
-            for (int i = 0; i < Board.access().getProperties().Count; i++)
+            for (int i = 0; i < propGroups.Count; i++)
             {
-                if (Board.access().getProperty(i).getGroup() == theGroup)
+
+                Game.PropertyGroup AlltheGroup = Board.access().getProperty(i).getGroup();
+                if (AlltheGroup == theGroup)
                     total_group++;
 
                 //owned by this player
-                Property thisProperty = Board.access().getProperty(i);
-                if (thisProperty.getOwner() == this.getOwner())
+                //Property thisProperty = Board.access().getProperty(i);
+                //Property thisProperty = ((Property)propGroups[i]).getOwner();
+
+                if (((Property)propGroups[i]).getOwner() == this.getOwner())
                 {
                     //add to arraylist
-                    tmpProps.Add(thisProperty);
+                    tmpProps.Add(propGroups[i]);
                     owned_group++;
                 }
             }
             //return propertiesOwned;
 
-            //owns all groups of prop
-            if (tmpProps.Count == total_group)
+            //only runs if we are checking they have all props
+            if (checkOwnsAll)
             {
-                return tmpProps;
-            }
+                if (tmpProps.Count == total_group)
+                {
+                    return tmpProps;
+                }
 
-            return null;
+                if (tmpProps.Count <= 0) return null;
+            }
+           
+            return tmpProps;
 
         }
 
-        public bool ownsAllProps(Property theProperty)
+        public override bool ownsAllProps(Property theProperty)
         {
             return (returnGroupProperties(theProperty) != null);
         }
 
+        public override int ownsHowMany(Property theProperty)
+        {
+            //@todo need to test if the array is null what will it return;
+            ArrayList theArray = returnGroupProperties(theProperty,false);
+            int count = theArray.Count;
 
+            return count;
+        }
+
+        public override Game.PropertyGroup getGroup()
+        {
+            //Returns the current group as string
+
+            return this.group;
+        }
         
        
     }

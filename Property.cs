@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
 
     public class Property
     {
         protected string sName;
         protected Trader owner;
-        protected IEnum.PropertyGroup group;
+        protected Game.PropertyGroup group;
         protected bool mortgaged;
         decimal dMortgageValue;
 
@@ -49,7 +49,7 @@ namespace MolopolyGame
         public string getName()
         {
 
-            //IEnum.PropertyGroup question = Question.Role;
+            //Game.PropertyGroup question = Question.Role;
             //int value = (int)question;
 
             return "<color:" + this.getColor() + ">" + this.sName + "</color>";
@@ -57,11 +57,11 @@ namespace MolopolyGame
 
         public ConsoleColor getColor()
         {
-            //int Question = (int)this.group;
+            //Pass color of prop for group
             return (ConsoleColor)(int)this.getGroup();
         }
 
-        public IEnum.PropertyGroup getGroup()
+        public virtual Game.PropertyGroup getGroup()
         {
             //Returns the current group as string
             
@@ -83,13 +83,13 @@ namespace MolopolyGame
         }
 
 
-        public bool ownsAllProps(Property theProperty)
+        public virtual bool ownsAllProps(Property theProperty)
         {
            return (returnGroupProperties(theProperty) != null);
         }
 
 
-        public virtual ArrayList returnGroupProperties(Property theProperty)
+        public virtual ArrayList returnGroupProperties(Property theProperty, bool checkOwnsAll = true)
         {
             ArrayList tmpProps = new ArrayList();
             return tmpProps;
@@ -106,6 +106,16 @@ namespace MolopolyGame
         {
             return this.dMortgageValue / 2;
         }
+
+        public virtual int ownsHowMany(Property theProperty)
+        {
+            //@todo need to test if the array is null what will it return;
+            return ((ArrayList)returnGroupProperties(theProperty)).Count;
+        }
+
+
+       
+       
     }
 
    

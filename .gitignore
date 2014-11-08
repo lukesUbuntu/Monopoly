@@ -1,0 +1,8 @@
+*.cache
+*.exe
+*.exe
+obj/x86/Debug/
+bin/
+obj/
+.nuget/
+packages/

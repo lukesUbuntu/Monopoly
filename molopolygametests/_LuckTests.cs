@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MolopolyGame;
 using NUnit.Framework;
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
     [TestFixture()]
     public class _LuckTests

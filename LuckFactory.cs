@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
     public class LuckFactory : PropertyFactory
     {
-        public Luck create(string sName, bool isPenalty, decimal dAmount, IEnum.Game luckType = IEnum.Game.None)
+        public Luck create(string sName, bool isPenalty, decimal dAmount, Game.CardType luckType = Game.CardType.None)
         {
+            
             return new Luck(sName, isPenalty, dAmount, luckType);
         }
     }

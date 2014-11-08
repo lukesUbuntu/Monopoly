@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace MolopolyGame
+namespace MonopolyGame_9901623
 {
-
+    /// <summary>
+    /// Overrides the main console.out this allows for capture of output and modify.
+    /// </summary>
         class ConsoleOveride : TextWriter
         { 
             private TextWriter originalOut = Console.Out;
@@ -23,7 +25,7 @@ namespace MolopolyGame
                 }
                 else
                 {
-                    originalOut.WriteLine("->{0}", consoleMessage);
+                    originalOut.WriteLine("{0}", consoleMessage);
                 }
                 
             }
@@ -88,7 +90,7 @@ namespace MolopolyGame
                     string theColor = (stringMessage.Groups[1].ToString() == "0") ? "White" : stringMessage.Groups[1].ToString();
                     theColor = (stringMessage.Groups[1].ToString() == "Black") ? "White" : stringMessage.Groups[1].ToString();
 
-                    //PropertyGroups side = IEnum.PropertyGroup.GROUP_1;
+                    //PropertyGroups side = Game.PropertyGroup.GROUP_1;
 
                     //object val = Convert.ChangeType(side, side.GetTypeCode());
                     //originalOut.Write(val);
@@ -106,6 +108,7 @@ namespace MolopolyGame
                   
                     beforeMessage = beforeMessage.Replace("\\n", "\n");
                     originalOut.Write(beforeMessage);
+                    //@todo need to make sure color exists
                     //Console.ForegroundColor = (ConsoleColor)theColor.ToString();
                     Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), theColor);
                     originalOut.Write(theMessage);
@@ -117,6 +120,30 @@ namespace MolopolyGame
 
                 //publish console
                 //originalOut.WriteLine("->{0}", consoleMessage);
+            }
+
+
+            public static String colorString(String theString){
+
+                Random randomGen = new Random();
+                String newString = "";
+                //String[] colorNames = ConsoleColor.GetNames(typeof(ConsoleColor));
+                String[] colorNames = new String[8] { 
+                    "Cyan", "Green", "Yellow", "Red", "Magenta", "Gray", "Blue", "DarkYellow"
+                };
+
+                int numColors = colorNames.Length;
+
+                //split all the strings
+                 foreach (char singleString in theString)
+                 {
+                     string colorName = colorNames[randomGen.Next(numColors)];
+                     newString += String.Format("<color:{0}>{1}</color>", colorName, singleString.ToString());
+                 }
+
+                
+                
+                return newString;
             }
         }
     
