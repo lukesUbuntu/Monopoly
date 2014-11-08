@@ -13,7 +13,7 @@ namespace MonopolyGame_9901623
         private static CommunityManager the_manager;
         private Queue<Action> the_deck;
         private Player the_player;
-        
+        private IList<Action> randomize_cards = new List<Action>();
         public static CommunityManager access()
         {
             if (the_manager == null)
@@ -25,7 +25,7 @@ namespace MonopolyGame_9901623
         private CommunityManager()
         {
             the_deck = new Queue<Action>();
-            IList<Action> randomize_cards = new List<Action>();
+            
 
             randomize_cards.Add(() => advance_to_go());
             randomize_cards.Add(() => error_in_favour());
@@ -45,7 +45,7 @@ namespace MonopolyGame_9901623
             randomize_cards.Add(() => holiday_fund());
 
 
-
+           // randomize_cards
             Shuffle<Action>(randomize_cards);
 
             foreach (Action action in randomize_cards)
@@ -53,45 +53,49 @@ namespace MonopolyGame_9901623
                 the_deck.Enqueue(action);
             }
         }
-
-
-        public IList Shuffle<T>(IList<T> list)
-        {
-            Random rand = new Random();
-            int n = list.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = rand.Next(n + 1);
-                T value = list[k];
-                list[k] = list[n];
-                list[n] = value;
-            }
-
-            return (IList)list;
-        }
-        
         /*
-        
-         public IList<T> Shuffle<T>(this IList<T> list)
-         {
-             Random Rnd = new Random();
-             if (list == null)
-                 throw new ArgumentNullException("list");
 
-             for (int j = list.Count; j >= 1; j--)
-             {
-                 int item = Rnd.Next(0, j);
-                 if (item < j - 1)
-                 {
-                     var t = list[item];
-                     list[item] = list[j - 1];
-                     list[j - 1] = t;
-                 }
-             }
-             return list;
-         }
+       public IList Shuffle<T>(IList<T> list)
+       {
+           Random rand = new Random();
+           int n = list.Count;
+           while (n > 1)
+           {
+               n--;
+               int k = rand.Next(n + 1);
+               T value = list[k];
+               list[k] = list[n];
+               list[n] = value;
+           }
+
+           return (IList)list;
+       }
+        
+       
           */
+
+        public static IList<T> Shuffle<T>(IList<T> list)
+        {
+            Random Rnd = new Random();
+            if (list == null)
+                throw new ArgumentNullException("list");
+
+            for (int j = list.Count; j >= 1; j--)
+            {
+                int item = Rnd.Next(0, j);
+                if (item < j - 1)
+                {
+                    var t = list[item];
+                    list[item] = list[j - 1];
+                    list[j - 1] = t;
+                }
+            }
+            return list;
+        }
+        public void shuffleCards()
+        {
+            Shuffle<Action>(randomize_cards);
+        }
         public void draw_card(ref Player player)
        {
            the_player = player;

@@ -102,7 +102,7 @@ namespace MonopolyGame_9901623
 
         public string BriefDetailsToString()
         {
-            return String.Format("You are on {0}.\tYou have ${1}.", Board.access().getProperty(this.getLocation()).getName(), this.getBalance());
+            return String.Format("You are on {0}.\tYou have <color:White>$</color><color:Yellow>{1}</color>.", Board.access().getProperty(this.getLocation()).getName(), this.getBalance());
         }
 
         public override string ToString()
@@ -112,7 +112,7 @@ namespace MonopolyGame_9901623
 
         public string FullDetailsToString()
         {
-            return String.Format("Player:{0}.\n Balance: ${1}\nLocation: {2} (Square {3}) \nProperties Owned:\n{4}", 
+            return String.Format("Player:{0}.\n Balance: <color:White>$</color><color:Yellow>{1}</color>\nLocation: {2} (Square {3}) \nProperties Owned:\n{4}", 
                                 this.getName(), this.getBalance(), Board.access().getProperty(this.getLocation()), this.getLocation(), this.PropertiesOwnedToString());
         }
 

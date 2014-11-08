@@ -79,7 +79,7 @@ namespace MonopolyGame_9901623
 
             Property propertyLandedOn = Board.access().getProperty(player.getLocation());
 
-            System.Console.WriteLine("color -> "+propertyLandedOn.getColor().ToString());
+           
             //landon property and output to console
             //propertyLandedOn.getColor()
 
@@ -267,6 +267,7 @@ namespace MonopolyGame_9901623
 
         public void setUpProperties()
         {
+
             //Create instances of property factories
             LuckFactory luckFactory = new LuckFactory();
             ResidentialFactory resFactory = new ResidentialFactory();
@@ -286,10 +287,10 @@ namespace MonopolyGame_9901623
             Board.access().addProperty(luckFactory.create("Go", false, 200));
             /*
             Board.access().addProperty(resFactory.create("Ohakune Carrot", 60, 6, 50, Game.PropertyGroup.GROUP_1));
-
+            */
            
             Board.access().addProperty(luckFactory.create("Community Chest", false, 50, Game.CardType.CommunityChest)); // not properly implemented just 50 benefit
-            
+            /*
             Board.access().addProperty(resFactory.create("Te Puke, Giant Kiwifruit", 60, 6, 50, Game.PropertyGroup.GROUP_1));
             
             Board.access().addProperty(luckFactory.create("Income Tax", true, 200));
@@ -306,19 +307,19 @@ namespace MonopolyGame_9901623
              Board.access().addProperty(jailFactory.create("Jail",false)); //not properly implemented just a property that does nothing
 
              Board.access().addProperty(resFactory.create("Cape Reinga Lighthouse", 140, 14, 100, Game.PropertyGroup.GROUP_3));
-            */
+           
              //utilFactory
             Board.access().addProperty(utilFactory.create("Mobile Phone Company", Game.PropertyGroup.UTILITY_GROUP));
-          /*
+       
              Board.access().addProperty(resFactory.create("Lake Taupo", 140, 14, 100, Game.PropertyGroup.GROUP_3));
              Board.access().addProperty(resFactory.create("Queenstown Ski Fields", 160, 16, 100, Game.PropertyGroup.GROUP_3));
          
             Board.access().addProperty(transFactory.create("Dunedin Railway Station", Game.PropertyGroup.TRANSPORT_GROUP));
          
             Board.access().addProperty(resFactory.create("Fox Glacier", 180, 18, 100, Game.PropertyGroup.GROUP_4));
-
+            */
             Board.access().addProperty(luckFactory.create("Community Chest", false, 50, Game.CardType.CommunityChest)); // not properly implemented just 50 benefit
-
+            /*
             Board.access().addProperty(resFactory.create("Milford Sound", 180, 18, 100, Game.PropertyGroup.GROUP_4));
             Board.access().addProperty(resFactory.create("Mt Cook", 200, 20, 100, Game.PropertyGroup.GROUP_4));
 
@@ -335,18 +336,18 @@ namespace MonopolyGame_9901623
          
             Board.access().addProperty(resFactory.create("Waitomo Caves", 260, 26, 150, Game.PropertyGroup.GROUP_6));
             Board.access().addProperty(resFactory.create("Mt Maunganui", 260, 26, 150, Game.PropertyGroup.GROUP_6));
-            */
+       
             Board.access().addProperty(utilFactory.create("Internet Service Provider", Game.PropertyGroup.UTILITY_GROUP));
-            /*
+          
             Board.access().addProperty(resFactory.create("Art Deco Buildings, Napier", 280, 28, 150, Game.PropertyGroup.GROUP_6));
 
             Board.access().addProperty(jailFactory.create("Go to Jail",true)); //not properly implemented just a property that does nothing
 
             Board.access().addProperty(resFactory.create("Cable Cars Wellington", 300, 30, 200, Game.PropertyGroup.GROUP_7));
             Board.access().addProperty(resFactory.create("Cathedral Square", 300, 30, 200, Game.PropertyGroup.GROUP_7));
-
+            */
             Board.access().addProperty(luckFactory.create("Community Chest", false, 50)); // not properly implemented just 50 benefit
-
+            /*
             Board.access().addProperty(resFactory.create("The Square, Palmerston North", 320, 32, 200, Game.PropertyGroup.GROUP_7));
          
             Board.access().addProperty(transFactory.create("Picton Ferry", Game.PropertyGroup.TRANSPORT_GROUP));
@@ -361,6 +362,9 @@ namespace MonopolyGame_9901623
             */
             Board.access().setSquares();
             Console.WriteLine("Properties have been setup");
+            CommunityManager.access().shuffleCards();
+            Console.WriteLine("Suffled community cards");
+            
         }
 
         public void setUpPlayers()

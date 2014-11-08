@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 
 
@@ -28,7 +30,7 @@ namespace MonopolyGame_9901623
                 board = new Board();
             return board;
         }
-
+        
         public Board()
         {
             properties = new ArrayList(this.getSquares());
@@ -148,5 +150,8 @@ namespace MonopolyGame_9901623
         {
             return this.properties;
         }
+
+
+       
     }
 }

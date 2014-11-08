@@ -7,7 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace MonopolyGame_9901623
 {
-
+    /// <summary>
+    /// Overrides the main console.out this allows for capture of output and modify.
+    /// </summary>
         class ConsoleOveride : TextWriter
         { 
             private TextWriter originalOut = Console.Out;
@@ -23,7 +25,7 @@ namespace MonopolyGame_9901623
                 }
                 else
                 {
-                    originalOut.WriteLine("->{0}", consoleMessage);
+                    originalOut.WriteLine("{0}", consoleMessage);
                 }
                 
             }

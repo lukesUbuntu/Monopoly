@@ -57,7 +57,7 @@ namespace MonopolyGame_9901623
 
         public ConsoleColor getColor()
         {
-            //int Question = (int)this.group;
+            //Pass color of prop for group
             return (ConsoleColor)(int)this.getGroup();
         }
 
@@ -112,6 +112,10 @@ namespace MonopolyGame_9901623
             //@todo need to test if the array is null what will it return;
             return ((ArrayList)returnGroupProperties(theProperty)).Count;
         }
+
+
+       
+       
     }
 
    

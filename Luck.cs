@@ -36,6 +36,7 @@ namespace MonopolyGame_9901623
             if (this.luckType == Game.CardType.CommunityChest)
             {
 
+                
                 //@todo apply land on to community card
                 CommunityManager.access().draw_card(ref player);
                 return base.landOn(ref player) + String.Format("{0} has recieved {2}.", player.getName(), this.getName(), this.penaltyOrBenefitAmount);

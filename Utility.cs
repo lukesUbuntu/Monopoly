@@ -33,10 +33,12 @@ namespace MonopolyGame_9901623
         {
             return (this.rentMultiplier() * player.getLastMove());
         }
+
         public int rentMultiplier()
         {
             return rentMultiplied * this.ownsHowMany(this);
         }
+
         public override string landOn(ref Player player)
         {
             //Pay rent if needed
