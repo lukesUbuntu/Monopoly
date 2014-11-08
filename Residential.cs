@@ -46,6 +46,17 @@ namespace MonopolyGame_9901623
             this.iHouses ++;
         }
 
+        public void addHotel()
+        {
+            // pay for houses
+            this.getOwner().pay(this.dHouseCost);
+            //add houses to residental
+            this.iHouses++;
+        }
+        public Boolean hasHotel()
+        {
+            return (this.iHouses > getMaxHouses());
+        }
         public decimal getHouseCost()
         {
             return this.dHouseCost;
@@ -63,7 +74,8 @@ namespace MonopolyGame_9901623
 
         public override string ToString()
         {
-           return base.ToString()  + string.Format("\tHouses: {0}", this.getHouseCount());
+            //String houseHotel = (this.hasHotel() == true) ? "Hotels : 1" : "Houses : "+this.getHouseCount().ToString();
+            return base.ToString() + string.Format("\t : {0}", (this.hasHotel() == true) ? "Hotels : 1" : "Houses : " + this.getHouseCount().ToString());
         }
 
         /*        

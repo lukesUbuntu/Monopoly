@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>MonopolyGame_9901623.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.core">
       <HintPath>packages\NUnitTestAdapter.WithFramework.1.2\lib\nunit.core.dll</HintPath>
@@ -65,7 +68,7 @@
     <Compile Include="Banker.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="Card.cs" />
-    <Compile Include="CommunityManager.cs" />
+    <Compile Include="ChanceCards.cs" />
     <Compile Include="ConsoleOveride.cs" />
     <Compile Include="Die.cs" />
     <Compile Include="Game.cs" />

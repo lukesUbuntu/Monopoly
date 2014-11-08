@@ -21,7 +21,7 @@ namespace MonopolyGame_9901623
         //has rolled already rolled to get out of jail
         private bool jailRolledAlready;
         private bool inJail;
-
+        private bool getOutOfJailCard = false;
         //each player has two dice
         Die die1 = new Die();
 
@@ -41,6 +41,7 @@ namespace MonopolyGame_9901623
             this.location = 0;
             this.inJail = false;
             this.jailRolledAlready = false;
+            this.getOutOfJailCard = false;
         }
 
         public Player(string sName)
@@ -55,7 +56,19 @@ namespace MonopolyGame_9901623
         {
             this.location = 0;
         }
-  
+        public bool hasGetOutJailCard(){
+            return this.getOutOfJailCard;
+
+        }
+
+        public void giveGetOutJailCard()
+        {
+            this.getOutOfJailCard = true;
+        }
+        public void useGetOutJailCard()
+        {
+            this.getOutOfJailCard = false;
+        }
         public void move()
         {
             
@@ -167,6 +180,7 @@ namespace MonopolyGame_9901623
                 //owned by this player
                 if (Board.access().getProperty(i).getOwner() == this)
                 {
+
                     //add to arraylist
                     propertiesOwned.Add(Board.access().getProperty(i));
                 }
@@ -174,6 +188,7 @@ namespace MonopolyGame_9901623
             return propertiesOwned;
         }
 
+        /*
         public bool ownsAllProperty(Property theProperty)
         {
             int total_group = 0;
@@ -197,7 +212,7 @@ namespace MonopolyGame_9901623
 
             return (owned_group == total_group);
         }
-
+        */
         /*
         public bool ownsAllPropertyNotMorgaged(Property theProperty)
         {

@@ -11,5 +11,8 @@ namespace MonopolyGame_9901623
             
             return new Luck(sName, isPenalty, dAmount, luckType);
         }
+
+
+
     }
 }

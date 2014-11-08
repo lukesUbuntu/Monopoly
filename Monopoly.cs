@@ -285,22 +285,22 @@ namespace MonopolyGame_9901623
             //Rents are tenth of cost of property
             //Colours have not been implemented
             Board.access().addProperty(luckFactory.create("Go", false, 200));
-            /*
+         
             Board.access().addProperty(resFactory.create("Ohakune Carrot", 60, 6, 50, Game.PropertyGroup.GROUP_1));
-            */
+            
            
-            Board.access().addProperty(luckFactory.create("Community Chest", false, 50, Game.CardType.CommunityChest)); // not properly implemented just 50 benefit
+            Board.access().addProperty(luckFactory.create("Community Chest", false, 0, Game.CardType.CommunityChest)); // not properly implemented just 50 benefit
             /*
             Board.access().addProperty(resFactory.create("Te Puke, Giant Kiwifruit", 60, 6, 50, Game.PropertyGroup.GROUP_1));
-            
+            */
             Board.access().addProperty(luckFactory.create("Income Tax", true, 200));
-             
+             /*
              Board.access().addProperty(transFactory.create("Auckland International Airport",Game.PropertyGroup.TRANSPORT_GROUP));
          
              Board.access().addProperty(resFactory.create("Te Papa", 100, 10, 50, Game.PropertyGroup.GROUP_2));
-
-             Board.access().addProperty(luckFactory.create("Chance", true, 50)); // not properly implemented just 50 penalty
-
+            */
+            Board.access().addProperty(luckFactory.create("Chance", true, 50, Game.CardType.Chance)); // not properly implemented just 50 penalty
+            /*
              Board.access().addProperty(resFactory.create("Waitangi Treaty Grounds", 100, 10, 50, Game.PropertyGroup.GROUP_2));
              Board.access().addProperty(resFactory.create("Larnach Castle", 120, 12, 50, Game.PropertyGroup.GROUP_2));
 
@@ -326,9 +326,9 @@ namespace MonopolyGame_9901623
             Board.access().addProperty(genericFactory.create("Free Parking")); //not properly implemented just a property that does nothing
 
             Board.access().addProperty(resFactory.create("Ninety Mile Beach", 220, 22, 150, Game.PropertyGroup.GROUP_5));
-
-            Board.access().addProperty(luckFactory.create("Chance", true, 50)); // not properly implemented just 50 penalty
-
+            */
+            Board.access().addProperty(luckFactory.create("Chance", true, 50, Game.CardType.Chance)); // not properly implemented just 50 penalty
+            /*
             Board.access().addProperty(resFactory.create("Golden Bay", 220, 22, 150, Game.PropertyGroup.GROUP_5));
             Board.access().addProperty(resFactory.create("Moeraki Boulders, Oamaru", 240, 24, 150, Game.PropertyGroup.GROUP_5));
         
@@ -346,24 +346,24 @@ namespace MonopolyGame_9901623
             Board.access().addProperty(resFactory.create("Cable Cars Wellington", 300, 30, 200, Game.PropertyGroup.GROUP_7));
             Board.access().addProperty(resFactory.create("Cathedral Square", 300, 30, 200, Game.PropertyGroup.GROUP_7));
             */
-            Board.access().addProperty(luckFactory.create("Community Chest", false, 50)); // not properly implemented just 50 benefit
+            Board.access().addProperty(luckFactory.create("Community Chest", false, 50, Game.CardType.CommunityChest)); // not properly implemented just 50 benefit
             /*
             Board.access().addProperty(resFactory.create("The Square, Palmerston North", 320, 32, 200, Game.PropertyGroup.GROUP_7));
          
             Board.access().addProperty(transFactory.create("Picton Ferry", Game.PropertyGroup.TRANSPORT_GROUP));
-      
-            Board.access().addProperty(luckFactory.create("Chance", true, 50)); // not properly implemented just 50 penalty
-
+        */
+            Board.access().addProperty(luckFactory.create("Chance", true, 50, Game.CardType.Chance)); // not properly implemented just 50 penalty
+            /*
             Board.access().addProperty(resFactory.create("Pukekura Park, Festival of Lights", 350, 35, 200, Game.PropertyGroup.GROUP_8));
-            
+            */
             Board.access().addProperty(luckFactory.create("Super Tax", true, 100));
-
+            /*
             Board.access().addProperty(resFactory.create("Rangitoto", 400, 40, 200, Game.PropertyGroup.GROUP_8));
             */
             Board.access().setSquares();
             Console.WriteLine("Properties have been setup");
-            CommunityManager.access().shuffleCards();
-            Console.WriteLine("Suffled community cards");
+            CommunityCards.access().shuffleCards();
+           
             
         }
 
@@ -649,13 +649,31 @@ namespace MonopolyGame_9901623
                 Console.WriteLine("{0}You can not purchase a house for {1} property has more house than others in your group", this.playerPrompt(player), propertyToBuyFor.getName());
                 return;
             }
-            
 
+            if (propertyToBuyFor.hasHotel())
+            {
+                Console.WriteLine("{0}The maximum house & hotel limit for {1} has been reached.", playerPrompt(player), propertyToBuyFor.getName());
+                return;
+            }
             //check that max houses has not been reached
             if (propertyToBuyFor.getHouseCount() >= Residential.getMaxHouses())
             {
                 Console.WriteLine("{0}The maximum house limit for {1} of {2} houses has been reached.", playerPrompt(player), propertyToBuyFor.getName(), Residential.getMaxHouses());
+                
+                //confirm
+                bool doBuyHouse = this.getInputYN(player, String.Format("You chose to buy a Hotel for {0}. Are you sure you want to purchase a Hotel for ${1}?", propertyToBuyFor.getName(), propertyToBuyFor.getHouseCost()));
+                //if confirmed
+                if (doBuyHouse)
+                {
+                    //buy the house
+                    propertyToBuyFor.addHotel();
+                    Console.WriteLine("{0}A new hotel for {1} has been bought successfully. You can not devolp anymore", playerPrompt(player), propertyToBuyFor.getName());
+                }
+            
             }
+
+
+
             else
             {
                 
@@ -695,6 +713,14 @@ namespace MonopolyGame_9901623
         public bool isNextHouseForBuild(ArrayList playersPropsGroup, Residential theProp)
         {
             int currentHouseOnProp = theProp.getHouseCount();
+
+            //if we have no houses then there is no point checing the other props
+            if (currentHouseOnProp <= 0)
+                return true;
+
+            //may as well make sure there is more group houses
+            if (Board.access().countPropGroups(theProp.getGroup()) <= 1)
+                return true;
 
             //lets do some prechecks
             for (int i = 0; i < playersPropsGroup.Count; i++)
