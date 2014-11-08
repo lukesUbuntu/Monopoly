@@ -88,7 +88,7 @@ namespace MonopolyGame_9901623
                     string theColor = (stringMessage.Groups[1].ToString() == "0") ? "White" : stringMessage.Groups[1].ToString();
                     theColor = (stringMessage.Groups[1].ToString() == "Black") ? "White" : stringMessage.Groups[1].ToString();
 
-                    //PropertyGroups side = IEnum.PropertyGroup.GROUP_1;
+                    //PropertyGroups side = Game.PropertyGroup.GROUP_1;
 
                     //object val = Convert.ChangeType(side, side.GetTypeCode());
                     //originalOut.Write(val);
@@ -106,6 +106,7 @@ namespace MonopolyGame_9901623
                   
                     beforeMessage = beforeMessage.Replace("\\n", "\n");
                     originalOut.Write(beforeMessage);
+                    //@todo need to make sure color exists
                     //Console.ForegroundColor = (ConsoleColor)theColor.ToString();
                     Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), theColor);
                     originalOut.Write(theMessage);

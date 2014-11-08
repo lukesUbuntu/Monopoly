@@ -18,11 +18,11 @@ namespace MonopolyGame_9901623
         };
         
         bool gameSetUp = false;
-
+        
         public override void initializeGame()
         {
+            displayWelcome();
             displayMainChoiceMenu();
-            
 
         }
 
@@ -131,18 +131,19 @@ namespace MonopolyGame_9901623
         public void displayWelcome()
         {   //monoploy
 
-
-            String intro = String.Format("Welcome to  Console by {0}\n Running version :{1}", "luke hardiman (9901623)", "v1.2");
+            String newWord = ConsoleOveride.colorString("M o n o p o l y \tGame by ");
+            newWord += "<color:White>Luke</color> <color:Gray>Hardiman</color>";
+            String intro = String.Format("\tWelcome to {0}\n\n<color:White>Main Menu</color>", newWord);
             Console.WriteLine(intro);
         }
         public void displayMainChoiceMenu()
         {
             int resp = 0;
             Console.WriteLine("Please make a selection:\n");
-            Console.WriteLine("1. <color:Red>Setup Monopoly Game</color> test after");
-            Console.WriteLine("2. Start New Game");
-            Console.WriteLine("3. Exit");
-            Console.WriteLine("4. Load Previous Game");
+            Console.WriteLine("<color:White>1.</color><color:Red>Setup Monopoly Game</color>");
+            Console.WriteLine("<color:White>2.</color><color:Green>Start New Game</color>");
+            Console.WriteLine("<color:White>3.</color><color:Red>Exit</color>");
+            Console.WriteLine("<color:White>4.</color>Load Previous Game");
             Console.Write("(1-3)>");
 
             //read response
@@ -283,80 +284,80 @@ namespace MonopolyGame_9901623
             //Rents are tenth of cost of property
             //Colours have not been implemented
             Board.access().addProperty(luckFactory.create("Go", false, 200));
-           /*
-           Board.access().addProperty(resFactory.create("Ohakune Carrot", 60, 6, 50, IEnum.PropertyGroup.GROUP_1));
-
-           
-           Board.access().addProperty(luckFactory.create("Community Chest", false, 50, IEnum.Game.CommunityChest)); // not properly implemented just 50 benefit
-            
-           Board.access().addProperty(resFactory.create("Te Puke, Giant Kiwifruit", 60, 6, 50, IEnum.PropertyGroup.GROUP_1));
-            
-           Board.access().addProperty(luckFactory.create("Income Tax", true, 200));
-           */
-            Board.access().addProperty(transFactory.create("Auckland International Airport",IEnum.PropertyGroup.TRANSPORT_GROUP));
             /*
-            Board.access().addProperty(resFactory.create("Te Papa", 100, 10, 50, IEnum.PropertyGroup.GROUP_2));
+            Board.access().addProperty(resFactory.create("Ohakune Carrot", 60, 6, 50, Game.PropertyGroup.GROUP_1));
 
-            Board.access().addProperty(luckFactory.create("Chance", true, 50)); // not properly implemented just 50 penalty
-
-            Board.access().addProperty(resFactory.create("Waitangi Treaty Grounds", 100, 10, 50, IEnum.PropertyGroup.GROUP_2));
-            Board.access().addProperty(resFactory.create("Larnach Castle", 120, 12, 50, IEnum.PropertyGroup.GROUP_2));
-
-            Board.access().addProperty(jailFactory.create("Jail",false)); //not properly implemented just a property that does nothing
-
-            Board.access().addProperty(resFactory.create("Cape Reinga Lighthouse", 140, 14, 100, IEnum.PropertyGroup.GROUP_3));
            
-            //utilFactory
-            Board.access().addProperty(utilFactory.create("Mobile Phone Company"));
-          
-            Board.access().addProperty(resFactory.create("Lake Taupo", 140, 14, 100, IEnum.PropertyGroup.GROUP_3));
-            Board.access().addProperty(resFactory.create("Queenstown Ski Fields", 160, 16, 100, IEnum.PropertyGroup.GROUP_3));
+            Board.access().addProperty(luckFactory.create("Community Chest", false, 50, Game.CardType.CommunityChest)); // not properly implemented just 50 benefit
+            
+            Board.access().addProperty(resFactory.create("Te Puke, Giant Kiwifruit", 60, 6, 50, Game.PropertyGroup.GROUP_1));
+            
+            Board.access().addProperty(luckFactory.create("Income Tax", true, 200));
+             
+             Board.access().addProperty(transFactory.create("Auckland International Airport",Game.PropertyGroup.TRANSPORT_GROUP));
+         
+             Board.access().addProperty(resFactory.create("Te Papa", 100, 10, 50, Game.PropertyGroup.GROUP_2));
+
+             Board.access().addProperty(luckFactory.create("Chance", true, 50)); // not properly implemented just 50 penalty
+
+             Board.access().addProperty(resFactory.create("Waitangi Treaty Grounds", 100, 10, 50, Game.PropertyGroup.GROUP_2));
+             Board.access().addProperty(resFactory.create("Larnach Castle", 120, 12, 50, Game.PropertyGroup.GROUP_2));
+
+             Board.access().addProperty(jailFactory.create("Jail",false)); //not properly implemented just a property that does nothing
+
+             Board.access().addProperty(resFactory.create("Cape Reinga Lighthouse", 140, 14, 100, Game.PropertyGroup.GROUP_3));
             */
-            Board.access().addProperty(transFactory.create("Dunedin Railway Station", IEnum.PropertyGroup.TRANSPORT_GROUP));
-            /*
-            Board.access().addProperty(resFactory.create("Fox Glacier", 180, 18, 100, IEnum.PropertyGroup.GROUP_4));
+             //utilFactory
+            Board.access().addProperty(utilFactory.create("Mobile Phone Company", Game.PropertyGroup.UTILITY_GROUP));
+          /*
+             Board.access().addProperty(resFactory.create("Lake Taupo", 140, 14, 100, Game.PropertyGroup.GROUP_3));
+             Board.access().addProperty(resFactory.create("Queenstown Ski Fields", 160, 16, 100, Game.PropertyGroup.GROUP_3));
+         
+            Board.access().addProperty(transFactory.create("Dunedin Railway Station", Game.PropertyGroup.TRANSPORT_GROUP));
+         
+            Board.access().addProperty(resFactory.create("Fox Glacier", 180, 18, 100, Game.PropertyGroup.GROUP_4));
 
-            Board.access().addProperty(luckFactory.create("Community Chest", false, 50, IEnum.Game.CommunityChest)); // not properly implemented just 50 benefit
+            Board.access().addProperty(luckFactory.create("Community Chest", false, 50, Game.CardType.CommunityChest)); // not properly implemented just 50 benefit
 
-            Board.access().addProperty(resFactory.create("Milford Sound", 180, 18, 100, IEnum.PropertyGroup.GROUP_4));
-            Board.access().addProperty(resFactory.create("Mt Cook", 200, 20, 100, IEnum.PropertyGroup.GROUP_4));
+            Board.access().addProperty(resFactory.create("Milford Sound", 180, 18, 100, Game.PropertyGroup.GROUP_4));
+            Board.access().addProperty(resFactory.create("Mt Cook", 200, 20, 100, Game.PropertyGroup.GROUP_4));
 
             Board.access().addProperty(genericFactory.create("Free Parking")); //not properly implemented just a property that does nothing
 
-            Board.access().addProperty(resFactory.create("Ninety Mile Beach", 220, 22, 150, IEnum.PropertyGroup.GROUP_5));
+            Board.access().addProperty(resFactory.create("Ninety Mile Beach", 220, 22, 150, Game.PropertyGroup.GROUP_5));
 
             Board.access().addProperty(luckFactory.create("Chance", true, 50)); // not properly implemented just 50 penalty
 
-            Board.access().addProperty(resFactory.create("Golden Bay", 220, 22, 150, IEnum.PropertyGroup.GROUP_5));
-            Board.access().addProperty(resFactory.create("Moeraki Boulders, Oamaru", 240, 24, 150, IEnum.PropertyGroup.GROUP_5));
+            Board.access().addProperty(resFactory.create("Golden Bay", 220, 22, 150, Game.PropertyGroup.GROUP_5));
+            Board.access().addProperty(resFactory.create("Moeraki Boulders, Oamaru", 240, 24, 150, Game.PropertyGroup.GROUP_5));
+        
+            Board.access().addProperty(transFactory.create("Port Tauranga", Game.PropertyGroup.TRANSPORT_GROUP));
+         
+            Board.access().addProperty(resFactory.create("Waitomo Caves", 260, 26, 150, Game.PropertyGroup.GROUP_6));
+            Board.access().addProperty(resFactory.create("Mt Maunganui", 260, 26, 150, Game.PropertyGroup.GROUP_6));
             */
-            Board.access().addProperty(transFactory.create("Port Tauranga", IEnum.PropertyGroup.TRANSPORT_GROUP));
-            /*        
-            Board.access().addProperty(resFactory.create("Waitomo Caves", 260, 26, 150, IEnum.PropertyGroup.GROUP_6));
-            Board.access().addProperty(resFactory.create("Mt Maunganui", 260, 26, 150, IEnum.PropertyGroup.GROUP_6));
-         
-            Board.access().addProperty(utilFactory.create("Internet Service Provider"));
-         
-            Board.access().addProperty(resFactory.create("Art Deco Buildings, Napier", 280, 28, 150, IEnum.PropertyGroup.GROUP_6));
+            Board.access().addProperty(utilFactory.create("Internet Service Provider", Game.PropertyGroup.UTILITY_GROUP));
+            /*
+            Board.access().addProperty(resFactory.create("Art Deco Buildings, Napier", 280, 28, 150, Game.PropertyGroup.GROUP_6));
 
             Board.access().addProperty(jailFactory.create("Go to Jail",true)); //not properly implemented just a property that does nothing
 
-            Board.access().addProperty(resFactory.create("Cable Cars Wellington", 300, 30, 200, IEnum.PropertyGroup.GROUP_7));
-            Board.access().addProperty(resFactory.create("Cathedral Square", 300, 30, 200, IEnum.PropertyGroup.GROUP_7));
+            Board.access().addProperty(resFactory.create("Cable Cars Wellington", 300, 30, 200, Game.PropertyGroup.GROUP_7));
+            Board.access().addProperty(resFactory.create("Cathedral Square", 300, 30, 200, Game.PropertyGroup.GROUP_7));
 
             Board.access().addProperty(luckFactory.create("Community Chest", false, 50)); // not properly implemented just 50 benefit
 
-            Board.access().addProperty(resFactory.create("The Square, Palmerston North", 320, 32, 200, IEnum.PropertyGroup.GROUP_7));
-            */
-            Board.access().addProperty(transFactory.create("Picton Ferry", IEnum.PropertyGroup.TRANSPORT_GROUP));
-            /*
+            Board.access().addProperty(resFactory.create("The Square, Palmerston North", 320, 32, 200, Game.PropertyGroup.GROUP_7));
+         
+            Board.access().addProperty(transFactory.create("Picton Ferry", Game.PropertyGroup.TRANSPORT_GROUP));
+      
             Board.access().addProperty(luckFactory.create("Chance", true, 50)); // not properly implemented just 50 penalty
 
-            Board.access().addProperty(resFactory.create("Pukekura Park, Festival of Lights", 350, 35, 200, IEnum.PropertyGroup.GROUP_8));
+            Board.access().addProperty(resFactory.create("Pukekura Park, Festival of Lights", 350, 35, 200, Game.PropertyGroup.GROUP_8));
             
             Board.access().addProperty(luckFactory.create("Super Tax", true, 100));
 
-            Board.access().addProperty(resFactory.create("Rangitoto", 400, 40, 200, IEnum.PropertyGroup.GROUP_8));
+            Board.access().addProperty(resFactory.create("Rangitoto", 400, 40, 200, Game.PropertyGroup.GROUP_8));
             */
             Board.access().setSquares();
             Console.WriteLine("Properties have been setup");

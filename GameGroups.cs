@@ -6,9 +6,9 @@ using System.Text;
 namespace MonopolyGame_9901623
 {
     //store all IEnums for projects
-    public class IEnum
+    public class GameGroups
     {
-       public enum Game
+       public enum CardType
         {
             CommunityChest,
             Chance,

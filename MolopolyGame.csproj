@@ -70,7 +70,7 @@
     <Compile Include="Die.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameInterface.cs" />
-    <Compile Include="IEnum.cs" />
+    <Compile Include="GameGroups.cs" />
     <Compile Include="InitialValuesAccessor.cs" />
     <Compile Include="Jail.cs" />
     <Compile Include="JailFactory.cs" />

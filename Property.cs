@@ -10,7 +10,7 @@ namespace MonopolyGame_9901623
     {
         protected string sName;
         protected Trader owner;
-        protected IEnum.PropertyGroup group;
+        protected Game.PropertyGroup group;
         protected bool mortgaged;
         decimal dMortgageValue;
 
@@ -49,7 +49,7 @@ namespace MonopolyGame_9901623
         public string getName()
         {
 
-            //IEnum.PropertyGroup question = Question.Role;
+            //Game.PropertyGroup question = Question.Role;
             //int value = (int)question;
 
             return "<color:" + this.getColor() + ">" + this.sName + "</color>";
@@ -61,7 +61,7 @@ namespace MonopolyGame_9901623
             return (ConsoleColor)(int)this.getGroup();
         }
 
-        public virtual IEnum.PropertyGroup getGroup()
+        public virtual Game.PropertyGroup getGroup()
         {
             //Returns the current group as string
             

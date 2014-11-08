@@ -178,7 +178,7 @@ namespace MonopolyGame_9901623
         {
             int total_group = 0;
             int owned_group = 0;
-            IEnum.PropertyGroup theGroup = theProperty.getGroup();
+            Game.PropertyGroup theGroup = theProperty.getGroup();
 
             //go through all the properties
             for (int i = 0; i < Board.access().getProperties().Count; i++)
@@ -203,7 +203,7 @@ namespace MonopolyGame_9901623
         {
             int total_group = 0;
             int owned_group = 0;
-            IEnum.PropertyGroup theGroup = theProperty.getGroup();
+            Game.PropertyGroup theGroup = theProperty.getGroup();
 
             //go through all the properties
             for (int i = 0; i < Board.access().getProperties().Count; i++)
@@ -237,7 +237,7 @@ namespace MonopolyGame_9901623
 
             int total_group = 0;
             int owned_group = 0;
-            IEnum.PropertyGroup theGroup = theProperty.getGroup();
+            Game.PropertyGroup theGroup = theProperty.getGroup();
 
             //go through all the properties
             for (int i = 0; i < Board.access().getProperties().Count; i++)

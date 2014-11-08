@@ -17,7 +17,7 @@ namespace MonopolyGame_9901623
 
         public Residential(String sName) : this(sName, 200, 50, 50) { }
 
-        public Residential(String sName, decimal dPrice, decimal dRent, decimal dHouseCost, IEnum.PropertyGroup dGroup = IEnum.PropertyGroup.NONE)
+        public Residential(String sName, decimal dPrice, decimal dRent, decimal dHouseCost, Game.PropertyGroup dGroup = Game.PropertyGroup.NONE)
         {
             this.sName = sName;
             this.dPrice = dPrice;

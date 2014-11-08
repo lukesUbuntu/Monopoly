@@ -6,7 +6,7 @@ namespace MonopolyGame_9901623
 {
     public class TransportFactory : ResidentialFactory
     {
-        public Transport create(string sName, IEnum.PropertyGroup dGroup = IEnum.PropertyGroup.NONE)
+        public Transport create(string sName, Game.PropertyGroup dGroup = Game.PropertyGroup.NONE)
         {
             return new Transport(sName, dGroup);
         }

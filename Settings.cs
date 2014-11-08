@@ -70,7 +70,7 @@ namespace MonopolyGame_9901623
             // Default constructor for serialization.
         }
         //"Go", false, 200
-        //string sName, bool isBenefitNotPenalty, decimal amount, IEnum.Game luckType = IEnum.Game.None
+        //string sName, bool isBenefitNotPenalty, decimal amount, Game.CardType luckType = Game.CardType.None
         public PropertyType(string sName, bool isBenefitNotPenalty, decimal productWeight, decimal productPrice,String[] args)
         {
             this.type = sName;

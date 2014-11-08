@@ -10,7 +10,7 @@ namespace MonopolyGame_9901623
 
         public Transport() : this("Railway Station"){}
 
-        public Transport(string sName, IEnum.PropertyGroup dGroup = IEnum.PropertyGroup.NONE)
+        public Transport(string sName, Game.PropertyGroup dGroup = Game.PropertyGroup.NONE)
         {
             this.sName = sName;
             this.dPrice = 200;

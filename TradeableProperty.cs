@@ -11,7 +11,7 @@ namespace MonopolyGame_9901623
         protected decimal dMortgageValue;
         protected decimal dRent;
         protected decimal dGroup;
-        //protected IEnum.PropertyGroup group;
+        //protected Game.PropertyGroup group;
         //decimal dMortgageValue;
         public TradeableProperty()
         {
@@ -135,21 +135,25 @@ namespace MonopolyGame_9901623
 
             int total_group = 0;
             int owned_group = 0;
-            IEnum.PropertyGroup theGroup = theProperty.getGroup();
+            Game.PropertyGroup theGroup = theProperty.getGroup();
+            ArrayList propGroups = Board.access().getPropGroups(theGroup);
 
             //go through all the properties
-            for (int i = 0; i < Board.access().getProperties().Count; i++)
+            for (int i = 0; i < propGroups.Count; i++)
             {
-                IEnum.PropertyGroup AlltheGroup = Board.access().getProperty(i).getGroup();
+
+                Game.PropertyGroup AlltheGroup = Board.access().getProperty(i).getGroup();
                 if (AlltheGroup == theGroup)
                     total_group++;
 
                 //owned by this player
-                Property thisProperty = Board.access().getProperty(i);
-                if (thisProperty.getOwner() == this.getOwner())
+                //Property thisProperty = Board.access().getProperty(i);
+                //Property thisProperty = ((Property)propGroups[i]).getOwner();
+
+                if (((Property)propGroups[i]).getOwner() == this.getOwner())
                 {
                     //add to arraylist
-                    tmpProps.Add(thisProperty);
+                    tmpProps.Add(propGroups[i]);
                     owned_group++;
                 }
             }
@@ -184,7 +188,7 @@ namespace MonopolyGame_9901623
             return count;
         }
 
-        public override IEnum.PropertyGroup getGroup()
+        public override Game.PropertyGroup getGroup()
         {
             //Returns the current group as string
 
