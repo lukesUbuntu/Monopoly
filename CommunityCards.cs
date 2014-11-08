@@ -176,7 +176,7 @@ namespace MonopolyGame_9901623
               the_action_message = String.Format("Get out of jail free card received\nCard has been removed from deck and is with {0}",the_player.getName());
           }
 
-        protected void go_to_jail()
+        public virtual void go_to_jail()
           {
               //Send player to jail
             
