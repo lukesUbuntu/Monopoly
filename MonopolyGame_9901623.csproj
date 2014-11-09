@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="Banker.cs" />
     <Compile Include="Board.cs" />
-    <Compile Include="Card.cs" />
     <Compile Include="ChanceCards.cs" />
     <Compile Include="ConsoleOveride.cs" />
     <Compile Include="Die.cs" />

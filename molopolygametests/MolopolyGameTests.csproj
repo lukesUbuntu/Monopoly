@@ -62,6 +62,7 @@
     <Compile Include="_DieTest.cs" />
     <Compile Include="_FactoriesTest.cs" />
     <Compile Include="_PlayerTest.cs" />
+    <Compile Include="_TestChanceCards.cs" />
     <Compile Include="_TestCommunityCards.cs" />
     <Compile Include="_TestTransport.cs" />
     <Compile Include="_TraderTest.cs" />

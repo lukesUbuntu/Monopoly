@@ -130,7 +130,7 @@ namespace MonopolyGame_9901623
                 //"**** Shuffled community cards ****"
             Console.WriteLine(ConsoleOveride.colorString("**** Shuffled community cards ****"));
         }
-        public String draw_card(ref Player player)
+        public virtual string draw_card(ref Player player)
        {
            //check if we haven't been dealt all the cards
            if (cardCount >= the_deck.Count)
@@ -144,7 +144,7 @@ namespace MonopolyGame_9901623
 ;           
        }
         
-        protected void advance_to_go()
+        public void advance_to_go()
        {
            the_player.setLocation(0);
            the_action_message = String.Format("Advance straight to GO");
@@ -152,7 +152,7 @@ namespace MonopolyGame_9901623
             the_deck.Enqueue(() => advance_to_go());
        }
 
-        protected void bank_error_in_favour()
+        public void bank_error_in_favour()
           {
               Banker.access().pay(75);
               the_player.receive(75);
@@ -160,7 +160,7 @@ namespace MonopolyGame_9901623
               the_action_message = String.Format("Bank error in your favour {0} receives $75.00", the_player.getName());
           }
 
-        protected void doctors_fees()
+        public void doctors_fees()
           {
               the_player.pay(50);
               Banker.access().receive(50);
@@ -168,7 +168,7 @@ namespace MonopolyGame_9901623
               the_action_message = String.Format("{0} pay doctors fees of $50.00", the_player.getName());
           }
 
-        protected void get_jail_free()
+        public void get_jail_free()
           {
               if (this.removeJailCard == true)
               {
@@ -181,7 +181,7 @@ namespace MonopolyGame_9901623
               the_action_message = String.Format("Get out of jail free card received\nCard has been removed from deck and is with {0}",the_player.getName());
           }
 
-        public virtual void go_to_jail()
+        public void go_to_jail()
           {
               //Send player to jail
             
@@ -192,7 +192,7 @@ namespace MonopolyGame_9901623
               
           }
 
-        protected void your_birthday()
+        public void your_birthday()
           {
               the_action_message = String.Format("Its your birthday you collected $10.00 from every player");
               foreach (Player otherPlayer in Board.access().getPlayers())
@@ -204,18 +204,22 @@ namespace MonopolyGame_9901623
               the_deck.Enqueue(() => your_birthday());
           }
 
-        protected void grand_opera_night()
+        public void grand_opera_night()
           {
               the_action_message = String.Format("Grand Opera Night collect $50.00 from every player for opening night seats ");
               foreach (Player player in Board.access().getPlayers())
               {
-                  player.pay(50);
-                  the_player.receive(50);
+                  if (player.getName() != the_player.getName())
+                  {
+                      player.pay(50);
+                      the_player.receive(50);
+                  }
+                 
               }
               the_deck.Enqueue(() => grand_opera_night());
           }
 
-        protected void income_tax_refund()
+        public void income_tax_refund()
           {
               the_action_message = String.Format("Income Tax refund – collect $20.00");
               Banker.access().pay(20);
@@ -223,7 +227,7 @@ namespace MonopolyGame_9901623
               the_deck.Enqueue(() => income_tax_refund());
           }
 
-        protected void life_insurance()
+        public void life_insurance()
           {
               the_action_message = String.Format("Life Insurance Matures – collect $100 ");
               Banker.access().pay(100);
@@ -231,7 +235,7 @@ namespace MonopolyGame_9901623
               the_deck.Enqueue(() => life_insurance());
           }
 
-        protected void pay_hospital_fees()
+        public void pay_hospital_fees()
           {
               the_action_message = String.Format("Pay Hospital Fees of $100");
             
@@ -240,7 +244,7 @@ namespace MonopolyGame_9901623
               the_deck.Enqueue(() => pay_hospital_fees());
           }
 
-        protected void pay_school_fees()
+        public void pay_school_fees()
           {
               the_action_message = String.Format("Pay School Fees of $50");
               the_player.pay(50);
@@ -248,7 +252,7 @@ namespace MonopolyGame_9901623
               the_deck.Enqueue(() => pay_school_fees());
           }
 
-        protected void receive_consultancy_fee()
+        public void receive_consultancy_fee()
           {
               the_action_message = String.Format("Receive $25 Consultancy Fee");
               Banker.access().pay(25);
@@ -256,7 +260,7 @@ namespace MonopolyGame_9901623
               the_deck.Enqueue(() => receive_consultancy_fee());
           }
 
-        protected void street_repairs()
+        public void street_repairs()
           {
               
               //lets get list of all props owned
@@ -274,7 +278,7 @@ namespace MonopolyGame_9901623
               the_deck.Enqueue(() => street_repairs());
           }
 
-        protected void beauty_contest()
+        public void beauty_contest()
           {
               the_action_message = String.Format("You have won second prize in a beauty contest – collect $10");
               Banker.access().pay(10);
@@ -282,22 +286,22 @@ namespace MonopolyGame_9901623
               the_deck.Enqueue(() => beauty_contest());
           }
 
-        protected void inheritance()
+        public void inheritance()
           {
               the_action_message = String.Format("You inherit $100");
               Banker.access().pay(100);
               the_player.receive(100);
               the_deck.Enqueue(() => inheritance());
           }
-        protected void sale_of_stock()
+        public void sale_of_stock()
         {
             the_action_message = String.Format("From sale of stock you get $50");
             Banker.access().pay(50);
             the_player.receive(50);
             the_deck.Enqueue(() => sale_of_stock());
         }
-      
-        protected void holiday_fund()
+
+        public void holiday_fund()
           {
               the_action_message = String.Format("Holiday Fund matures - Receive $100");
               Banker.access().pay(100);
@@ -319,5 +323,7 @@ namespace MonopolyGame_9901623
             Console.WriteLine("<color:Red>Removed Jail Card From pack</color>");
             this.removeJailCard = true;
         }
+
+      
     }
 }

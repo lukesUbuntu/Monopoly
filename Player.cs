@@ -260,7 +260,7 @@ namespace MonopolyGame_9901623
         //set they are in jail
         public void setIsInJail()
         {
-            
+            this.location = 11;
             this.inJail = true;
         }
 
