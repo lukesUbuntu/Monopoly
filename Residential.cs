@@ -49,9 +49,24 @@ namespace MonopolyGame_9901623
         public void addHotel()
         {
             // pay for houses
-            this.getOwner().pay(this.dHouseCost);
+            this.getOwner().pay(this.dHouseCost * 2);
             //add houses to residental
             this.iHouses++;
+        }
+        /// <summary>
+        /// Sells a house or hotel back to banker
+        /// </summary>
+        public void sellHouse(){
+            decimal costPrice = this.dHouseCost / 2;
+            //if has hotel double price
+            if (this.hasHotel())
+                costPrice = costPrice * 2;
+
+            Banker.access().pay(costPrice);
+            this.owner.receive(costPrice);
+            //remove house
+            this.iHouses--;
+            
         }
         public Boolean hasHotel()
         {
@@ -77,7 +92,22 @@ namespace MonopolyGame_9901623
             //String houseHotel = (this.hasHotel() == true) ? "Hotels : 1" : "Houses : "+this.getHouseCount().ToString();
             return base.ToString() + string.Format("\t : {0}", (this.hasHotel() == true) ? "Hotels : 1" : "Houses : " + this.getHouseCount().ToString());
         }
+        public override void mortgageProperty()
+        {
+            this.getOwner().pay(this.dMortgageValue);
+            Banker.access().pay(this.dMortgageValue);
+            this.mortgaged = true;
 
+            //return this.dMortgageValue;
+        }
+        public override decimal unMortgagePropertyPrice()
+        {
+            return (this.dMortgageValue * 10 / 100) + this.dMortgageValue;
+        }
+        public override decimal mortgagePropertyPrice()
+        {
+            return this.dMortgageValue;
+        }
         /*        
         public decimal unMortgageProperty()
         {

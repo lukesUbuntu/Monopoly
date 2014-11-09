@@ -102,11 +102,22 @@ namespace MonopolyGame_9901623
         }
 
 
-        public virtual decimal mortgageProperty()
+        public virtual void mortgageProperty()
         {
-            return this.dMortgageValue / 2;
-        }
+            this.getOwner().pay(this.dMortgageValue);
+            Banker.access().pay(this.dMortgageValue);
+            this.mortgaged = true;
 
+            //return this.dMortgageValue;
+        }
+        public virtual decimal unMortgagePropertyPrice()
+        {
+            return (this.dMortgageValue  * 10 / 100) + this.dMortgageValue;
+        }
+        public virtual decimal mortgagePropertyPrice()
+        {
+            return this.dMortgageValue;
+        }
         public virtual int ownsHowMany(Property theProperty)
         {
             //@todo need to test if the array is null what will it return;

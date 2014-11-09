@@ -77,9 +77,15 @@ namespace MonopolyGame_9901623
        
         public void tradeProperty(ref TradeableProperty property, ref Player purchaser, decimal amount)
         {
+           
+
             purchaser.pay(amount);
             this.receive(amount);
             property.setOwner(ref purchaser);
+
+            if (property.isMortgaged())
+                property.unMortgageProperty();
+            
         }
         //internal
         public  ArrayList getPropertiesOwned()

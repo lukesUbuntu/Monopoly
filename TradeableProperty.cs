@@ -115,17 +115,22 @@ namespace MonopolyGame_9901623
         {
             return this.mortgaged;
         }
+        /*
+        public decimal unMortgagePropertyPrice()
+        {
+            return this.dMortgageValue * 10 / 100;
+        }
 
-
-        public override decimal mortgageProperty()
+        
+        public override void mortgageProperty()
         {
             this.getOwner().pay(this.dMortgageValue);
             Banker.access().pay(this.dMortgageValue);
             this.mortgaged = true;
 
-            return this.dMortgageValue;
+            //return this.dMortgageValue;
         }
-
+        */
 
         //need to grab all the groups for that property and then return list to another method
         public override ArrayList returnGroupProperties(Property theProperty,bool checkOwnsAll = true)
