@@ -17,6 +17,7 @@ namespace MonopolyGame_9901623
         private ArrayList properties;
         //private ArrayList propertyGroups;
         private ArrayList players;
+        private Settings theSettings = new Settings();
 
         //comunity cards
         private ArrayList community;
@@ -151,7 +152,13 @@ namespace MonopolyGame_9901623
             return this.properties;
         }
 
-
-       
+        public void saveGame()
+        {
+            theSettings.save();
+        }
+        public void loadGame()
+        {
+            theSettings.load();
+        }
     }
 }

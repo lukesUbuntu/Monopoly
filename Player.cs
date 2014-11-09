@@ -65,10 +65,7 @@ namespace MonopolyGame_9901623
         {
             this.getOutOfJailCard = true;
         }
-        public void useGetOutJailCard()
-        {
-            this.getOutOfJailCard = false;
-        }
+     
         public void move()
         {
             
@@ -188,57 +185,7 @@ namespace MonopolyGame_9901623
             return propertiesOwned;
         }
 
-        /*
-        public bool ownsAllProperty(Property theProperty)
-        {
-            int total_group = 0;
-            int owned_group = 0;
-            Game.PropertyGroup theGroup = theProperty.getGroup();
-
-            //go through all the properties
-            for (int i = 0; i < Board.access().getProperties().Count; i++)
-            {
-                if (Board.access().getProperty(i).getGroup() == theGroup)
-                    total_group++;
-
-                //owned by this player
-                if (Board.access().getProperty(i).getOwner() == this)
-                {
-                    //add to arraylist
-                    owned_group++;
-                }
-            }
-            //return propertiesOwned;
-
-            return (owned_group == total_group);
-        }
-        */
-        /*
-        public bool ownsAllPropertyNotMorgaged(Property theProperty)
-        {
-            int total_group = 0;
-            int owned_group = 0;
-            Game.PropertyGroup theGroup = theProperty.getGroup();
-
-            //go through all the properties
-            for (int i = 0; i < Board.access().getProperties().Count; i++)
-            {
-                if (Board.access().getProperty(i).getGroup() == theGroup)
-                    total_group++;
-
-                //owned by this player
-                Property thisProperty = Board.access().getProperty(i);
-                if (thisProperty.getOwner() == this && thisProperty.isMortgaged() == false)
-                {
-                    //add to arraylist
-                    owned_group++;
-                }
-            }
-            //return propertiesOwned;
-
-            return (owned_group == total_group);
-        }
-        */
+      
         /// <summary>
         /// If player owns all groups to the property this will then return all the properties in that group.
         /// If not it will return null
@@ -313,6 +260,7 @@ namespace MonopolyGame_9901623
         //set they are in jail
         public void setIsInJail()
         {
+            
             this.inJail = true;
         }
 
@@ -332,6 +280,23 @@ namespace MonopolyGame_9901623
             //pay jail fee
             this.pay(50);
             this.inJail = false;
+            this.setLocation(this.location + 1);
+        }
+
+        /// <summary>
+        /// Uses jail card to get out of jail
+        /// </summary>
+        public void useJailCard()
+        {
+            if (this.hasGetOutJailCard())
+            {
+                CommunityCards.access().return_jail_card();
+                this.inJail = false;
+                this.getOutOfJailCard = false;
+                this.setLocation(this.location + 1);
+            }
+
+            
         }
     }
 }

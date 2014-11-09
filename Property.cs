@@ -46,6 +46,7 @@ namespace MonopolyGame_9901623
             this.owner = newOwner;
         }
 
+
         public string getName()
         {
 
@@ -54,7 +55,16 @@ namespace MonopolyGame_9901623
 
             return "<color:" + this.getColor() + ">" + this.sName + "</color>";
         }
-
+      
+        /// <summary>
+        /// To return unmodifed prop name
+        /// </summary>
+        /// <returns>sName</returns>
+        public string getRName()
+        {
+   
+            return this.sName;
+        }
         public ConsoleColor getColor()
         {
             //Pass color of prop for group
@@ -101,7 +111,10 @@ namespace MonopolyGame_9901623
             return this.mortgaged;
         }
 
-
+        public virtual void setIsMortgaged(bool mortgaged)
+        {
+            this.mortgaged = mortgaged;
+        }
         public virtual void mortgageProperty()
         {
             this.getOwner().pay(this.dMortgageValue);

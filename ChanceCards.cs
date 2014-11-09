@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,52 +11,72 @@ namespace MonopolyGame_9901623
     /// </summary>
     public class ChanceCards
     {
-        //https://answers.yahoo.com/question/index?qid=20110528154141AAFwRyu
-        //http://stackoverflow.com/a/3767989/1170430
-        private static ChanceCards the_manager;
-        private Queue<Action> the_deck;
-        private Player the_player;
-        private String the_action_message = "";
-        private List<Action> randomize_cards = new List<Action>();
-
-
+         //http://stackoverflow.com/a/3767989/1170430
+        protected static ChanceCards chancecards;
+        protected Queue<Action> the_deck;
+        protected Player the_player;
+        protected String the_action_message = "";
+        protected List<Action> randomize_cards = new List<Action>();
+        protected int cardCount = 0;
+        protected bool removeJailCard = false;
         public static ChanceCards access()
         {
-            if (the_manager == null)
-                the_manager = new ChanceCards();
+            if (chancecards == null)
+                chancecards = new ChanceCards();
 
-            return the_manager;
+            return chancecards;
         }
 
-        private ChanceCards()
+        protected ChanceCards()
         {
-
+            
+            
+            // CountIt testDel = (int x) => x * 5 //This is entire function call;
 
             the_deck = new Queue<Action>();
 
-            // CountIt testDel = (int x) => x * 5 //This is entire function call;
+            //Advance to Go (Collect $200) 
             randomize_cards.Add(() => advance_to_go());
 
-            randomize_cards.Add(() => error_in_favour());
+            //Advance to random property. 
+            randomize_cards.Add(() => advance_random());
 
-            randomize_cards.Add(() => doctors_fees());
-            /*
-           randomize_cards.Add(() => get_jail_free());
-           randomize_cards.Add(() => go_to_jail());
-           randomize_cards.Add(() => happy_birthday());
-           randomize_cards.Add(() => grand_opera());
-           randomize_cards.Add(() => tax_refund());
-           randomize_cards.Add(() => life_insurance());
-           randomize_cards.Add(() => pay_hospital_fees());
-           randomize_cards.Add(() => pay_school_fees());
-           randomize_cards.Add(() => receive_consultancy_fee());
-           randomize_cards.Add(() => street_repairs());
-           randomize_cards.Add(() => beauty_contest());
-           randomize_cards.Add(() => inheritance());
-           randomize_cards.Add(() => holiday_fund());
-           */
+            //Advance token to nearest Utility. If unowned, you may buy it from the Bank. 
+            randomize_cards.Add(() => advance_to_utility());
 
-            // randomize_cards
+            //Advance token to the nearest Railroad
+            randomize_cards.Add(() => advance_to_transport());
+
+            //Bank pays you dividend of $50 
+            randomize_cards.Add(() => bank_pays_dividend());
+
+            //Get out of Jail free – this card may be kept until needed
+            randomize_cards.Add(() => get_jail_free());
+
+            //Go back 3 spaces 
+            randomize_cards.Add(() => go_back_3_spaces());
+            
+            //Go directly to Jail – do not pass Go, do not collect $200 
+            randomize_cards.Add(() => go_to_jail());
+
+
+            //Make general repairs on all your property – for each house pay $25
+            randomize_cards.Add(() => street_repairs());
+
+            //Pay poor tax of $15 
+            randomize_cards.Add(() => pay_poor_tax());
+            
+            //You have been elected chairman of the board – pay each player $50 
+            randomize_cards.Add(() => elected_chair_person());
+
+            //Your building loan matures – collect $150 
+            randomize_cards.Add(() => building_loan_matures());
+
+            //You have won a crossword competition - collect $100
+            randomize_cards.Add(() => cross_word_comp());
+         
+
+           // randomize_cards
             Shuffle<Action>(randomize_cards);
 
             foreach (Action action in randomize_cards)
@@ -63,26 +84,7 @@ namespace MonopolyGame_9901623
                 the_deck.Enqueue(action);
             }
         }
-        /*
-
-       public IList Shuffle<T>(IList<T> list)
-       {
-           Random rand = new Random();
-           int n = list.Count;
-           while (n > 1)
-           {
-               n--;
-               int k = rand.Next(n + 1);
-               T value = list[k];
-               list[k] = list[n];
-               list[n] = value;
-           }
-
-           return (IList)list;
-       }
-        
        
-          */
 
         public static IList<T> Shuffle<T>(IList<T> list)
         {
@@ -105,169 +107,225 @@ namespace MonopolyGame_9901623
         public void shuffleCards()
         {
             Shuffle<Action>(randomize_cards);
-            Console.WriteLine("Shuffled community cards");
+           
+                //"**** Shuffled community cards ****"
+            Console.WriteLine(ConsoleOveride.colorString("**** Shuffled chance cards ****"));
         }
         public String draw_card(ref Player player)
-        {
-            the_player = player;
-            Action action = the_deck.Dequeue();
-            action.Invoke();
-            return this.the_action_message;
-            /*
-            var actionList = new[]
-                 {
-                     new Action( () => advance_to_go() ),
-                     new Action( () => advance_to_go() ),
-                     new Action( () => advance_to_go() )
-                 }.ToList();
+       {
+           //check if we haven't been dealt all the cards
+           if (cardCount >= the_deck.Count)
+               this.shuffleCards();
 
-            var r = new Random();
-            while (actionList.Count() > 0)
+           cardCount++;
+           the_player = player;
+           Action action = the_deck.Dequeue();
+           action.Invoke();
+           return String.Format("<color:White>{0}</color>", this.the_action_message);
+;           
+       }
+        
+        protected void advance_to_go()
+       {
+           the_player.setLocation(0);
+           the_action_message = String.Format("Advance straight to GO");
+            //add back to the que
+            the_deck.Enqueue(() => advance_to_go());
+       }
+
+        /// <summary>
+        /// Advances to a random prop on board
+        /// </summary>
+        protected void advance_random()
+          {
+              Random rndProp = new Random();
+              int location = rndProp.Next(Board.access().getProperties().Count);
+              Property theProp = Board.access().getProperty(location);
+              the_action_message = String.Format("Advance to {0}", theProp.getName());
+              the_player.setLocation(location);
+              the_deck.Enqueue(() => advance_random());
+          }
+
+
+        protected void advance_to_utility()
+        {
+            //loop all props
+            ArrayList theProps = Board.access().getProperties();
+            Property theUtility = null;
+            int location = 0;
+            //for(Property theProp in theProps){
+            for (int propindex = 0; propindex < theProps.Count; propindex++)
             {
-                var index = r.Next(actionList.Count());
-                var actions = actionList[index];
-                actionList.RemoveAt(index);
-                actions();
-            }*/
+                Property theProp = (Property)theProps[propindex];
+
+                if (theProp is Utility)
+                {
+                    location = propindex;
+                    theUtility = theProp;
+                    break;
+                }
+            }
+
+            if (theUtility == null)
+            {
+                //damm maybe not added to our properties list we will draw a new card
+                this.draw_card(ref the_player);
+                return;
+            }
+            the_player.setLocation(location);
+            the_action_message = String.Format("{0} Advance token to nearest Utility. If unowned, you may buy it from the Bank\nNearest Utility is : ", the_player.getName(), theUtility.getName());
+        }
+        /// <summary>
+        /// Advance to the nearest transport
+        /// </summary>
+        protected void advance_to_transport()
+          {
+              //loop all props
+              ArrayList theProps = Board.access().getProperties();
+              Property theTransport = null;
+              int location = 0;
+              //for(Property theProp in theProps){
+              for (int propindex = 0; propindex < theProps.Count; propindex++)
+            {
+                Property theProp = (Property)theProps[propindex];
+            
+                  if (theProp is Transport)
+                  {
+                      location = propindex;
+                      theTransport = theProp;
+                      break;
+                  }
+              }
+
+              if (theTransport == null)
+              {
+                  //damm maybe not added to our properties list we will draw a new card
+                  this.draw_card(ref the_player);
+                  return;
+              }
+              the_player.setLocation(location);
+              the_action_message = String.Format("{0} Advance token to nearest Transport. If unowned, you may buy it from the Bank\nNearest Transport is : ", the_player.getName(), theTransport.getName());
+          }
+
+       
+
+
+        protected void bank_pays_dividend()
+        {
+            the_action_message = String.Format("Bank pays you dividend of $50 ");
+            Banker.access().pay(20);
+            the_player.receive(20);
+            the_deck.Enqueue(() => bank_pays_dividend());
         }
 
-        private void advance_to_go()
+
+
+        protected void get_jail_free()
+          {
+              if (this.removeJailCard == true)
+              {
+                  //give player another card
+                  draw_card(ref the_player);
+                  return;
+              }
+              //Set the_player to own community_jail_card
+              the_player.giveGetOutJailCard();
+              the_action_message = String.Format("Get out of jail free card received\nCard has been removed from deck and is with {0}",the_player.getName());
+          }
+
+        protected void go_back_3_spaces()
         {
-            the_player.setLocation(0);
-            the_action_message = String.Format("Recevied Advance to GO");
-            //the_deck.Enqueue(() => advance_to_go());
+            int location = the_player.getLocation() - 3;
+
+            //make sure we don't go -0
+            if (location <= 0)
+                location = Board.access().getSquares() - Math.Abs(location);
+
+            the_player.setLocation(location);
+            Property theProp = Board.access().getProperty(location);
+            the_action_message = String.Format("Go back 3 spaces, new location : {0}", theProp.getName());
         }
 
 
-        private void error_in_favour()
+        public void go_to_jail()
+          {
+              //Send player to jail
+            
+                
+              the_deck.Enqueue(() => go_to_jail());
+              the_action_message = String.Format("Go straight to jail do not pass go.", the_player.getName());
+              the_player.setIsInJail();
+              
+          }
+
+       
+
+        protected void street_repairs()
+          {
+              
+              //lets get list of all props owned
+              decimal repair_cost = 0;
+              ArrayList players_props = the_player.getPropertiesOwnedFromBoard();
+              foreach (Residential theProp in players_props)
+              {
+                  int getHouses = theProp.getHouseCount();
+                  repair_cost+= getHouses * 25;
+              }
+
+              Banker.access().receive(repair_cost);
+              the_player.pay(repair_cost);
+              the_action_message = String.Format("Make general repairs on all your property – for each house pay $25  total cost : ${0}", repair_cost);
+              the_deck.Enqueue(() => street_repairs());
+          }
+
+        protected void pay_poor_tax()
         {
-            Banker.access().pay(75);
-            the_player.receive(75);
-            the_deck.Enqueue(() => error_in_favour());
-            the_action_message = String.Format("Bank error in your favour received $75.00");
+            the_action_message = String.Format("Pay poor tax $20.00");
+            Banker.access().receive(20);
+            the_player.pay(20);
+            the_deck.Enqueue(() => pay_poor_tax());
         }
 
-        private void doctors_fees()
+        protected void elected_chair_person()
         {
-            the_player.pay(50);
-            Banker.access().receive(50);
-            the_deck.Enqueue(() => doctors_fees());
-            the_action_message = String.Format("had to pay doctors fees of $50.00");
-        }
-
-        private void get_jail_free()
-        {
-            //Set the_player to own community_jail_card
-            Console.WriteLine("Get out of jail free");
-        }
-
-        private void go_to_jail()
-        {
-            //Send player to jail
-            Console.WriteLine("Go To Jail");
-            the_deck.Enqueue(() => go_to_jail());
-
-        }
-
-        private void happy_birthday()
-        {
-            Console.WriteLine("Happy birthday");
+            the_action_message = String.Format("You have been elected chairman of the board – pay each player $50  ");
             foreach (Player player in Board.access().getPlayers())
             {
-                player.pay(10);
-                the_player.receive(10);
+                player.receive(50);
+                the_player.pay(50);
             }
-            the_deck.Enqueue(() => happy_birthday());
+            the_deck.Enqueue(() => elected_chair_person());
         }
 
-        private void grand_opera()
+        protected void building_loan_matures()
         {
-            Console.WriteLine("Grand opera");
-            foreach (Player player in Board.access().getPlayers())
-            {
-                player.pay(50);
-                the_player.receive(50);
-            }
-            the_deck.Enqueue(() => grand_opera());
+            the_action_message = String.Format("Your building loan matures – collect $150 ");
+            Banker.access().pay(150);
+            the_player.receive(150);
+            the_deck.Enqueue(() => building_loan_matures());
         }
 
-        private void tax_refund()
+        protected void cross_word_comp()
         {
-            Console.WriteLine("Tax refund");
-            Banker.access().pay(75);
-            the_player.receive(75);
-            the_deck.Enqueue(() => tax_refund());
-        }
-
-        private void life_insurance()
-        {
-            Console.WriteLine("Life insurance");
+            the_action_message = String.Format("You have won a crossword competition - collect $100");
             Banker.access().pay(100);
             the_player.receive(100);
-            the_deck.Enqueue(() => life_insurance());
+            the_deck.Enqueue(() => cross_word_comp());
         }
+        public void return_jail_card()
+          {
+              Console.WriteLine("<color:Red>Returned Jail Card to pack</color>");
+              the_deck.Enqueue(() => get_jail_free());
+              this.removeJailCard = false;
+          }
 
-        private void pay_hospital_fees()
+        /// <summary>
+        /// removes the jail card from que
+        /// </summary>
+        public void remove_jail_card()
         {
-            Console.WriteLine("Hospital Fees");
-            the_player.pay(100);
-            Banker.access().receive(100);
-            the_deck.Enqueue(() => pay_hospital_fees());
-        }
-
-        private void pay_school_fees()
-        {
-            Console.WriteLine("pay_school_fees");
-            the_player.pay(50);
-            Banker.access().receive(50);
-            the_deck.Enqueue(() => pay_school_fees());
-        }
-
-        private void receive_consultancy_fee()
-        {
-            Console.WriteLine("receive_consultancy_fee");
-            Banker.access().pay(25);
-            the_player.receive(25);
-            the_deck.Enqueue(() => life_insurance());
-        }
-
-        private void street_repairs()
-        {
-            Console.WriteLine("street_repairs");
-            //Count houses/hotels on all owned properties
-            Banker.access().receive(100);
-            the_player.pay(100);
-            the_deck.Enqueue(() => street_repairs());
-        }
-
-        private void beauty_contest()
-        {
-            Console.WriteLine("beauty_contest");
-            Banker.access().pay(10);
-            the_player.receive(10);
-            the_deck.Enqueue(() => beauty_contest());
-        }
-
-        private void inheritance()
-        {
-            Console.WriteLine("inheritance");
-            Banker.access().pay(100);
-            the_player.receive(100);
-            the_deck.Enqueue(() => inheritance());
-        }
-
-        private void holiday_fund()
-        {
-            Console.WriteLine("holiday_fund");
-            Banker.access().pay(100);
-            the_player.receive(100);
-            the_deck.Enqueue(() => holiday_fund());
-        }
-
-        private void return_jail_card()
-        {
-            Console.WriteLine("return_jail_card");
-            the_deck.Enqueue(() => get_jail_free());
+            Console.WriteLine("<color:Red>Removed Jail Card From pack</color>");
+            this.removeJailCard = true;
         }
     }
 }

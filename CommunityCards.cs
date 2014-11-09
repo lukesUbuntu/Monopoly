@@ -15,18 +15,18 @@ namespace MonopolyGame_9901623
 {
     /// <summary>
     /// CommunityCards provides cards as a deck and draws certain actions when landed on props
-    /// //https://answers.yahoo.com/question/index?qid=20110528154141AAFwRyu
+    /// 
     /// </summary>
     public class CommunityCards 
     {
-         //http://stackoverflow.com/a/3767989/1170430
+        //http://stackoverflow.com/a/3767989/1170430
         protected static CommunityCards communitycards;
         protected Queue<Action> the_deck;
         protected Player the_player;
         protected String the_action_message = "";
         protected List<Action> randomize_cards = new List<Action>();
         protected int cardCount = 0;
-      
+        protected bool removeJailCard = false;
         public static CommunityCards access()
         {
             if (communitycards == null)
@@ -42,7 +42,6 @@ namespace MonopolyGame_9901623
             // CountIt testDel = (int x) => x * 5 //This is entire function call;
 
             the_deck = new Queue<Action>();
-
 
             //Advance to Go (Collect $200) 
             randomize_cards.Add(() => advance_to_go());
@@ -72,7 +71,7 @@ namespace MonopolyGame_9901623
             randomize_cards.Add(() => life_insurance());
 
             //Pay Hospital Fees of $100 
-            randomize_cards.Add(() => pay_hospital_fees());
+             randomize_cards.Add(() => pay_hospital_fees());
 
             //Pay School Fees of $50 
             randomize_cards.Add(() => pay_school_fees());
@@ -84,16 +83,16 @@ namespace MonopolyGame_9901623
             randomize_cards.Add(() => street_repairs());
 
             //You have won second prize in a beauty contest– collect $10 
-            randomize_cards.Add(() => beauty_contest());
+           randomize_cards.Add(() => beauty_contest());
 
             //You inherit $100 
-            randomize_cards.Add(() => inheritance());
+           randomize_cards.Add(() => inheritance());
 
             //From sale of stock you get $50 
             randomize_cards.Add(() => sale_of_stock());
             
             //Holiday Fund matures - Receive $100 
-            randomize_cards.Add(() => holiday_fund());
+           randomize_cards.Add(() => holiday_fund());
 
 
            // randomize_cards
@@ -141,8 +140,8 @@ namespace MonopolyGame_9901623
            the_player = player;
            Action action = the_deck.Dequeue();
            action.Invoke();
-           return this.the_action_message;
-           
+           return String.Format("<color:White>{0}</color>", this.the_action_message);
+;           
        }
         
         protected void advance_to_go()
@@ -171,6 +170,12 @@ namespace MonopolyGame_9901623
 
         protected void get_jail_free()
           {
+              if (this.removeJailCard == true)
+              {
+                  //give player another card
+                  draw_card(ref the_player);
+                  return;
+              }
               //Set the_player to own community_jail_card
               the_player.giveGetOutJailCard();
               the_action_message = String.Format("Get out of jail free card received\nCard has been removed from deck and is with {0}",the_player.getName());
@@ -301,8 +306,18 @@ namespace MonopolyGame_9901623
           }
         public void return_jail_card()
           {
-              Console.WriteLine("return_jail_card");
+              Console.WriteLine("<color:Red>Returned Jail Card to pack</color>");
               the_deck.Enqueue(() => get_jail_free());
+              this.removeJailCard = false;
           }
+
+        /// <summary>
+        /// removes the jail card from que
+        /// </summary>
+        public void remove_jail_card()
+        {
+            Console.WriteLine("<color:Red>Removed Jail Card From pack</color>");
+            this.removeJailCard = true;
+        }
     }
 }

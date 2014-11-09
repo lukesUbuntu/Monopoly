@@ -175,9 +175,13 @@ namespace MonopolyGame_9901623
                         Environment.Exit(0);
                         break;
                     case 4:
+                        this.setUpProperties();
+                        Board.access().loadGame();
+                        /*
                         for (int i = 0; i < 2; i++)
                         {
-                            
+
+                           
                            
                             Player player = new Player("player "+i);
                             //subscribe to events
@@ -187,7 +191,8 @@ namespace MonopolyGame_9901623
                             Board.access().addPlayer(player);
                             Console.WriteLine("{0} has been added to the game.", Board.access().getPlayer(i).getName());
                         }
-                        this.setUpProperties();
+                         */
+                        
                         this.gameSetUp = true;
 
                         this.playGame();
@@ -277,30 +282,23 @@ namespace MonopolyGame_9901623
 
             JailFactory jailFactory = new JailFactory();
 
-           // CommunityManager thECommunityManager = new CommunityManager();
-
-            //Create properties and add them to the board
-            //Loading property details from file has not been implemented
-            //Property names are taken from the "Here and Now" New Zealand version of monopoly
-            //Rents are tenth of cost of property
-            //Colours have not been implemented
             Board.access().addProperty(luckFactory.create("Go", false, 200));
          
             Board.access().addProperty(resFactory.create("Ohakune Carrot", 60, 6, 50, Game.PropertyGroup.GROUP_1));
             
            
             Board.access().addProperty(luckFactory.create("Community Chest", false, 0, Game.CardType.CommunityChest)); // not properly implemented just 50 benefit
-            /*
+            
             Board.access().addProperty(resFactory.create("Te Puke, Giant Kiwifruit", 60, 6, 50, Game.PropertyGroup.GROUP_1));
-            */
+          
             Board.access().addProperty(luckFactory.create("Income Tax", true, 200));
-             /*
+           
              Board.access().addProperty(transFactory.create("Auckland International Airport",Game.PropertyGroup.TRANSPORT_GROUP));
          
              Board.access().addProperty(resFactory.create("Te Papa", 100, 10, 50, Game.PropertyGroup.GROUP_2));
-            */
+           
             Board.access().addProperty(luckFactory.create("Chance", true, 50, Game.CardType.Chance)); // not properly implemented just 50 penalty
-            /*
+           
              Board.access().addProperty(resFactory.create("Waitangi Treaty Grounds", 100, 10, 50, Game.PropertyGroup.GROUP_2));
              Board.access().addProperty(resFactory.create("Larnach Castle", 120, 12, 50, Game.PropertyGroup.GROUP_2));
 
@@ -317,18 +315,18 @@ namespace MonopolyGame_9901623
             Board.access().addProperty(transFactory.create("Dunedin Railway Station", Game.PropertyGroup.TRANSPORT_GROUP));
          
             Board.access().addProperty(resFactory.create("Fox Glacier", 180, 18, 100, Game.PropertyGroup.GROUP_4));
-            */
+          
             Board.access().addProperty(luckFactory.create("Community Chest", false, 50, Game.CardType.CommunityChest)); // not properly implemented just 50 benefit
-            /*
+        
             Board.access().addProperty(resFactory.create("Milford Sound", 180, 18, 100, Game.PropertyGroup.GROUP_4));
             Board.access().addProperty(resFactory.create("Mt Cook", 200, 20, 100, Game.PropertyGroup.GROUP_4));
 
             Board.access().addProperty(genericFactory.create("Free Parking")); //not properly implemented just a property that does nothing
 
             Board.access().addProperty(resFactory.create("Ninety Mile Beach", 220, 22, 150, Game.PropertyGroup.GROUP_5));
-            */
+          
             Board.access().addProperty(luckFactory.create("Chance", true, 50, Game.CardType.Chance)); // not properly implemented just 50 penalty
-            /*
+        
             Board.access().addProperty(resFactory.create("Golden Bay", 220, 22, 150, Game.PropertyGroup.GROUP_5));
             Board.access().addProperty(resFactory.create("Moeraki Boulders, Oamaru", 240, 24, 150, Game.PropertyGroup.GROUP_5));
         
@@ -338,31 +336,32 @@ namespace MonopolyGame_9901623
             Board.access().addProperty(resFactory.create("Mt Maunganui", 260, 26, 150, Game.PropertyGroup.GROUP_6));
        
             Board.access().addProperty(utilFactory.create("Internet Service Provider", Game.PropertyGroup.UTILITY_GROUP));
-          
+            
             Board.access().addProperty(resFactory.create("Art Deco Buildings, Napier", 280, 28, 150, Game.PropertyGroup.GROUP_6));
 
             Board.access().addProperty(jailFactory.create("Go to Jail",true)); //not properly implemented just a property that does nothing
-
+            
             Board.access().addProperty(resFactory.create("Cable Cars Wellington", 300, 30, 200, Game.PropertyGroup.GROUP_7));
             Board.access().addProperty(resFactory.create("Cathedral Square", 300, 30, 200, Game.PropertyGroup.GROUP_7));
-            */
+          
             Board.access().addProperty(luckFactory.create("Community Chest", false, 50, Game.CardType.CommunityChest)); // not properly implemented just 50 benefit
-            /*
+            
             Board.access().addProperty(resFactory.create("The Square, Palmerston North", 320, 32, 200, Game.PropertyGroup.GROUP_7));
          
             Board.access().addProperty(transFactory.create("Picton Ferry", Game.PropertyGroup.TRANSPORT_GROUP));
-        */
+        
             Board.access().addProperty(luckFactory.create("Chance", true, 50, Game.CardType.Chance)); // not properly implemented just 50 penalty
-            /*
+          
             Board.access().addProperty(resFactory.create("Pukekura Park, Festival of Lights", 350, 35, 200, Game.PropertyGroup.GROUP_8));
-            */
+           
             Board.access().addProperty(luckFactory.create("Super Tax", true, 100));
-            /*
+          
             Board.access().addProperty(resFactory.create("Rangitoto", 400, 40, 200, Game.PropertyGroup.GROUP_8));
-            */
+            
             Board.access().setSquares();
             Console.WriteLine("Properties have been setup");
             CommunityCards.access().shuffleCards();
+            ChanceCards.access().shuffleCards();
            
             
         }
@@ -444,13 +443,13 @@ namespace MonopolyGame_9901623
 
             Console.WriteLine("3. Pay $50 to get out of jail");
             Console.WriteLine("4. Try roll doubles to get out of jail");
-            
-           
 
+           
+            Console.WriteLine("5. Use get out jail card");
           
 
             
-            Console.Write("(1-4)>");
+            Console.Write("(1-5)>");
             //read response
             resp = inputInteger();
             //if response is invalid redisplay menu
@@ -476,6 +475,10 @@ namespace MonopolyGame_9901623
                     this.rollDoublesJail(player);
                     this.displayPlayerJailMenu(player);
                     break;
+                case 5:
+                    this.useGetOutOfJail(player);
+                    this.displayPlayerJailMenu(player);
+                    break;
                 default:
                     Console.WriteLine("That option is not avaliable. Please try again.");
                     this.displayPlayerJailMenu(player);
@@ -483,6 +486,7 @@ namespace MonopolyGame_9901623
             }
         }
         
+
         public void displayPlayerChoiceMenu(Player player,bool fullmenu = false)
         {
             int resp = 0;
@@ -503,7 +507,8 @@ namespace MonopolyGame_9901623
                 //if reseidental show housing options
                 if (theBoardProp is Residential || fullmenu == true) 
                 {
-                    int currentHouse = ((Residential)theBoardProp).getHouseCount();
+                    //Only return current house if its residential
+                    int currentHouse = (theBoardProp is Residential)?((Residential)theBoardProp).getHouseCount() : 0;
 
                     if (fullmenu == true)
                     {
@@ -530,22 +535,15 @@ namespace MonopolyGame_9901623
                 
                 if (theBoardProp.isMortgaged() || fullmenu == true)
                     Console.WriteLine("8. UN-Mortagae Property");
+
+                Console.WriteLine("9. Save Game");
                 
                    
             }
            
 
            
-
-            
-
-           
-
-            
-
-            
-           
-            Console.Write("(1-8)>");
+            Console.Write("(1-8) or 9 to save game>");
             //read response
             resp = inputInteger();
             //if response is invalid redisplay menu
@@ -571,6 +569,10 @@ namespace MonopolyGame_9901623
                         this.buyHouse(player);
                         this.displayPlayerChoiceMenu(player);
                         break;
+                    case 5:
+                        this.sellHouse(player);
+                        this.displayPlayerChoiceMenu(player);
+                        break;
                     case 6:
                         this.tradeProperty(player);
                         this.displayPlayerChoiceMenu(player);
@@ -583,8 +585,8 @@ namespace MonopolyGame_9901623
                         this.UnmortgageProperty(player);
                         this.displayPlayerChoiceMenu(player);
                         break;
-                    case 5:
-                        this.sellHouse(player);
+                    case 9:
+                        Board.access().saveGame();
                         this.displayPlayerChoiceMenu(player);
                         break;
                     default:
@@ -594,6 +596,18 @@ namespace MonopolyGame_9901623
                 }
         }
 
+        public void useGetOutOfJail(Player player)
+        {
+            if (player.hasGetOutJailCard() == false)
+            {
+                Console.WriteLine("{0}Does not have get out of jail card...", this.playerPrompt(player));
+                return;
+            }
+
+            player.useJailCard();
+            Console.WriteLine("{0} Used jail card to get out...", this.playerPrompt(player) );
+            return;
+        }
         public void rollDoublesJail(Player player)
         {
             //roll doubles to get out of jail

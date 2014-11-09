@@ -53,6 +53,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="_SettingsTest.cs" />
     <Compile Include="_InitialValuesAccessorTest.cs" />
     <Compile Include="_LuckTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

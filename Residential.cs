@@ -37,6 +37,10 @@ namespace MonopolyGame_9901623
             return (dRent + (dRent * iHouses));
         }
 
+        public void addHouses(int houses)
+        {
+            this.iHouses = houses;
+        }
 
         public void addHouse()
         {

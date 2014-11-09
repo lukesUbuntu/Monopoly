@@ -13,21 +13,32 @@ namespace MonopolyGame_9901623
         static void Main(string[] args)
         {
 
-
-         
-
-
             //Set console to be overridden.
-           Console.SetOut(new ConsoleOveride()); 
+            Console.SetOut(new ConsoleOveride()); 
             
             Game game = new Monopoly();
 
             game.initializeGame();
 
+            //Board.access().loadGame();
+
+            //CommunityCards.access().shuffleCards();
+            /*
+            for (int i = 0; i < 2; i++)
+            {
 
 
-           //CommunityCards.access().shuffleCards();
-            //Player player = new Player("Lukes", 200m);
+                Player player = new Player("player " + i);
+                //subscribe to events
+               
+                //add player 
+                Board.access().addPlayer(player);
+                Console.WriteLine("{0} has been added to the game.", Board.access().getPlayer(i).getName());
+            }
+
+            Settings theSettings = new Settings();
+            theSettings.save();
+            */
             //String test = String.Format("\n{0} Drawing Community Card...\nCard Reads : {1}", player.getName(), CommunityCards.access().draw_card(ref player));
             //Console.WriteLine(test);
             //String cardDetails = CommunityManager.access().draw_card(ref thePlayer);
@@ -44,7 +55,7 @@ namespace MonopolyGame_9901623
            
            //Console.WriteLine(newWord);
 
-           Console.ReadLine();
+           //Console.ReadLine();
         }
 
      

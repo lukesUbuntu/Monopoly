@@ -29,7 +29,11 @@ namespace MonopolyGame_9901623
                 }
                 
             }
+            public override void Write(string consoleMessage)
+            {
+                this.WriteLine(consoleMessage);
 
+            }
             public override Encoding Encoding
             {
                 get { throw new Exception("The method or operation is not implemented."); }
@@ -122,6 +126,7 @@ namespace MonopolyGame_9901623
                 //originalOut.WriteLine("->{0}", consoleMessage);
             }
 
+            public static String spacer = ConsoleOveride.colorString("*************************************************************");
 
             public static String colorString(String theString){
 
