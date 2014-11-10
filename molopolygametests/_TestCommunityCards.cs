@@ -15,7 +15,17 @@ namespace MonopolyGame_9901623
     class _TestCommunityCards 
     {
         
-     
+            //Setup players
+            Player newPlayer1 = new Player("newPlayer 1", 1500);
+            Player newPlayer2 = new Player("newPlayer 2", 1500);
+            //extend our Community Class
+            testCommunity CommunityClass = new testCommunity();
+         
+            public _TestCommunityCards(){
+                //add players to board
+                Board.access().addPlayer(newPlayer1);
+                Board.access().addPlayer(newPlayer2);
+            }
             [Test]
             public void testDeckShuffling()
             {
@@ -32,62 +42,54 @@ namespace MonopolyGame_9901623
             public void testadvance_to_go()
             {
                 
-
-                Player newPlayer1 = new Player("Sam",1500);
                 //Set players location away from go
                 newPlayer1.setLocation(10);
 
                //target.your_birthday()
-                testCommunity theTest = new testCommunity();
-                theTest.setPlayer(ref newPlayer1);
-                theTest.advance_to_go();
-                string response = theTest.returnResponse();
 
-                StringAssert.StartsWith( "Advance", theTest.returnResponse());
+                CommunityClass.setPlayer(ref newPlayer1);
+                CommunityClass.advance_to_go();
+
+
+                StringAssert.StartsWith("Advance", CommunityClass.returnResponse());
                 Assert.True(newPlayer1.getLocation() == 0);
             }
 
             [Test]
             public void testbank_error_in_favour()
             {
-                decimal balance = 1500;
-                //set player
-                Player newPlayer1 = new Player("Sam", balance);
-                Board.access().addPlayer(newPlayer1);
+                //set players current balance + $75 for error in fac
+                decimal expectingBalance = newPlayer1.getBalance() + 75;
 
-                decimal newbalance = balance + 75;
-           
-                testCommunity theTest = new testCommunity();
 
-                theTest.setPlayer(ref newPlayer1);
-                //Testing
-                theTest.bank_error_in_favour();
 
-                string response = theTest.returnResponse();
+                CommunityClass.setPlayer(ref newPlayer1);
 
-                StringAssert.StartsWith("Bank error", theTest.returnResponse());
-                Assert.True(newPlayer1.getBalance() == newbalance);
+                //process card
+                CommunityClass.bank_error_in_favour();
+                //get return message
+                StringAssert.StartsWith("Bank error", CommunityClass.returnResponse());
+                //check that they match
+                Assert.True(newPlayer1.getBalance() == expectingBalance);
             }
 
             [Test]
             public void testbank_doctors_fees()
             {
 
-                //set player
-                Player newPlayer1 = new Player("Sam", 1500);
-                //doctors fees
-                int expecting = 1500 - 50;
+                //set players current balance - $50 for doctors
+                decimal expectingBalance = newPlayer1.getBalance() - 50;
 
-                testCommunity theTest = new testCommunity();
 
-                theTest.setPlayer(ref newPlayer1);
-                //Testing
-                theTest.doctors_fees();
 
-                string response = theTest.returnResponse();
 
-                StringAssert.StartsWith("Sam pay doctors fees", theTest.returnResponse());
-                Assert.True(newPlayer1.getBalance() == expecting);
+                CommunityClass.setPlayer(ref newPlayer1);
+                //test doctors fees
+                CommunityClass.doctors_fees();
+
+                //Check response and balance
+                StringAssert.StartsWith(newPlayer1.getName() + " pay doctors fees", CommunityClass.returnResponse());
+                Assert.True(newPlayer1.getBalance() == expectingBalance);
             }
 
 
@@ -95,20 +97,16 @@ namespace MonopolyGame_9901623
             public void testget_jail_free()
             {
 
-                //set player
-                Player newPlayer1 = new Player("Sam", 1500);
-                //doctors fees
-                
 
-                testCommunity theTest = new testCommunity();
 
-                theTest.setPlayer(ref newPlayer1);
-                //Testing
-                theTest.get_jail_free();
 
-                string response = theTest.returnResponse();
+                CommunityClass.setPlayer(ref newPlayer1);
+                //give the player jail card
+                CommunityClass.get_jail_free();
 
-                StringAssert.StartsWith("Get out of jail free card received", theTest.returnResponse());
+               
+                //check response and has jail card
+                StringAssert.StartsWith("Get out of jail free card received", CommunityClass.returnResponse());
                 Assert.True(newPlayer1.hasGetOutJailCard());
             }
 
@@ -117,20 +115,20 @@ namespace MonopolyGame_9901623
             public void testgo_to_jail()
             {
 
-                //set player
-                Player newPlayer1 = new Player("Sam", 1500);
-                //doctors fees
+                //decimal expectedBalance = newPlayer1.getBalance() + 10;
+                //set location as 0
                 newPlayer1.setLocation(0);
 
-                testCommunity theTest = new testCommunity();
 
-                theTest.setPlayer(ref newPlayer1);
+
+                CommunityClass.setPlayer(ref newPlayer1);
+
                 //Testing
-                theTest.go_to_jail();
+                CommunityClass.go_to_jail();
 
-                string response = theTest.returnResponse();
 
-                StringAssert.StartsWith("Go straight to jail", theTest.returnResponse());
+
+                StringAssert.StartsWith("Go straight to jail", CommunityClass.returnResponse());
                 Assert.True(newPlayer1.getIsInJail());
                 Assert.True(newPlayer1.getLocation() == 11);
             }
@@ -141,63 +139,62 @@ namespace MonopolyGame_9901623
             public void testbeauty_contest()
             {
 
-                //set player
-                Player newPlayer1 = new Player("Sam", 1500);
+                //set expected balance 
+                decimal expectedBalance = newPlayer1.getBalance() + 10;
 
 
-                testCommunity theTest = new testCommunity();
 
-                theTest.setPlayer(ref newPlayer1);
+                CommunityClass.setPlayer(ref newPlayer1);
                 //Testing
-                theTest.beauty_contest();
+                CommunityClass.beauty_contest();
 
-                string response = theTest.returnResponse();
 
-                StringAssert.StartsWith("You have won second prize", theTest.returnResponse());
+
+                StringAssert.StartsWith("You have won second prize", CommunityClass.returnResponse());
                 //we should have additional $10
-                Assert.True(newPlayer1.getBalance() == 1510);
+                Assert.True(newPlayer1.getBalance() == expectedBalance);
             }
 
             [Test]
             public void testinheritance()
             {
 
-                //set player
-                Player newPlayer1 = new Player("Sam", 1500);
+               //set expected balance aditonal $100
+                decimal expectedBalance = newPlayer1.getBalance() + 100;
 
 
-                testCommunity theTest = new testCommunity();
 
-                theTest.setPlayer(ref newPlayer1);
+
+                CommunityClass.setPlayer(ref newPlayer1);
                 //Testing
-                theTest.inheritance();
+                CommunityClass.inheritance();
 
-                string response = theTest.returnResponse();
 
-                StringAssert.StartsWith("You inherit", theTest.returnResponse());
+
+                StringAssert.StartsWith("You inherit", CommunityClass.returnResponse());
                 //we should have additional $100
-                Assert.True(newPlayer1.getBalance() == 1600);
+                Assert.True(newPlayer1.getBalance() == expectedBalance);
             }
 
             [Test]
             public void testsale_of_stock()
             {
 
-                //set player
-                Player newPlayer1 = new Player("Sam", 1500);
+                //set expected balance aditonal $50
+                decimal expectedBalance = newPlayer1.getBalance() + 50;
 
 
-                testCommunity theTest = new testCommunity();
 
-                theTest.setPlayer(ref newPlayer1);
+
+                CommunityClass.setPlayer(ref newPlayer1);
                 //Testing
-                theTest.sale_of_stock();
+                CommunityClass.sale_of_stock();
 
-                string response = theTest.returnResponse();
 
-                StringAssert.StartsWith("From sale of stock", theTest.returnResponse());
+
+                StringAssert.StartsWith("From sale of stock", CommunityClass.returnResponse());
                 //we should have additional $50
-                Assert.True(newPlayer1.getBalance() == 1550);
+                Assert.True(newPlayer1.getBalance() == expectedBalance);
             }
 
 
@@ -205,50 +202,40 @@ namespace MonopolyGame_9901623
             public void testholiday_fund()
             {
 
-                //set player
-                decimal balance = 1500;
-                Player newPlayer1 = new Player("Sam", balance);
-                //player should reseive $50.00
-                decimal newbalance = balance + 100;
 
-                testCommunity theTest = new testCommunity();
+                //set expected balance aditonal $100
+                decimal expectedBalance = newPlayer1.getBalance() + 100;
 
-                theTest.setPlayer(ref newPlayer1);
+
+
+
+                CommunityClass.setPlayer(ref newPlayer1);
                 //Testing
-                theTest.holiday_fund();
+                CommunityClass.holiday_fund();
 
-                string response = theTest.returnResponse();
+
                 //check response message matches
-                StringAssert.StartsWith("Holiday Fund matures", theTest.returnResponse());
+                StringAssert.StartsWith("Holiday Fund matures", CommunityClass.returnResponse());
                 //check we have correct money
-                Assert.True(newPlayer1.getBalance() == newbalance);
+                Assert.True(newPlayer1.getBalance() == expectedBalance);
             }
 
 
             [Test]
             public void testyour_birthday()
             {
-
-                //set players
-                decimal balance = 1500;
-                Player newPlayer1 = new Player("Sam", balance);
-                Player newPlayer2 = new Player("Sam", balance);
-                //add players to board
-                Board.access().addPlayer(newPlayer1);
-                Board.access().addPlayer(newPlayer2);
+                //set expected balance 
                 //new balances for players
-                decimal newbalance_player1 = balance + 10;
-                decimal newbalance_player2 = balance - 10;
+                decimal newbalance_player1 = newPlayer1.getBalance() + 10;
+                decimal newbalance_player2 = newPlayer2.getBalance() - 10;
 
-                testCommunity theTest = new testCommunity();
 
-                theTest.setPlayer(ref newPlayer1);
+
+                CommunityClass.setPlayer(ref newPlayer1);
                 //Testing
-                theTest.your_birthday();
+                CommunityClass.your_birthday();
 
-                string response = theTest.returnResponse();
-                //check response message matches
-                StringAssert.StartsWith("Its your birthday you collected", theTest.returnResponse());
+                StringAssert.StartsWith("Its your birthday you collected", CommunityClass.returnResponse());
                 //check we have correct money
                 Assert.True(newPlayer1.getBalance() == newbalance_player1);
                 Assert.True(newPlayer2.getBalance() == newbalance_player2);
@@ -257,16 +244,15 @@ namespace MonopolyGame_9901623
             public void testreturn_jail_card()
             {
 
-                //set player
-                decimal balance = 1500;
-                Player newPlayer1 = new Player("Sam", balance);
-                testCommunity theTest = new testCommunity();
-                theTest.remove_jail_card();
-                theTest.get_jail_free();
+                //decimal expectedBalance = newPlayer1.getBalance() + 10;
+
+
+                CommunityClass.remove_jail_card();
+                CommunityClass.get_jail_free();
 
                 //player should reseive $50.00
                 newPlayer1.useJailCard();
-                theTest.return_jail_card();
+                CommunityClass.return_jail_card();
                 //check we have correct money
                 Assert.True(newPlayer1.hasGetOutJailCard() == false);
             }
@@ -275,27 +261,20 @@ namespace MonopolyGame_9901623
             public void testgrand_opera_night()
             {
 
-                //set player
-                decimal balance = 1500;
-                Player newPlayer1 = new Player("Player 0", balance);
-                Player newPlayer2 = new Player("Player 2", balance);
-                //add players to board
-                Board.access().addPlayer(newPlayer1);
-                Board.access().addPlayer(newPlayer2);
-
+               
                 //player should reseive $50.00
-                decimal newbalance_player1 = balance + 50;
-                decimal newbalance_player2 = balance - 50;
+                decimal newbalance_player1 = newPlayer1.getBalance() + 50;
+                decimal newbalance_player2 = newPlayer2.getBalance() - 50;
 
-                testCommunity theTest = new testCommunity();
 
-                theTest.setPlayer(ref newPlayer1);
+
+                CommunityClass.setPlayer(ref newPlayer1);
                 //Testing
-                theTest.grand_opera_night();
+                CommunityClass.grand_opera_night();
                 
-                string response = theTest.returnResponse();
+               
                 //check response message matches
-                StringAssert.StartsWith("Grand Opera Night collect", theTest.returnResponse());
+                StringAssert.StartsWith("Grand Opera Night collect", CommunityClass.returnResponse());
                 //check we have correct money
                 Assert.True(newPlayer1.getBalance() == newbalance_player1);
                 Assert.True(newPlayer2.getBalance() == newbalance_player2);
@@ -307,92 +286,77 @@ namespace MonopolyGame_9901623
             public void testincome_tax_refund()
             {
 
-                //set player
-                decimal balance = 1500;
-                Player newPlayer1 = new Player("Sam", balance);
-                //player should reseive $20.00
-                decimal newbalance = balance + 20;
+                //playerShould receive $20
+                decimal expectBalance = newPlayer1.getBalance() + 20;
 
-                testCommunity theTest = new testCommunity();
 
-                theTest.setPlayer(ref newPlayer1);
+
+                CommunityClass.setPlayer(ref newPlayer1);
                 //Testing
-                theTest.income_tax_refund();
+                CommunityClass.income_tax_refund();
 
-                string response = theTest.returnResponse();
-                //check response message matches
-                StringAssert.StartsWith("Income Tax refund", theTest.returnResponse());
+                StringAssert.StartsWith("Income Tax refund", CommunityClass.returnResponse());
                 //check we have correct money
-                Assert.True(newPlayer1.getBalance() == newbalance);
+                Assert.True(newPlayer1.getBalance() == expectBalance);
             }
 
             [Test]
             public void testlife_insurance()
             {
 
-                //set player
-                decimal balance = 1500;
-                Player newPlayer1 = new Player("Sam", balance);
-                //player should reseive $100.00
-                decimal newbalance = balance + 100;
+                //set player expecting balance + $100
+                decimal expectBalance = newPlayer1.getBalance() + 100;
 
-                testCommunity theTest = new testCommunity();
+               
 
-                theTest.setPlayer(ref newPlayer1);
+                CommunityClass.setPlayer(ref newPlayer1);
                 //Testing
-                theTest.life_insurance();
+                CommunityClass.life_insurance();
 
-                string response = theTest.returnResponse();
+ 
                 //check response message matches
-                StringAssert.StartsWith("Life Insurance Matures", theTest.returnResponse());
+                StringAssert.StartsWith("Life Insurance Matures", CommunityClass.returnResponse());
                 //check we have correct money
-                Assert.True(newPlayer1.getBalance() == newbalance);
+                Assert.True(newPlayer1.getBalance() == expectBalance);
             }
 
             [Test]
             public void testpay_hospital_fees()
             {
 
-                //set player
-                decimal balance = 1500;
-                Player newPlayer1 = new Player("Sam", balance);
-                //player should pay $100.00
-                decimal newbalance = balance - 100;
+                //set player expecting balance - $100
+                decimal expectBalance = newPlayer1.getBalance() - 100;
 
-                testCommunity theTest = new testCommunity();
+              
 
-                theTest.setPlayer(ref newPlayer1);
+                CommunityClass.setPlayer(ref newPlayer1);
                 //Testing
-                theTest.pay_hospital_fees();
+                CommunityClass.pay_hospital_fees();
 
-                string response = theTest.returnResponse();
+              
                 //check response message matches
-                StringAssert.StartsWith("Pay Hospital Fees", theTest.returnResponse());
+                StringAssert.StartsWith("Pay Hospital Fees", CommunityClass.returnResponse());
                 //check we have correct money
-                Assert.True(newPlayer1.getBalance() == newbalance);
+                Assert.True(newPlayer1.getBalance() == expectBalance);
             }
 
             [Test]
             public void testpay_school_fees()
             {
 
-                //set player
-                decimal balance = 1500;
-                Player newPlayer1 = new Player("Sam", balance);
-                //player should pay $50.00
-                decimal newbalance = balance - 50;
+                //set player expecting balance - $50
+                decimal expectBalance = newPlayer1.getBalance() - 50;
 
-                testCommunity theTest = new testCommunity();
 
-                theTest.setPlayer(ref newPlayer1);
+
+                CommunityClass.setPlayer(ref newPlayer1);
                 //Testing
-                theTest.pay_school_fees();
+                CommunityClass.pay_school_fees();
 
-                string response = theTest.returnResponse();
                 //check response message matches
-                StringAssert.StartsWith("Pay School Fees", theTest.returnResponse());
+                StringAssert.StartsWith("Pay School Fees", CommunityClass.returnResponse());
                 //check we have correct money
-                Assert.True(newPlayer1.getBalance() == newbalance);
+                Assert.True(newPlayer1.getBalance() == expectBalance);
             }
 
 
@@ -400,33 +364,27 @@ namespace MonopolyGame_9901623
             public void tesreceive_consultancy_fee()
             {
 
-                //set player
-                decimal balance = 1500;
-                Player newPlayer1 = new Player("Sam", balance);
-                //player should pay $25.00
-                decimal newbalance = balance + 25;
+                //set player expecting balance - 25
+                decimal expectBalance = newPlayer1.getBalance() + 25;
 
-                testCommunity theTest = new testCommunity();
 
-                theTest.setPlayer(ref newPlayer1);
+
+                CommunityClass.setPlayer(ref newPlayer1);
                 //Testing
-                theTest.receive_consultancy_fee();
+                CommunityClass.receive_consultancy_fee();
 
-                string response = theTest.returnResponse();
                 //check response message matches
-                StringAssert.StartsWith("Receive $25 Consultancy", theTest.returnResponse());
+                StringAssert.StartsWith("Receive $25 Consultancy", CommunityClass.returnResponse());
                 //check we have correct money
-                Assert.True(newPlayer1.getBalance() == newbalance);
+                Assert.True(newPlayer1.getBalance() == expectBalance);
             }
 
 
             [Test]
             public void tesreceive_street_repairs()
             {
-
-                //set player
-                decimal balance = 1500;
-                Player newPlayer1 = new Player("Sam", balance);
+                //set player expecting balance - $160; 4 x house @ $40
+                decimal expectBalance = newPlayer1.getBalance() - 160;
 
                 //add property with 4 houses
                 //string sName, ref Trader owner, decimal dMortgageValue
@@ -436,20 +394,19 @@ namespace MonopolyGame_9901623
 
                 Board.access().addProperty(theProp);
 
-                //player should pay 4 x $40 = 160
-                decimal newbalance = balance - 160;
 
-                testCommunity theTest = new testCommunity();
 
-                theTest.setPlayer(ref newPlayer1);
+
+
+                CommunityClass.setPlayer(ref newPlayer1);
                 //Testing
-                theTest.street_repairs();
+                CommunityClass.street_repairs();
 
-                string response = theTest.returnResponse();
+                
                 //check response message matches
-                StringAssert.StartsWith("You are assessed for street repairs", theTest.returnResponse());
+                StringAssert.StartsWith("You are assessed for street repairs", CommunityClass.returnResponse());
                 //check we have correct money
-                Assert.True(newPlayer1.getBalance() == newbalance);
+                Assert.True(newPlayer1.getBalance() == expectBalance);
             }
             
     }

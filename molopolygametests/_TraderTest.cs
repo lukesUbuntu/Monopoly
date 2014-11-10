@@ -10,6 +10,7 @@ namespace MonopolyGame_9901623
     /// Test for the Trader class
     /// </summary>
     
+
     [TestFixture]
     public class _TraderTest
     {

@@ -17,3 +17,12 @@ C:\Users\Luke Hardiman\Documents\GitHub\Monopoly\MolopolyGameTests\bin\Debug\Mol
 C:\Users\Luke Hardiman\Documents\GitHub\Monopoly\MolopolyGameTests\bin\Debug\nunit.framework.dll
 C:\Users\Luke Hardiman\Documents\GitHub\Monopoly\MolopolyGameTests\bin\Debug\MolopolyGame.pdb
 C:\Users\Luke Hardiman\Documents\GitHub\Monopoly\MolopolyGameTests\bin\Debug\nunit.framework.xml
+E:\github\Monopoly\MolopolyGameTests\bin\Debug\MolopolyGameTests.dll
+E:\github\Monopoly\MolopolyGameTests\bin\Debug\MolopolyGameTests.pdb
+E:\github\Monopoly\MolopolyGameTests\bin\Debug\MolopolyGame.exe
+E:\github\Monopoly\MolopolyGameTests\bin\Debug\nunit.framework.dll
+E:\github\Monopoly\MolopolyGameTests\bin\Debug\MolopolyGame.pdb
+E:\github\Monopoly\MolopolyGameTests\bin\Debug\nunit.framework.xml
+E:\github\Monopoly\MolopolyGameTests\obj\Debug\MolopolyGameTests.csprojResolveAssemblyReference.cache
+E:\github\Monopoly\MolopolyGameTests\obj\Debug\MolopolyGameTests.dll
+E:\github\Monopoly\MolopolyGameTests\obj\Debug\MolopolyGameTests.pdb
