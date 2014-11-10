@@ -100,8 +100,8 @@ namespace MonopolyGame_9901623
 
         public decimal unMortgageProperty()
         {
-
-            decimal payable = this.dMortgageValue + (this.dMortgageValue * 10 / 100);
+            //(this.dMortgageValue * 10 / 100) + this.dMortgageValue
+            decimal payable = (this.dMortgageValue * 10 / 100) + this.dMortgageValue;
 
             this.getOwner().pay(payable);
             Banker.access().receive(payable);

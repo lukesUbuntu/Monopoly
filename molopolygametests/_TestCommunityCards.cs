@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MonopolyGame_9901623
 {
     /// <summary>
-    /// Testing comunity manager
+    /// Testing comunity cards
     /// </summary>
     [TestFixture]
     class _TestCommunityCards 
@@ -26,15 +26,13 @@ namespace MonopolyGame_9901623
                 Board.access().addPlayer(newPlayer1);
                 Board.access().addPlayer(newPlayer2);
             }
+
             [Test]
             public void testDeckShuffling()
             {
                 //Draw cards till shuffle is invoked
                 CommunityCards target = CommunityCards.access();
                 target.shuffleCards();
-
-                   
-                
             }
 
             
@@ -96,10 +94,6 @@ namespace MonopolyGame_9901623
             [Test]
             public void testget_jail_free()
             {
-
-
-
-
                 CommunityClass.setPlayer(ref newPlayer1);
                 //give the player jail card
                 CommunityClass.get_jail_free();
@@ -410,6 +404,9 @@ namespace MonopolyGame_9901623
             }
             
     }
+    /// <summary>
+    /// We require this to overide and set some settings in the orginal class without actually editing the source
+    /// </summary>
         public class testCommunity : CommunityCards
         {
 

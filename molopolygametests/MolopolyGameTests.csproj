@@ -65,6 +65,8 @@
     <Compile Include="_TestChanceCards.cs" />
     <Compile Include="_TestCommunityCards.cs" />
     <Compile Include="_TestConsoleOveride.cs" />
+    <Compile Include="_TestResidential.cs" />
+    <Compile Include="_TestTradeableProperty.cs" />
     <Compile Include="_TestTransport.cs" />
     <Compile Include="_TraderTest.cs" />
     <Compile Include="_UtilityTest.cs" />

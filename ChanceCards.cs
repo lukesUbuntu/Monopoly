@@ -19,6 +19,7 @@ namespace MonopolyGame_9901623
         protected List<Action> randomize_cards = new List<Action>();
         protected int cardCount = 0;
         protected bool removeJailCard = false;
+        protected Random randomNumber = new Random();
         public static ChanceCards access()
         {
             if (chancecards == null)
@@ -121,11 +122,10 @@ namespace MonopolyGame_9901623
            the_player = player;
            Action action = the_deck.Dequeue();
            action.Invoke();
-           return String.Format("<color:White>{0}</color>", this.the_action_message);
-;           
+           return String.Format("<color:White>{0}</color>", this.the_action_message);      
        }
         
-        protected void advance_to_go()
+        public void advance_to_go()
        {
            the_player.setLocation(0);
            the_action_message = String.Format("Advance straight to GO");
@@ -134,12 +134,19 @@ namespace MonopolyGame_9901623
        }
 
         /// <summary>
-        /// Advances to a random prop on board
+        /// Advances to a random prop on board that user is currently not on
         /// </summary>
-        protected void advance_random()
+        public void advance_random()
           {
-              Random rndProp = new Random();
-              int location = rndProp.Next(Board.access().getProperties().Count);
+             
+              int current_location = this.the_player.getLocation();
+              int location = 0;
+              do
+              {
+                  location = randomNumber.Next(0, Board.access().getProperties().Count);
+
+              } while (location == current_location);
+
               Property theProp = Board.access().getProperty(location);
               the_action_message = String.Format("Advance to {0}", theProp.getName());
               the_player.setLocation(location);
@@ -147,12 +154,13 @@ namespace MonopolyGame_9901623
           }
 
 
-        protected void advance_to_utility()
+        public void advance_to_utility()
         {
             //loop all props
             ArrayList theProps = Board.access().getProperties();
             Property theUtility = null;
             int location = 0;
+
             //for(Property theProp in theProps){
             for (int propindex = 0; propindex < theProps.Count; propindex++)
             {
@@ -178,7 +186,7 @@ namespace MonopolyGame_9901623
         /// <summary>
         /// Advance to the nearest transport
         /// </summary>
-        protected void advance_to_transport()
+        public void advance_to_transport()
           {
               //loop all props
               ArrayList theProps = Board.access().getProperties();
@@ -207,20 +215,20 @@ namespace MonopolyGame_9901623
               the_action_message = String.Format("{0} Advance token to nearest Transport. If unowned, you may buy it from the Bank\nNearest Transport is : ", the_player.getName(), theTransport.getName());
           }
 
-       
 
 
-        protected void bank_pays_dividend()
+
+        public void bank_pays_dividend()
         {
             the_action_message = String.Format("Bank pays you dividend of $50 ");
-            Banker.access().pay(20);
-            the_player.receive(20);
+            Banker.access().pay(50);
+            the_player.receive(50);
             the_deck.Enqueue(() => bank_pays_dividend());
         }
 
 
 
-        protected void get_jail_free()
+        public void get_jail_free()
           {
               if (this.removeJailCard == true)
               {
@@ -233,7 +241,7 @@ namespace MonopolyGame_9901623
               the_action_message = String.Format("Get out of jail free card received\nCard has been removed from deck and is with {0}",the_player.getName());
           }
 
-        protected void go_back_3_spaces()
+        public void go_back_3_spaces()
         {
             int location = the_player.getLocation() - 3;
 
@@ -258,9 +266,9 @@ namespace MonopolyGame_9901623
               
           }
 
-       
 
-        protected void street_repairs()
+
+        public void street_repairs()
           {
               
               //lets get list of all props owned
@@ -278,7 +286,7 @@ namespace MonopolyGame_9901623
               the_deck.Enqueue(() => street_repairs());
           }
 
-        protected void pay_poor_tax()
+        public void pay_poor_tax()
         {
             the_action_message = String.Format("Pay poor tax $20.00");
             Banker.access().receive(20);
@@ -286,18 +294,22 @@ namespace MonopolyGame_9901623
             the_deck.Enqueue(() => pay_poor_tax());
         }
 
-        protected void elected_chair_person()
+        public void elected_chair_person()
         {
             the_action_message = String.Format("You have been elected chairman of the board – pay each player $50  ");
             foreach (Player player in Board.access().getPlayers())
             {
-                player.receive(50);
-                the_player.pay(50);
+                if (player != the_player)
+                {
+                    player.receive(50);
+                    the_player.pay(50);
+                }
+                
             }
             the_deck.Enqueue(() => elected_chair_person());
         }
 
-        protected void building_loan_matures()
+        public void building_loan_matures()
         {
             the_action_message = String.Format("Your building loan matures – collect $150 ");
             Banker.access().pay(150);
@@ -305,7 +317,7 @@ namespace MonopolyGame_9901623
             the_deck.Enqueue(() => building_loan_matures());
         }
 
-        protected void cross_word_comp()
+        public void cross_word_comp()
         {
             the_action_message = String.Format("You have won a crossword competition - collect $100");
             Banker.access().pay(100);

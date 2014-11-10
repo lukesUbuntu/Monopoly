@@ -12,17 +12,14 @@ namespace MonopolyGame_9901623
     /// </summary>
         public class ConsoleOveride : TextWriter
         {
-            //for debugging purpose for test plan
-            private bool debug = false;
-            private String theConsole = null;
 
-            public ConsoleOveride(bool debug = false)
-            {
-                //for testing
-                this.debug = debug; 
-            }
+            
+
+
            
+            //private TextWriter originalOut = Console.Out;
             private TextWriter originalOut = Console.Out;
+
             private Regex regexColor = new Regex("<color:(.*?)>(.*?)</color>");
             /// <summary>
             /// Receives the first instance of the call for WriteLine
@@ -39,7 +36,7 @@ namespace MonopolyGame_9901623
                 else
                 {
                     //output to orginal console writeout
-                    originalOut.WriteLine("{0}", consoleMessage);
+                    this.writeline(consoleMessage);
                 }
                 
             }
@@ -83,7 +80,7 @@ namespace MonopolyGame_9901623
                     else
                     {
                         //this is not part of a color match so append to orginal write out
-                        originalOut.Write(match);
+                        this.write(match);
                     }
                    
                     
@@ -134,19 +131,19 @@ namespace MonopolyGame_9901623
                   
                     beforeMessage = beforeMessage.Replace("\\n", "\n");
 
-                    originalOut.Write(beforeMessage);
+                    this.write(beforeMessage);
                     //@todo need to make sure color exists
                     Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), theColor);
 
-                    originalOut.Write(theMessage);
+                    this.write(theMessage);
                     Console.ForegroundColor = defaultColor;
-                    originalOut.Write(afterMessage);
+                    this.write(afterMessage);
 
                 }
               
 
                 //publish console
-                //originalOut.WriteLine("->{0}", consoleMessage);
+                //this.writeLine("->{0}", consoleMessage);
             }
 
             /// <summary>
@@ -182,7 +179,23 @@ namespace MonopolyGame_9901623
                 return newString;
             }
 
-           
+            /// <summary>
+            /// writes out to the orginal console.Write
+            /// </summary>
+            /// <param name="theMessage">console message</param>
+            protected virtual void write(String theMessage)
+            {
+                originalOut.Write(theMessage);
+            }
+
+            /// <summary>
+            /// writes out to the orginal console.WriteLine
+            /// </summary>
+            /// <param name="theMessage">console message</param>
+            protected virtual void writeline(String theMessage)
+            {
+                originalOut.WriteLine(theMessage);
+            }
         }
     
 }

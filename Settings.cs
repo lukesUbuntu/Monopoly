@@ -44,6 +44,7 @@ namespace MonopolyGame_9901623
                 //set new player details
                 newPlayer.setLocation(theplayer.playersLocation);
                 newPlayer.setBalance(theplayer.playersAccount);
+               
 
                 //update jail card
                 if (theplayer.getOutOfJail)

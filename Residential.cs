@@ -52,10 +52,14 @@ namespace MonopolyGame_9901623
 
         public void addHotel()
         {
-            // pay for houses
-            this.getOwner().pay(this.dHouseCost * 2);
-            //add houses to residental
-            this.iHouses++;
+            if (this.iHouses >= iMaxHouses)
+            {
+                // pay for houses
+                this.getOwner().pay(this.dHouseCost * 2);
+                //add houses to residental
+                this.iHouses++;
+            }
+           
         }
         /// <summary>
         /// Sells a house or hotel back to banker
@@ -96,46 +100,32 @@ namespace MonopolyGame_9901623
             //String houseHotel = (this.hasHotel() == true) ? "Hotels : 1" : "Houses : "+this.getHouseCount().ToString();
             return base.ToString() + string.Format("\t : {0}", (this.hasHotel() == true) ? "Hotels : 1" : "Houses : " + this.getHouseCount().ToString());
         }
+        /// <summary>
+        /// Morgages property and gives money to player
+        /// </summary>
         public override void mortgageProperty()
         {
-            this.getOwner().pay(this.dMortgageValue);
+            this.getOwner().receive(this.dMortgageValue);
             Banker.access().pay(this.dMortgageValue);
             this.mortgaged = true;
 
             //return this.dMortgageValue;
         }
+        /// <summary>
+        /// Returns the unmortgage price user will have to pay
+        /// </summary>
+        /// <returns>decimal value</returns>
         public override decimal unMortgagePropertyPrice()
         {
             return (this.dMortgageValue * 10 / 100) + this.dMortgageValue;
+           
         }
         public override decimal mortgagePropertyPrice()
         {
             return this.dMortgageValue;
         }
-        /*        
-        public decimal unMortgageProperty()
-        {
-
-            decimal payable = this.dMortgageValue + (this.dMortgageValue * 10 / 100);
-
-            this.getOwner().pay(payable);
-            Banker.access().receive(payable);
-
-            this.mortgaged = false;
-
-            return payable;
-        }
-        */
        
-
-        
-
-        /*
-        public void setColor(ConsoleColor color)
-        {
-            this.Color = color;
-        }
-       */
+      
     }
 }
 

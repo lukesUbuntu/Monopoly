@@ -131,5 +131,113 @@ namespace MonopolyGame_9901623
             Assert.Contains(p, t.getPropertiesOwned());
 
         }
+
+        [Test]
+        public void propety_receive()
+        {
+            Trader trader = new Trader();
+            Property prop = new Property("Queen Street");
+            decimal expected_balance = trader.getBalance() + 50;
+
+            trader.obtainProperty(ref prop);
+            
+            //give the trander $50
+            trader.receive(50);
+
+            Assert.IsTrue(expected_balance == trader.getBalance());
+
+        }
+        [Test]
+        public void propety_pay()
+        {
+            Trader trader = new Trader();
+            Property prop = new Property("Queen Street");
+
+            trader.setBalance(1500);
+            decimal expected_balance = trader.getBalance() - 50;
+
+            trader.obtainProperty(ref prop);
+
+            //give the trander $50
+            trader.pay(50);
+
+            Assert.IsTrue(expected_balance == trader.getBalance());
+
+        }
+        [Test]
+        
+        public void test_check_bankRumpt() 
+        {
+           
+            //Set player with bankrump
+            Trader trader = new Trader("Player1", 0);
+
+            try
+            {
+                trader.checkBankrupt();//nothing should happen (no exception thrown)
+                Assert.Fail();
+
+            }
+            catch (ApplicationException ex)
+            {
+                Console.Write("Exception Thrown: " + ex.Message);
+                Assert.IsTrue("Player1 is Bankrupt" == ex.Message.ToString());
+                
+            }
+
+            
+        }
+        [Test]
+
+        public void test_check_tradeProperty()
+        {
+
+            //Set players for trade
+           
+            Player player1 = new Player("Player1", 1500);
+            Player player2 = new Player("Player2", 1500);
+
+            TradeableProperty theTradeProp = new TradeableProperty();
+            theTradeProp.setOwner(ref player1);
+          
+            
+           
+            decimal tradeAmount = 300;
+
+            //ref TradeableProperty property, ref Player purchaser, decimal amount
+            player1.tradeProperty(ref theTradeProp, ref player2, tradeAmount);
+
+            //make sure player 2 is now the owner
+           Assert.IsTrue(player2.getName() == theTradeProp.getOwner().getName());
+           
+        }
+
+        public void test_check_tradePropertyMorgaged()
+        {
+
+            //Set players for trade
+
+            Player player1 = new Player("Player1", 1500);
+            Player player2 = new Player("Player2", 1500);
+
+            
+            
+
+            TradeableProperty theTradeProp = new TradeableProperty();
+            theTradeProp.setOwner(ref player1);
+            theTradeProp.setIsMortgaged(true);
+
+
+            decimal tradeAmount = 300;
+
+            //ref TradeableProperty property, ref Player purchaser, decimal amount
+            player1.tradeProperty(ref theTradeProp, ref player2, tradeAmount);
+
+            //make sure player 2 is now the owner
+            Assert.IsTrue(player2.getName() == theTradeProp.getOwner().getName());
+            Assert.IsFalse(theTradeProp.isMortgaged());
+
+        }
+
     }
 }

@@ -141,7 +141,6 @@ namespace MonopolyGame_9901623
            Action action = the_deck.Dequeue();
            action.Invoke();
            return String.Format("<color:White>{0}</color>", this.the_action_message);
-;           
        }
         
         public void advance_to_go()
@@ -197,9 +196,13 @@ namespace MonopolyGame_9901623
               the_action_message = String.Format("Its your birthday you collected $10.00 from every player");
               foreach (Player otherPlayer in Board.access().getPlayers())
               {
-                  otherPlayer.pay(10);
-                  //the_action_message +=     "\n"    +   otherPlayer.getName();
-                  the_player.receive(10);
+                  if (otherPlayer != the_player)
+                  {
+                      otherPlayer.pay(10);
+                      //the_action_message +=     "\n"    +   otherPlayer.getName();
+                      the_player.receive(10);
+                  }
+
               }
               the_deck.Enqueue(() => your_birthday());
           }
@@ -209,7 +212,7 @@ namespace MonopolyGame_9901623
               the_action_message = String.Format("Grand Opera Night collect $50.00 from every player for opening night seats ");
               foreach (Player player in Board.access().getPlayers())
               {
-                  if (player.getName() != the_player.getName())
+                  if (player != the_player)
                   {
                       player.pay(50);
                       the_player.receive(50);
