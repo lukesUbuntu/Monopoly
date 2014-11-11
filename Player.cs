@@ -201,6 +201,13 @@ namespace MonopolyGame_9901623
             int owned_group = 0;
             Game.PropertyGroup theGroup = theProperty.getGroup();
 
+            //if the prop groups is none then return jus this property
+            if (theGroup == Game.PropertyGroup.NONE)
+            {
+                 tmpProps.Add(theProperty);
+                 return tmpProps;
+            }
+
             //go through all the properties
             for (int i = 0; i < Board.access().getProperties().Count; i++)
             {

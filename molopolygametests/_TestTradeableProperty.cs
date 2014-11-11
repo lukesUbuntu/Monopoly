@@ -81,5 +81,33 @@ namespace MonopolyGame_9901623
 
 
         }
+
+        [Test]
+        public void test_player_landOn()
+        {
+
+            Player newPlayer1 = new Player("player1", 1500);
+            Player newPlayer2 = new Player("player2", 1500);
+
+            TradeableProperty theTradeProp = new TradeableProperty();
+            //set prop owner
+            theTradeProp.setOwner(ref newPlayer1);
+
+            //String the1 = theTradeProp.landOn(ref newPlayer2);
+            string landon1 = theTradeProp.landOn(ref newPlayer2).ToString();
+            StringAssert.Contains("$100 to player1", landon1);
+
+            //set prop mortgaged
+            theTradeProp.setIsMortgaged(true);
+            string landon2 = theTradeProp.landOn(ref newPlayer2).ToString();
+            StringAssert.Contains("is currently morgaged skipping rent payment", landon2);
+            String the2 = theTradeProp.landOn(ref newPlayer2);
+
+            //set owner as landon
+            theTradeProp.setIsMortgaged(false);
+            string landon3 = theTradeProp.landOn(ref newPlayer1).ToString();
+            StringAssert.Contains("is owned by", landon2);
+
+        }
     }
 }

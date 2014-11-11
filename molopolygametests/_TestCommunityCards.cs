@@ -220,8 +220,8 @@ namespace MonopolyGame_9901623
             {
                 //set expected balance 
                 //new balances for players
-                decimal newbalance_player1 = newPlayer1.getBalance() + 10;
-                decimal newbalance_player2 = newPlayer2.getBalance() - 10;
+                decimal newbalance_player1 = newPlayer1.getBalance() + (10 * Board.access().getPlayerCount()) - 10;
+              
 
 
 
@@ -232,7 +232,7 @@ namespace MonopolyGame_9901623
                 StringAssert.StartsWith("Its your birthday you collected", CommunityClass.returnResponse());
                 //check we have correct money
                 Assert.True(newPlayer1.getBalance() == newbalance_player1);
-                Assert.True(newPlayer2.getBalance() == newbalance_player2);
+               
             }
             [Test]
             public void testreturn_jail_card()
@@ -255,10 +255,12 @@ namespace MonopolyGame_9901623
             public void testgrand_opera_night()
             {
 
-               
+
+                newPlayer1.setBalance(50);
+                newPlayer2.setBalance(50);
                 //player should reseive $50.00
-                decimal newbalance_player1 = newPlayer1.getBalance() + 50;
-                decimal newbalance_player2 = newPlayer2.getBalance() - 50;
+                decimal newbalance_player1 = newPlayer1.getBalance() + (50 * Board.access().getPlayerCount()) - 50;
+                
 
 
 
@@ -271,7 +273,7 @@ namespace MonopolyGame_9901623
                 StringAssert.StartsWith("Grand Opera Night collect", CommunityClass.returnResponse());
                 //check we have correct money
                 Assert.True(newPlayer1.getBalance() == newbalance_player1);
-                Assert.True(newPlayer2.getBalance() == newbalance_player2);
+               
             }
         
 

@@ -13,10 +13,10 @@ namespace MonopolyGame_9901623
         
         public int roll()
         {
-            numberRolled = 1;
-            //numberRolled = numGenerator.Next(1, 7);
+            //numberRolled = 1;
+            numberRolled = numGenerator.Next(1, 7);
             return numberRolled;
-            //return 10;
+           
         }
 
         public int numberLastRolled()

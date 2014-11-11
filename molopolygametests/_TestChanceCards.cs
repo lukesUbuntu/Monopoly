@@ -146,8 +146,8 @@ namespace MonopolyGame_9901623
             //check we are not still on location 10
             Assert.True(newPlayer1.getLocation() != 1);
             //Check that we are on the nearest utility
-            String playersLocation = Board.access().getProperty(newPlayer1.getLocation()).getRName();
-            Assert.AreEqual("Transport 1", playersLocation);
+            Property playersLocation = Board.access().getProperty(newPlayer1.getLocation());
+            Assert.IsTrue((playersLocation is Transport));
         }
 
         [Test]
@@ -276,8 +276,8 @@ namespace MonopolyGame_9901623
         public void test_elected_chair_person()
         {
 
-            //there is only 1 player so balance should be -50
-            decimal expected_balance = newPlayer1.getBalance() - 50;
+            //there is only 1 player so balance should be - players on board except ourselfs
+            decimal expected_balance = newPlayer1.getBalance() - (50 * Board.access().getPlayerCount()) + 50;
 
             //set player
             ChanceCardsClass.setPlayer(ref newPlayer1);

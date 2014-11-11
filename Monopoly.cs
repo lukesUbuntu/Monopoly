@@ -140,10 +140,10 @@ namespace MonopolyGame_9901623
         {
             int resp = 0;
             Console.WriteLine("Please make a selection:\n");
-            Console.WriteLine("<color:White>1.</color><color:Red>Setup Monopoly Game</color>");
+            Console.WriteLine("<color:White>1.</color><color:Yellow>Setup Monopoly Game</color>");
             Console.WriteLine("<color:White>2.</color><color:Green>Start New Game</color>");
-            Console.WriteLine("<color:White>3.</color><color:Red>Exit</color>");
-            Console.WriteLine("<color:White>4.</color>Load Previous Game");
+            Console.WriteLine("<color:White>3.</color>Load Previous Game");
+            Console.WriteLine("<color:White>4.</color><color:Red>Exit</color>");
             Console.Write("(1-3)>");
 
             //read response
@@ -171,31 +171,39 @@ namespace MonopolyGame_9901623
                             this.displayMainChoiceMenu();
                         }
                         break;
+                    
                     case 3:
-                        Environment.Exit(0);
-                        break;
-                    case 4:
                         this.setUpProperties();
                         Board.access().loadGame();
-                        /*
-                        for (int i = 0; i < 2; i++)
-                        {
+                        
+                        //bound bunkrumpt handlers 
+                        ArrayList thePlayers = Board.access().getPlayers();
 
-                           
-                           
-                            Player player = new Player("player "+i);
-                            //subscribe to events
-                            player.playerBankrupt += playerBankruptHandler;
-                            player.playerPassGo += playerPassGoHandler;
-                            //add player 
-                            Board.access().addPlayer(player);
-                            Console.WriteLine("{0} has been added to the game.", Board.access().getPlayer(i).getName());
+                        //no players loaded
+                        if (thePlayers.Count == 0)
+                        {
+                            Console.WriteLine("No players found...");
+                            this.displayMainChoiceMenu();
                         }
-                         */
+                            
+
+                        foreach (Player thePlayer in thePlayers)
+                        {
+                           
+                            //subscribe to events
+                            thePlayer.playerBankrupt += playerBankruptHandler;
+                            thePlayer.playerPassGo += playerPassGoHandler;
+
+                          
+                        }
+
                         
                         this.gameSetUp = true;
 
                         this.playGame();
+                        break;
+                    case 4:
+                        Environment.Exit(0);
                         break;
                     default:
                         throw new ApplicationException("That option is not avaliable. Please try again.");
@@ -229,7 +237,7 @@ namespace MonopolyGame_9901623
             } 
         }
 
-        public int inputInteger() //0 is invalid input
+        public virtual int inputInteger() //0 is invalid input
         {
             try
             {
@@ -242,7 +250,7 @@ namespace MonopolyGame_9901623
             }
         }
 
-        public decimal inputDecimal() //0 is invalid input
+        public virtual decimal inputDecimal() //0 is invalid input
         {
             try
             {
@@ -408,7 +416,7 @@ namespace MonopolyGame_9901623
             return string.Format("{0}:\t", player.getName());
         }
 
-        public bool getInputYN(Player player, string sQuestion)
+        public virtual bool getInputYN(Player player, string sQuestion)
         {
             Console.WriteLine(playerPrompt(player) + sQuestion);
             Console.Write("y/n>");
@@ -441,7 +449,7 @@ namespace MonopolyGame_9901623
             Console.WriteLine("1. Finish turn");
             Console.WriteLine("2. View your details");
 
-            Console.WriteLine("3. Pay $50 to get out of jail");
+            Console.WriteLine("3. Pay <color:Yellow>$</color>50 to get out of jail");
             Console.WriteLine("4. Try roll doubles to get out of jail");
 
            
@@ -490,17 +498,19 @@ namespace MonopolyGame_9901623
         public void displayPlayerChoiceMenu(Player player,bool fullmenu = false)
         {
             int resp = 0;
+            
             //display menus based on users selection
             Property theBoardProp = Board.access().getProperty(player.getLocation());
+            Console.WriteLine(ConsoleOveride.spacer);
 
             Console.WriteLine("\n{0}Please make a selection:\n", playerPrompt(player));
 
-            Console.WriteLine("1. Finish turn");
+            Console.WriteLine("<color:White>1.</color> <color:Green>Finish turn</color>");
 
-            Console.WriteLine("2. View your details & Full Player Options");
+            Console.WriteLine("<color:White>2.</color> <color:Yellow>View your details & Full Player Options</color>");
 
             if (theBoardProp.availableForPurchase())
-            Console.WriteLine("3. Purchase This Property");
+                Console.WriteLine("<color:White>3.</color> <color:Yellow>Purchase This Property</color>");
 
             if (theBoardProp.getOwner() == player || fullmenu == true)
             {
@@ -512,31 +522,31 @@ namespace MonopolyGame_9901623
 
                     if (fullmenu == true)
                     {
-                        Console.WriteLine("4. Buy houses for Property");
+                        Console.WriteLine("<color:White>4.</color> <color:Magenta>Buy houses for Property</color>");
                     }
                     else
                     {
                         if (((Residential)theBoardProp).hasHotel() == false)
-                            Console.WriteLine("4. Buy {0} for Property", (currentHouse >= 4) ? "Hotel" : "House");
+                            Console.WriteLine("<color:White>4.</color> <color:Magenta>Buy {0} for Property</color>", (currentHouse >= 4) ? "Hotel" : "House");
                     }
 
                     //if we have houses show the sell house option
                     if (currentHouse >= 1 || fullmenu == true)
-                        Console.WriteLine("5. Sell House for Property");
+                        Console.WriteLine("<color:White>5.</color> <color:Magenta>Sell House for Property</color>");
 
                 }
 
 
-                Console.WriteLine("6. Trade Property with Player");
+                Console.WriteLine("<color:White>6.</color> <color:Blue>Trade Property with Player</color>");
 
                 if (theBoardProp.isMortgaged() == false || fullmenu == true)
-                    Console.WriteLine("7. Mortagae Property");
+                    Console.WriteLine("<color:White>7.</color> <color:DarkYellow>Mortagae Property</color>");
                 
                 
                 if (theBoardProp.isMortgaged() || fullmenu == true)
-                    Console.WriteLine("8. UN-Mortagae Property");
+                    Console.WriteLine("<color:White>8.</color> <color:DarkYellow>UN-Mortagae Property</color>");
 
-                Console.WriteLine("9. Save Game");
+                Console.WriteLine("<color:White>9.</color> Save Game");
                 
                    
             }
@@ -638,7 +648,7 @@ namespace MonopolyGame_9901623
             if (Board.access().getProperty(player.getLocation()).availableForPurchase())
             {
                 TradeableProperty propertyLocatedOn = (TradeableProperty)Board.access().getProperty(player.getLocation());
-                bool respYN = getInputYN(player, string.Format("'{0}' is available to purchase for ${1}. Are you sure you want to purchase it?", propertyLocatedOn.getName(), propertyLocatedOn.getPrice()));
+                bool respYN = getInputYN(player, string.Format("'{0}' is available to purchase for <color:Yellow>$</color>{1}. Are you sure you want to purchase it?", propertyLocatedOn.getName(), propertyLocatedOn.getPrice()));
                 if (respYN)
                 {
                     propertyLocatedOn.purchase(ref player);//purchase property
@@ -668,20 +678,19 @@ namespace MonopolyGame_9901623
             //get the property to buy house for
             Property property = this.displayPropertyChooser(player.getPropertiesOwnedFromBoard(), sPrompt);
 
-            propertyToBuyFor = (Residential)property;
-            //if dont own any properties
+
+            
             
             //check that it is a residential
-            if (propertyToBuyFor != null && property.GetType() == (new Residential().GetType()))
+            if (property.GetType() != (new Residential().GetType()))
             {
-                //cast to residential property
+                Console.WriteLine("{0}A house can not be bought for {1} because it is not a Residential Property.", this.playerPrompt(player), property.getName());
+                return;
                
             }
-            else //else display msg 
-            {
-                Console.WriteLine("{0}A house can not be bought for {1} because it is not a Residential Property.", this.playerPrompt(player), propertyToBuyFor.getName());
-                return;
-            }
+            
+            propertyToBuyFor = (Residential)property;
+            //if dont own any properties
 
             var playersProps = player.returnGroupProperties(propertyToBuyFor);
 
@@ -723,7 +732,7 @@ namespace MonopolyGame_9901623
                 Console.WriteLine("{0}The maximum house limit for {1} of {2} houses has been reached.", playerPrompt(player), propertyToBuyFor.getName(), Residential.getMaxHouses());
                 
                 //confirm
-                bool doBuyHouse = this.getInputYN(player, String.Format("You chose to buy a Hotel for {0}. Are you sure you want to purchase a Hotel for ${1}?", propertyToBuyFor.getName(), (propertyToBuyFor.getHouseCost() * 2)));
+                bool doBuyHouse = this.getInputYN(player, String.Format("You chose to buy a Hotel for {0}. Are you sure you want to purchase a Hotel for <color:Yellow>$</color>{1}?", propertyToBuyFor.getName(), (propertyToBuyFor.getHouseCost() * 2)));
                 //if confirmed
                 if (doBuyHouse)
                 {
@@ -741,7 +750,7 @@ namespace MonopolyGame_9901623
                 
                 
                 //confirm
-                bool doBuyHouse = this.getInputYN(player, String.Format("You chose to buy a house for {0}. Are you sure you want to purchase a house for ${1}?", propertyToBuyFor.getName(), propertyToBuyFor.getHouseCost()));
+                bool doBuyHouse = this.getInputYN(player, String.Format("You chose to buy a house for {0}. Are you sure you want to purchase a house for <color:Yellow>$</color>{1}?", propertyToBuyFor.getName(), propertyToBuyFor.getHouseCost()));
                 //if confirmed
                 if (doBuyHouse)
                 {
@@ -777,14 +786,14 @@ namespace MonopolyGame_9901623
             //if dont own any properties
 
             //check that it is a residential
-            if (property.GetType() == (new Residential().GetType()))
+            if (property is Residential)
             {
                 //cast to residential property
                 propertyToSellFor = (Residential)property;
             }
             else //else display msg 
             {
-                Console.WriteLine("{0}A house can not be sold for {1} because it is not a Residential Property.", this.playerPrompt(player), propertyToSellFor.getName());
+                Console.WriteLine("{0}A house can not be sold for {1} because it is not a Residential Property.", this.playerPrompt(player), property.getName());
                 return;
             }
 
@@ -796,7 +805,7 @@ namespace MonopolyGame_9901623
             {
 
                 Console.WriteLine("{0}You have a hotel on {1} and the price for selling is half the purchased price.", playerPrompt(player), propertyToSellFor.getName());
-                bool doBuyHouse = this.getInputYN(player, String.Format("Are you sure you want to sell this Hotel for ${0}?", (propertyToSellFor.getHouseCost())));
+                bool doBuyHouse = this.getInputYN(player, String.Format("Are you sure you want to sell this Hotel for <color:Yellow>$</color>{0}?", (propertyToSellFor.getHouseCost())));
                 if (doBuyHouse)
                 {
                     propertyToSellFor.sellHouse();
@@ -810,7 +819,7 @@ namespace MonopolyGame_9901623
                 
 
                 //confirm
-                bool doBuyHouse = this.getInputYN(player, String.Format("You currently have {0}. Are you sure you want to sell a House for ${1}?", propertyToSellFor.getHouseCount(), propertyToSellFor.getHouseCost() / 2));
+                bool doBuyHouse = this.getInputYN(player, String.Format("You currently have {0}. Are you sure you want to sell a House for <color:Yellow>$</color>{1}?", propertyToSellFor.getHouseCount(), propertyToSellFor.getHouseCost() / 2));
                 //if confirmed
                 if (doBuyHouse)
                 {
@@ -857,7 +866,7 @@ namespace MonopolyGame_9901623
                 return true;
 
             //may as well make sure there is more group houses
-            if (Board.access().countPropGroups(theProp.getGroup()) <= 1)
+            if (Board.access().countPropGroups(theProp.getGroup()) <= 1 || theProp.getGroup() == Game.PropertyGroup.NONE)
                 return true;
 
             //lets do some prechecks
@@ -903,27 +912,6 @@ namespace MonopolyGame_9901623
             Decimal theMortgage = ((Property)property).mortgagePropertyPrice();
             ((Property)property).mortgageProperty();
                
-          
-            
-            /*
-            if (property is Utility)
-            {
-
-                theMortgage = ((Property)property).mortgageProperty();
-
-            }
-            if (property is Transport)
-            {
-                theMortgage = ((Property)property).mortgageProperty();
-            }
-
-            
-            if (property is Residential)
-            {
-                theMortgage = ((Property)property).mortgageProperty();
-
-            }
-            */
 
             Console.WriteLine("{0} was recevied for morgage {1} .", theMortgage , property.getName());
         }
@@ -998,7 +986,7 @@ namespace MonopolyGame_9901623
             {
                 decimal morgagePrice  = propertyToTrade.unMortgagePropertyPrice();
                 
-               theMessage = string.Format("{0} wants to trade '{1}' with you for ${2}. The property is currently morgaged you will have to pay the bank ${3} to unmorgage as well \nDo you agree to pay ${4} + morgage ${5} for '{6}'"
+               theMessage = string.Format("{0} wants to trade '{1}' with you for <color:Yellow>$</color>{2}. The property is currently morgaged you will have to pay the bank <color:Yellow>$</color>{3} to unmorgage as well \nDo you agree to pay <color:Yellow>$</color>{4} + morgage <color:Yellow>$</color>{5} for '{6}'"
                                            , player.getName()
                                            , propertyToTrade.getName()
                                            ,amountWanted
@@ -1009,7 +997,7 @@ namespace MonopolyGame_9901623
                                            );
 
             }else{
-                theMessage = string.Format("{0} wants to trade '{1}' with you for ${2}. Do you agree to pay ${2} for '{1}'", player.getName(), propertyToTrade.getName(), amountWanted);
+                theMessage = string.Format("{0} wants to trade '{1}' with you for <color:Yellow>$</color>{2}. Do you agree to pay <color:Yellow>$</color>{2} for '{1}'", player.getName(), propertyToTrade.getName(), amountWanted);
             }
                 //get player response
             bool agreesToTrade = getInputYN(playerToTradeWith, theMessage);
@@ -1026,7 +1014,7 @@ namespace MonopolyGame_9901623
             else
             {
                 //display rejection message
-                Console.WriteLine("{0}{1} does not agree to trade {2} for ${3}", playerPrompt(player), playerToTradeWith.getName(), propertyToTrade.getName(), amountWanted);
+                Console.WriteLine("{0}{1} does not agree to trade {2} for <color:Yellow>$</color>{3}", playerPrompt(player), playerToTradeWith.getName(), propertyToTrade.getName(), amountWanted);
             }     
         }
 
@@ -1114,7 +1102,7 @@ namespace MonopolyGame_9901623
         public static void playerPassGoHandler(object obj, EventArgs args)
         {
             Player p = (Player)obj;
-            Console.WriteLine("{0} has passed go.{0} has received $200", p.getName());
+            Console.WriteLine("{0} has passed go.{0} has received <color:Yellow>$</color>200", p.getName());
         }
 
 
