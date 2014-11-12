@@ -15,7 +15,7 @@ namespace MonopolyGame_9901623
         protected decimal dBalance; 
         protected string sName;
 
-        //null constructor implemented in inherited classes
+
         public Trader(){ }
 
         //constructor with name and balance
@@ -74,7 +74,12 @@ namespace MonopolyGame_9901623
         {
             this.propertiesOwned.Add(property);
         }
-       
+       /// <summary>
+       /// Trades property with another player, also will pay morgage if prop is morgaged
+       /// </summary>
+       /// <param name="property">the player who has property</param>
+       /// <param name="purchaser">new player </param>
+       /// <param name="amount">amount want for propert</param>
         public void tradeProperty(ref TradeableProperty property, ref Player purchaser, decimal amount)
         {
            

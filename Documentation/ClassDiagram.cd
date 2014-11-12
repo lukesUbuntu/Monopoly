@@ -1,141 +1,236 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="MolopolyGame.Game">
+  <Class Name="MonopolyGame_9901623.Game">
     <Position X="18.75" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="MonopolyGame_9901623.Game.CardType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Game.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="MonopolyGame_9901623.Game.PropertyGroup" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Game.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAgAAAEAAABAAAAAAgAAAAAAAAAABAA=</HashCode>
       <FileName>Game.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="MolopolyGame.Monopoly">
-    <Position X="18.5" Y="5.5" Width="2" />
+  <Class Name="MonopolyGame_9901623.Monopoly">
+    <Position X="18.5" Y="7" Width="2" />
     <TypeIdentifier>
-      <HashCode>gAIAAAAAEAUAAAgQAAAAAABhIEAEQkCAQAQACAhABAA=</HashCode>
+      <HashCode>gAIAAAEAEAUUAAoRIAAAAABhIFAERkCARAQAOAhABAA=</HashCode>
       <FileName>Monopoly.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MolopolyGame.Board">
-    <Position X="15.25" Y="1" Width="2" />
-    <TypeIdentifier>
-      <HashCode>IAIAABAAQAgAQQAEAQAAAAQAAAgACAAAIAAAAAAAAAA=</HashCode>
-      <FileName>Board.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MolopolyGame.Player">
-    <Position X="0.75" Y="5.5" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAoQAAAgAAAAkACEgAAAAIACAKCAAgCCgAAAAAAAAgA=</HashCode>
-      <FileName>Player.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MolopolyGame.Banker">
-    <Position X="4.5" Y="5.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAACAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Banker.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MolopolyGame.Property">
-    <Position X="8" Y="1" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAgAkAIAAAAAgAAEAAAAAAAAAAAAAAAgAAAEAAAAAAA=</HashCode>
-      <FileName>Property.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MolopolyGame.Utility">
+  <Class Name="MonopolyGame_9901623.Utility">
     <Position X="13.75" Y="7.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAEAgAACAAAAAEAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAEAgAACAAAAAEAAAAAAABAAAAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>Utility.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MolopolyGame.Luck">
-    <Position X="6.5" Y="4.25" Width="2" />
-    <TypeIdentifier>
-      <HashCode>EAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
-      <FileName>Luck.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MolopolyGame.Card">
-    <Position X="13.5" Y="1" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Card.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MolopolyGame.Die">
-    <Position X="0.5" Y="1" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAEAAAAAAAgAAAAAAAAAAAAACAIAAA=</HashCode>
-      <FileName>Die.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MolopolyGame.Residential">
-    <Position X="10.25" Y="7.75" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAACAACAIAQAEACAgAAAAAAABAAAAAAAAAAAAQAA=</HashCode>
-      <FileName>Residential.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MolopolyGame.Transport">
-    <Position X="7" Y="8" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Transport.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MolopolyGame.PropertyFactory">
+  <Class Name="MonopolyGame_9901623.PropertyFactory">
     <Position X="7.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>PropertyFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MolopolyGame.ResidentialFactory">
-    <Position X="5.5" Y="12" Width="1.5" />
+  <Class Name="MonopolyGame_9901623.ResidentialFactory">
+    <Position X="3.5" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>ResidentialFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MolopolyGame.UtilityFactory">
-    <Position X="7.75" Y="12" Width="1.5" />
+  <Class Name="MonopolyGame_9901623.UtilityFactory">
+    <Position X="7.5" Y="13.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>UtilityFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MolopolyGame.LuckFactory">
-    <Position X="10" Y="12" Width="1.5" />
+  <Class Name="MonopolyGame_9901623.LuckFactory">
+    <Position X="9" Y="15.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>LuckFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MolopolyGame.InitialValuesAccessor">
+  <Class Name="MonopolyGame_9901623.InitialValuesAccessor">
     <Position X="15.25" Y="5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>InitialValuesAccessor.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MolopolyGame.TradeableProperty">
-    <Position X="10" Y="4.25" Width="1.75" />
+  <Class Name="MonopolyGame_9901623.Banker">
+    <Position X="0.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAUACAAAAAEAAAAABABQAAAAAAgAAAAQAAAAAA=</HashCode>
+      <HashCode>AAAAAACAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Banker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.Board">
+    <Position X="29.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIIAAxAAQEgAQSAEEwAAAAQAAAgACAAMoIAAAAAAAEA=</HashCode>
+      <FileName>Board.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.ChanceCards">
+    <Position X="24.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gBAQBAAARAAIQgAEEAAEGAAMABAkAAAAQAAAEAAiEgg=</HashCode>
+      <FileName>ChanceCards.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.CommunityCards">
+    <Position X="24.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIABBAAARIgIAAAAEgAAOAAMgHCkAAAAAEgAEAACEkA=</HashCode>
+      <FileName>CommunityCards.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.ConsoleOveride">
+    <Position X="28" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAEAggAAAIAAAAAEAAgAAAAAAAAQIAAAGAAAA=</HashCode>
+      <FileName>ConsoleOveride.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.Die">
+    <Position X="22.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAEAAAAAAAgAAAAAAAAAAAAACAIAAA=</HashCode>
+      <FileName>Die.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.Jail">
+    <Position X="9" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAEAAAAAABAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Jail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.JailFactory">
+    <Position X="0.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>JailFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.Luck">
+    <Position X="6.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAACgAA=</HashCode>
+      <FileName>Luck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.Player">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAoQgAAgcIYAkGCEoAAAAIACAKKZKkCCgAoAAAAAAgA=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.Program">
+    <Position X="28" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.Property">
+    <Position X="11" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAgAkEIQUAAAgQAEAAAAAEAAACAAAAAkBAAEhIAAAAQ=</HashCode>
+      <FileName>Property.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.Residential">
+    <Position X="11.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAACAIAAgEACAgAEAAAAABBAAEBAAAAAAAQAA=</HashCode>
+      <FileName>Residential.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.Settings">
+    <Position X="22.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAICAAAABAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.Settingsxml">
+    <Position X="26.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.PlayerSettings">
+    <Position X="26.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAEAACAAAIAACAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.propdetails">
+    <Position X="28" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.TradeableProperty">
+    <Position X="13.25" Y="2" Width="1.5" />
+    <InheritanceLine Type="MonopolyGame_9901623.Property" FixedFromPoint="true">
+      <Path>
+        <Point X="11.188" Y="0.75" />
+        <Point X="11.188" Y="0.375" />
+        <Point X="12.875" Y="0.375" />
+        <Point X="12.875" Y="6.488" />
+        <Point X="14" Y="6.488" />
+        <Point X="14" Y="6.113" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAkFAUQCAAAAAEAAAAABABQAAAAAAgAAAARIAAAAQ=</HashCode>
       <FileName>TradeableProperty.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MolopolyGame.Trader">
-    <Position X="2.5" Y="1" Width="1.75" />
+  <Class Name="MonopolyGame_9901623.Trader">
+    <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAIiAAQgAAAEAAAAAAgAAAAAAADAAAAGkAAAAgA=</HashCode>
       <FileName>Trader.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="MolopolyGame.GameInterface">
-    <Position X="18.75" Y="0.75" Width="1.5" />
+  <Class Name="MonopolyGame_9901623.Transport">
+    <Position X="21.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAACAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Transport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonopolyGame_9901623.TransportFactory" Collapsed="true">
+    <Position X="3.5" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>TransportFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="MonopolyGame_9901623.GameInterface">
+    <Position X="18.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAgAAAEAAABAAAAAAgAAAAAAAAAABAA=</HashCode>
       <FileName>GameInterface.cs</FileName>

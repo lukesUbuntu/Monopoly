@@ -19,7 +19,6 @@ namespace MonopolyGame_9901623
     /// </summary>
     public class CommunityCards 
     {
-        //http://stackoverflow.com/a/3767989/1170430
         protected static CommunityCards communitycards;
         protected Queue<Action> the_deck;
         protected Player the_player;

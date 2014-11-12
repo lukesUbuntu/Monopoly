@@ -53,7 +53,6 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="_SettingsTest.cs" />
     <Compile Include="_InitialValuesAccessorTest.cs" />
     <Compile Include="_LuckTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,7 +64,11 @@
     <Compile Include="_TestChanceCards.cs" />
     <Compile Include="_TestCommunityCards.cs" />
     <Compile Include="_TestConsoleOveride.cs" />
+    <Compile Include="_TestJail.cs" />
+    <Compile Include="_TestMonopoly.cs" />
+    <Compile Include="_TestProperty.cs" />
     <Compile Include="_TestResidential.cs" />
+    <Compile Include="_TestSettings.cs" />
     <Compile Include="_TestTradeableProperty.cs" />
     <Compile Include="_TestTransport.cs" />
     <Compile Include="_TraderTest.cs" />

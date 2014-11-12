@@ -41,10 +41,10 @@ namespace MonopolyGame_9901623
                 {
                     case Game.CardType.CommunityChest :
                         //cardDetails = CommunityCards.access().draw_card(ref player);
-                        return base.landOn(ref player) + String.Format("\n{0} Drawing Community Card...\n<color:Yellow>Card Reads</color> : {1}", player.getName(), CommunityCards.access().draw_card(ref player));
+                        return base.landOn(ref player) + String.Format("\n{0} <color:White>Drawing Community Card...</color>\n<color:Yellow>Card Reads</color> : {1}", player.getName(), CommunityCards.access().draw_card(ref player));
                     case Game.CardType.Chance:
                         //cardDetails = ChanceCards.access().draw_card(ref player);
-                        return base.landOn(ref player) + String.Format("\n{0} Drawing Chance Card...\n<color:Yellow>Card Reads</color> : {1}", player.getName(), CommunityCards.access().draw_card(ref player));
+                        return base.landOn(ref player) + String.Format("\n{0} <color:White>Drawing Chance Card...</color>\n<color:Yellow>Card Reads</color> : {1}", player.getName(), CommunityCards.access().draw_card(ref player));
 
                     default :
                    return base.landOn(ref player) + "Not implmented";

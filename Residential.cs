@@ -30,11 +30,20 @@ namespace MonopolyGame_9901623
         }
 
         
-
+        /// <summary>
+        /// Calculates rent payable based on houses owned and if hotel owned
+        /// </summary>
+        /// <returns></returns>
         public override decimal getRent()
         {
+
+            if (this.hasHotel())
+            {
+                return (dRent + (dRent * iHouses) * 2);
+            }
             //rent is rental amount plus the rental amount for each house
-            return (dRent + (dRent * iHouses));
+           return (dRent + (dRent * iHouses));
+           
         }
 
         public void addHouses(int houses)
@@ -49,7 +58,9 @@ namespace MonopolyGame_9901623
             //add houses to residental
             this.iHouses ++;
         }
-
+        /// <summary>
+        /// Adds a hotel if we have not maxed out on allowed houses
+        /// </summary>
         public void addHotel()
         {
             if (this.iHouses >= iMaxHouses)
@@ -76,6 +87,10 @@ namespace MonopolyGame_9901623
             this.iHouses--;
             
         }
+        /// <summary>
+        /// Checks if the property has a hotel
+        /// </summary>
+        /// <returns>bool true or false</returns>
         public Boolean hasHotel()
         {
             return (this.iHouses > getMaxHouses());

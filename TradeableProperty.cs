@@ -75,6 +75,12 @@ namespace MonopolyGame_9901623
             return base.ToString();
         }
 
+        //@this gets overided
+        /// <summary>
+        /// Land on also calcalates the amount when the user has landed on
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
         public override string landOn(ref Player player)
         {
             //Pay rent if needed & if prop is not morgaged
@@ -97,7 +103,10 @@ namespace MonopolyGame_9901623
 
 
         
-
+        /// <summary>
+        /// Unmortages a propert and returns the decmial value paid to unmortage
+        /// </summary>
+        /// <returns>decimal paid</returns>
         public decimal unMortgageProperty()
         {
             //(this.dMortgageValue * 10 / 100) + this.dMortgageValue
@@ -110,29 +119,23 @@ namespace MonopolyGame_9901623
 
             return payable;
         }
-
+        /// <summary>
+        /// Checks if property is mortgaged
+        /// </summary>
+        /// <returns>bool true or false</returns>
         public override bool isMortgaged()
         {
             return this.mortgaged;
         }
-        /*
-        public decimal unMortgagePropertyPrice()
-        {
-            return this.dMortgageValue * 10 / 100;
-        }
-
+      
         
-        public override void mortgageProperty()
-        {
-            this.getOwner().pay(this.dMortgageValue);
-            Banker.access().pay(this.dMortgageValue);
-            this.mortgaged = true;
-
-            //return this.dMortgageValue;
-        }
-        */
-
         //need to grab all the groups for that property and then return list to another method
+        /// <summary>
+        /// Returns a arraylist of all properties in a group for that property
+        /// </summary>
+        /// <param name="theProperty">The property</param>
+        /// <param name="checkOwnsAll">to skip if owner owns prop</param>
+        /// <returns>property list of all in a group</returns>
         public override ArrayList returnGroupProperties(Property theProperty,bool checkOwnsAll = true)
         {
             //Store temp props
@@ -141,6 +144,12 @@ namespace MonopolyGame_9901623
             int total_group = 0;
             int owned_group = 0;
             Game.PropertyGroup theGroup = theProperty.getGroup();
+            //there is no groups for this prop so return itself as only group
+            if (theGroup == Game.PropertyGroup.NONE)
+            {
+                tmpProps.Add(theProperty);
+                return tmpProps;
+            }
             ArrayList propGroups = Board.access().getPropGroups(theGroup);
 
             //go through all the properties
@@ -178,12 +187,20 @@ namespace MonopolyGame_9901623
             return tmpProps;
 
         }
-
+        /// <summary>
+        /// checks if they own all properties of a group returns true or false
+        /// </summary>
+        /// <param name="theProperty">Property</param>
+        /// <returns>bool</returns>
         public override bool ownsAllProps(Property theProperty)
         {
             return (returnGroupProperties(theProperty) != null);
         }
-
+        /// <summary>
+        /// Returns the amount of properties in a group 
+        /// </summary>
+        /// <param name="theProperty">theProperty</param>
+        /// <returns>int</returns>
         public override int ownsHowMany(Property theProperty)
         {
             //@todo need to test if the array is null what will it return;
@@ -192,7 +209,10 @@ namespace MonopolyGame_9901623
 
             return count;
         }
-
+        /// <summary>
+        /// gets the current group of this property
+        /// </summary>
+        /// <returns>Game.PropertyGroup</returns>
         public override Game.PropertyGroup getGroup()
         {
             //Returns the current group as string

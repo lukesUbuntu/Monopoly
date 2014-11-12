@@ -33,7 +33,10 @@ namespace MonopolyGame_9901623
         {
             return (this.rentMultiplier() * player.getLastMove());
         }
-
+        /// <summary>
+        /// Multiplies the rent and returns the value based on properties owned in group
+        /// </summary>
+        /// <returns>rent amount</returns>
         public int rentMultiplier()
         {
             return rentMultiplied * this.ownsHowMany(this);

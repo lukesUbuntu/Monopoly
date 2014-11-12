@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -16,58 +17,82 @@ namespace MonopolyGame_9901623
     {
         private String playerGameFile = @"playergamesave.xml";
 
+
+        String strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+
+       
+
+
         /// <summary>
-        /// Load settings
+        /// Load settings from file
         /// </summary>
         public void load()
         {
             //load up our xml
-            
             Settingsxml gameData;
-            XmlSerializer objXMLSerializer = new XmlSerializer(typeof(Settingsxml));
-            FileStream objFS = new FileStream(playerGameFile, FileMode.Open);
-            gameData = (Settingsxml)objXMLSerializer.Deserialize(objFS);
-            objFS.Close();
-            //@todo error checking on file
-            
-            //set bank has
-            Console.WriteLine("Bank Has received : $" + gameData.bankowns);
-            Banker.access().setBalance(gameData.bankowns);
 
-            
-
-            foreach (PlayerSettings theplayer in gameData.Players)
+            String file = new Uri(Path.Combine(strAppDir, playerGameFile)).LocalPath;
+            if (File.Exists(file))
             {
-                //create new player
-                Player newPlayer = new Player(theplayer.playerName);
+                XmlSerializer objXMLSerializer = new XmlSerializer(typeof(Settingsxml));
+                FileStream objFS = new FileStream(file, FileMode.Open);
+                gameData = (Settingsxml)objXMLSerializer.Deserialize(objFS);
+                objFS.Close();
+                //@todo error checking on file
 
-                //set new player details
-                newPlayer.setLocation(theplayer.playersLocation);
-                newPlayer.setBalance(theplayer.playersAccount);
-               
+                //set bank has
+                Console.WriteLine("Bank Has received : $" + gameData.bankowns);
+                Banker.access().setBalance(gameData.bankowns);
 
-                //update jail card
-                if (theplayer.getOutOfJail)
+
+
+                foreach (PlayerSettings theplayer in gameData.Players)
                 {
-                    newPlayer.giveGetOutJailCard();
-                    CommunityCards.access().remove_jail_card();
-                }
-                
+                    //create new player
+                    Player newPlayer = new Player(theplayer.playerName);
 
-                //update property data
-                foreach(propdetails theProp in theplayer.PropertiesOwned)
-                {
-                    updateProp(theProp, ref newPlayer);
-                }
-               // theplayer.PropertiesOwned
+                    //set new player details
+                    newPlayer.setLocation(theplayer.playersLocation);
+                    newPlayer.setBalance(theplayer.playersAccount);
 
-                //Board.access().getProperty()
-               
-                Board.access().addPlayer(newPlayer);
-                Console.WriteLine(newPlayer.FullDetailsToString());
-                Console.WriteLine("{0} has been added to the game.", newPlayer.getName());
-                Console.WriteLine(ConsoleOveride.spacer);
+
+                    //update jail card
+                    if (theplayer.getOutOfJailCard)
+                    {
+                        newPlayer.giveGetOutJailCard();
+                        CommunityCards.access().remove_jail_card();
+                    }
+
+
+                    //update property data
+                    foreach (propdetails theProp in theplayer.PropertiesOwned)
+                    {
+                        updateProp(theProp, ref newPlayer);
+                    }
+                    // theplayer.PropertiesOwned
+
+                    if (theplayer.inJail)
+                    {
+                        Console.WriteLine("{0} is set in Jail.", newPlayer.getName());
+                        newPlayer.setIsInJail();
+                    }
+                   
+                    //Board.access().getProperty()
+
+                    Board.access().addPlayer(newPlayer);
+                    Console.WriteLine(newPlayer.FullDetailsToString());
+                    Console.WriteLine("{0} has been added to the game.", newPlayer.getName());
+                    Console.WriteLine(ConsoleOveride.spacer);
+                }
+
             }
+            else
+            {
+                Console.WriteLine("No game data file found.. Start new game then save");
+            }
+           
+
+ 
   
         }
         private void updateProp(propdetails theProp, ref Player theplayer)
@@ -94,6 +119,8 @@ namespace MonopolyGame_9901623
         /// </summary>
         public void save()
         {
+            String file = new Uri(Path.Combine(strAppDir, playerGameFile)).LocalPath;
+           
             //set the game data
             Settingsxml gameData = new Settingsxml();
 
@@ -138,7 +165,7 @@ namespace MonopolyGame_9901623
 
 
 
-                playersData.Add(new PlayerSettings(theplayer.getName(), theplayer.getBalance(), theplayer.getLocation(),theplayer.hasGetOutJailCard(), thePropsOwned));
+                playersData.Add(new PlayerSettings(theplayer.getName(), theplayer.getBalance(), theplayer.getLocation(), theplayer.hasGetOutJailCard(), theplayer.getIsInJail(), thePropsOwned));
             }
 
          
@@ -147,7 +174,7 @@ namespace MonopolyGame_9901623
             gameData.bankowns = Banker.access().getBalance();
 
             XmlSerializer objXMLSerializer = new XmlSerializer(typeof(Settingsxml));
-            FileStream objFS = new FileStream(playerGameFile, FileMode.Create);
+            FileStream objFS = new FileStream(file, FileMode.Create);
             objXMLSerializer.Serialize(objFS, gameData);
             objFS.Close();
 
@@ -155,7 +182,9 @@ namespace MonopolyGame_9901623
 
         }
     }
-
+    /// <summary>
+    /// Settings structure for XML
+    /// </summary>
     [XmlRoot("Settings")]
     public class Settingsxml
     {
@@ -183,8 +212,11 @@ namespace MonopolyGame_9901623
         [XmlElement(ElementName = "playersLocation", DataType = "int")]
         public int playersLocation;
 
-        [XmlElement(ElementName = "getOutOfJail", DataType = "boolean")]
-        public bool getOutOfJail;
+        [XmlElement(ElementName = "getOutOfJailCard", DataType = "boolean")]
+        public bool getOutOfJailCard;
+
+        [XmlElement(ElementName = "inJail", DataType = "boolean")]
+        public bool inJail;
 
         [XmlElement("AccountBalance")]
         public decimal playersAccount;
@@ -202,14 +234,15 @@ namespace MonopolyGame_9901623
             // Default constructor for serialization.
         }
 
-        public PlayerSettings(string sName, decimal playersAccount, int playersLocation, bool getOutOfJail, List<propdetails> args)
+        public PlayerSettings(string sName, decimal playersAccount, int playersLocation, bool getOutOfJailCard, bool inJail, List<propdetails> args)
         {
             this.playerName = sName;
             
             this.playersAccount = playersAccount;
             this.PropertiesOwned = args;
             this.playersLocation = playersLocation;
-            this.getOutOfJail = getOutOfJail;
+            this.getOutOfJailCard = getOutOfJailCard;
+            this.inJail = inJail;
         }
     }
 

@@ -11,7 +11,7 @@ namespace MonopolyGame_9901623
     /// </summary>
     public class ChanceCards
     {
-         //http://stackoverflow.com/a/3767989/1170430
+        
         protected static ChanceCards chancecards;
         protected Queue<Action> the_deck;
         protected Player the_player;
@@ -220,7 +220,7 @@ namespace MonopolyGame_9901623
 
         public void bank_pays_dividend()
         {
-            the_action_message = String.Format("Bank pays you dividend of $50 ");
+            the_action_message = String.Format("Bank pays you dividend of <color:Yellow>$</color>50 ");
             Banker.access().pay(50);
             the_player.receive(50);
             the_deck.Enqueue(() => bank_pays_dividend());
@@ -282,13 +282,13 @@ namespace MonopolyGame_9901623
 
               Banker.access().receive(repair_cost);
               the_player.pay(repair_cost);
-              the_action_message = String.Format("Make general repairs on all your property – for each house pay $25  total cost : ${0}", repair_cost);
+              the_action_message = String.Format("Make general repairs on all your property – for each house pay <color:Yellow>$</color>25  total cost : <color:Yellow>$</color>{0}", repair_cost);
               the_deck.Enqueue(() => street_repairs());
           }
 
         public void pay_poor_tax()
         {
-            the_action_message = String.Format("Pay poor tax $20.00");
+            the_action_message = String.Format("Pay poor tax <color:Yellow>$</color>20.00");
             Banker.access().receive(20);
             the_player.pay(20);
             the_deck.Enqueue(() => pay_poor_tax());
@@ -296,7 +296,7 @@ namespace MonopolyGame_9901623
 
         public void elected_chair_person()
         {
-            the_action_message = String.Format("You have been elected chairman of the board – pay each player $50  ");
+            the_action_message = String.Format("You have been elected chairman of the board – pay each player <color:Yellow>$</color>50  ");
             foreach (Player player in Board.access().getPlayers())
             {
                 if (player != the_player)
@@ -311,7 +311,7 @@ namespace MonopolyGame_9901623
 
         public void building_loan_matures()
         {
-            the_action_message = String.Format("Your building loan matures – collect $150 ");
+            the_action_message = String.Format("Your building loan matures – collect <color:Yellow>$</color>150 ");
             Banker.access().pay(150);
             the_player.receive(150);
             the_deck.Enqueue(() => building_loan_matures());
@@ -319,7 +319,7 @@ namespace MonopolyGame_9901623
 
         public void cross_word_comp()
         {
-            the_action_message = String.Format("You have won a crossword competition - collect $100");
+            the_action_message = String.Format("You have won a crossword competition - collect <color:Yellow>$</color>100");
             Banker.access().pay(100);
             the_player.receive(100);
             the_deck.Enqueue(() => cross_word_comp());

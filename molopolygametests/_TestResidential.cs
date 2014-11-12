@@ -34,6 +34,7 @@ namespace MonopolyGame_9901623
             Player player1 = new Player("Player1", 1500);
             theProp.setOwner(ref player1);
             Assert.IsTrue(theProp.getOwner() == player1);
+           
             Assert.IsTrue(expected_rent == theProp.getRent());
            
         }
