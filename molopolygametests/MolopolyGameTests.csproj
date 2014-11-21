@@ -61,6 +61,15 @@
     <Compile Include="_DieTest.cs" />
     <Compile Include="_FactoriesTest.cs" />
     <Compile Include="_PlayerTest.cs" />
+    <Compile Include="_TestChanceCards.cs" />
+    <Compile Include="_TestCommunityCards.cs" />
+    <Compile Include="_TestConsoleOveride.cs" />
+    <Compile Include="_TestJail.cs" />
+    <Compile Include="_TestMonopoly.cs" />
+    <Compile Include="_TestProperty.cs" />
+    <Compile Include="_TestResidential.cs" />
+    <Compile Include="_TestSettings.cs" />
+    <Compile Include="_TestTradeableProperty.cs" />
     <Compile Include="_TestTransport.cs" />
     <Compile Include="_TraderTest.cs" />
     <Compile Include="_UtilityTest.cs" />
@@ -69,9 +78,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MolopolyGame.csproj">
+    <ProjectReference Include="..\MonopolyGame_9901623.csproj">
       <Project>{9EF5FFA6-392A-40E3-AD37-A9C8863D436B}</Project>
-      <Name>MolopolyGame</Name>
+      <Name>MonopolyGame_9901623</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -10,40 +10,64 @@ namespace MonopolyGame_9901623
     /// <summary>
     /// Overrides the main console.out this allows for capture of output and modify.
     /// </summary>
-        class ConsoleOveride : TextWriter
-        { 
+        public class ConsoleOveride : TextWriter
+        {
+
+            
+
+
+           
+            //private TextWriter originalOut = Console.Out;
             private TextWriter originalOut = Console.Out;
+
             private Regex regexColor = new Regex("<color:(.*?)>(.*?)</color>");
+            /// <summary>
+            /// Receives the first instance of the call for WriteLine
+            /// </summary>
+            /// <param name="consoleMessage">message</param>
             public override void WriteLine(string consoleMessage)
             {
-                //originalOut.WriteLine(value);
-                //String ConsoleColor = extractColor(consoleMessage);
+                //Test if we have a color tag
                 if (consoleMessage.Contains("</color>"))
                 {
-                    //we have a message that requires some coloring
+                    //we have a color tag append new line
                     publishColor(consoleMessage+"\n");
                 }
                 else
                 {
-                    originalOut.WriteLine("{0}", consoleMessage);
+                    //output to orginal console writeout
+                    this.writeline(consoleMessage);
                 }
                 
             }
+            /// <summary>
+            /// Receives the first instance of the call for Write
+            /// </summary>
+            /// <param name="consoleMessage">message</param>
+            public override void Write(string consoleMessage)
+            {
+                //sends back to our writeline
+                this.WriteLine(consoleMessage);
 
+            }
             public override Encoding Encoding
             {
                 get { throw new Exception("The method or operation is not implemented."); }
             }
 
-            
+            /// <summary>
+            /// Formats a message and builds prop coloring for the string 
+            /// </summary>
+            /// <param name="consoleMessage"></param>
             public void publishColor(string consoleMessage)
             {
-                //"1. <color:Red>Setup Monopoly Game</color> test after  <color:Blue>Setup Monopoly Game</color>sss"
                 
+                //"1. <color:Red>Setup Monopoly Game</color> test after  <color:Blue>Setup Monopoly Game</color>sss"
+                //regex the color code
                 Regex regexpBeforeNew = new Regex("(.*?)<color:(.*)>", RegexOptions.IgnorePatternWhitespace);
                 Regex regexSplit = new Regex("</color>", RegexOptions.IgnorePatternWhitespace);
 
-                     // Split on hyphens. 
+                // Split on our regex
                 string[] substrings = regexSplit.Split(consoleMessage);
                 foreach (string match in substrings)
                 {
@@ -55,7 +79,8 @@ namespace MonopolyGame_9901623
                     }
                     else
                     {
-                        originalOut.Write(match);
+                        //this is not part of a color match so append to orginal write out
+                        this.write(match);
                     }
                    
                     
@@ -67,6 +92,10 @@ namespace MonopolyGame_9901623
                
             }
 
+            /// <summary>
+            /// Splits the messages into colored strings and output the color between <color>tags</color>
+            /// </summary>
+            /// <param name="consoleMessage">themessage</param>
             public void printColor(String consoleMessage)
             {
                 Regex regexpAfter = new Regex("</color>(.*)");
@@ -75,8 +104,6 @@ namespace MonopolyGame_9901623
                 consoleMessage = consoleMessage.Replace("\n", "\\n");
 
                 var stringMessage = regexColor.Match(consoleMessage);
-
-
                 var stringAfter = regexpAfter.Match(consoleMessage);
                 var stringBefore = regexpBefore.Match(consoleMessage);
 
@@ -90,15 +117,11 @@ namespace MonopolyGame_9901623
                     string theColor = (stringMessage.Groups[1].ToString() == "0") ? "White" : stringMessage.Groups[1].ToString();
                     theColor = (stringMessage.Groups[1].ToString() == "Black") ? "White" : stringMessage.Groups[1].ToString();
 
-                    //PropertyGroups side = Game.PropertyGroup.GROUP_1;
-
-                    //object val = Convert.ChangeType(side, side.GetTypeCode());
-                    //originalOut.Write(val);
-
+                    //grab the colored message
                     String theMessage = stringMessage.Groups[2].ToString();
-
+                    //Grab the text after the color code
                     String afterMessage = stringAfter.Groups[1].ToString();
-
+                    //Grab the text before the color code
                     String beforeMessage = stringBefore.Groups[1].ToString();
 
 
@@ -107,22 +130,32 @@ namespace MonopolyGame_9901623
                     ConsoleColor defaultColor = Console.ForegroundColor;
                   
                     beforeMessage = beforeMessage.Replace("\\n", "\n");
-                    originalOut.Write(beforeMessage);
+
+                    this.write(beforeMessage);
                     //@todo need to make sure color exists
-                    //Console.ForegroundColor = (ConsoleColor)theColor.ToString();
                     Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), theColor);
-                    originalOut.Write(theMessage);
+
+                    this.write(theMessage);
                     Console.ForegroundColor = defaultColor;
-                    originalOut.Write(afterMessage);
+                    this.write(afterMessage);
 
                 }
               
 
                 //publish console
-                //originalOut.WriteLine("->{0}", consoleMessage);
+                //this.writeLine("->{0}", consoleMessage);
             }
 
+            /// <summary>
+            /// Random spacer for splitting
+            /// </summary>
+            public static String spacer = ConsoleOveride.colorString("*************************************************************");
 
+            /// <summary>
+            /// Takes a string and randoms color to it.
+            /// </summary>
+            /// <param name="theString">the message</param>
+            /// <returns>randomize string full of color </returns>
             public static String colorString(String theString){
 
                 Random randomGen = new Random();
@@ -144,6 +177,24 @@ namespace MonopolyGame_9901623
                 
                 
                 return newString;
+            }
+
+            /// <summary>
+            /// writes out to the orginal console.Write
+            /// </summary>
+            /// <param name="theMessage">console message</param>
+            protected virtual void write(String theMessage)
+            {
+                originalOut.Write(theMessage);
+            }
+
+            /// <summary>
+            /// writes out to the orginal console.WriteLine
+            /// </summary>
+            /// <param name="theMessage">console message</param>
+            protected virtual void writeline(String theMessage)
+            {
+                originalOut.WriteLine(theMessage);
             }
         }
     

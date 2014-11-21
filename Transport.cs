@@ -38,7 +38,10 @@ namespace MonopolyGame_9901623
             else
                 return base.landOn(ref player);
         }
-
+        /// <summary>
+        /// Calculates the correct rent paid per house owned by the player
+        /// </summary>
+        /// <returns>rent value based on house</returns>
         public override decimal getRent()
         {
 
@@ -54,7 +57,8 @@ namespace MonopolyGame_9901623
             {
                 hasToPay = hasToPay * 2;
             }
-
+            //hoteal
+            
             return hasToPay;
         }
     }

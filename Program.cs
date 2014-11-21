@@ -13,36 +13,14 @@ namespace MonopolyGame_9901623
         static void Main(string[] args)
         {
 
-
-         
-
-
             //Set console to be overridden.
-           Console.SetOut(new ConsoleOveride()); 
+            Console.SetOut(new ConsoleOveride()); 
             
-            //Game game = new Monopoly();
+            Game game = new Monopoly();
 
-            //game.initializeGame();
+            game.initializeGame();
 
-
-
-            CommunityManager.access().shuffleCards();
-            Player thePlayer = new Player("Lukes", 200m);
-
-            CommunityManager.access().draw_card(ref thePlayer);
-
-
-            //Console.WriteLine("1. <color:Red>Setup Game</color> test after  <color:Blue>Setup Monopoly Game</color>sss <color:Yellow>yellow</color>");
-            //Console.ReadLine();
-            //Settings theSettings = new Settings();
-
-            //theSettings.save();
-
-
-           
-           //Console.WriteLine(newWord);
-
-           Console.ReadLine();
+        
         }
 
      

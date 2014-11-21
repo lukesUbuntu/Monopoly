@@ -46,6 +46,10 @@ namespace MonopolyGame_9901623
             this.owner = newOwner;
         }
 
+        /// <summary>
+        /// Returns the name of the property with also the color tag. To refer to the real name without color use getNRname()
+        /// </summary>
+        /// <returns>string</returns>
         public string getName()
         {
 
@@ -54,13 +58,29 @@ namespace MonopolyGame_9901623
 
             return "<color:" + this.getColor() + ">" + this.sName + "</color>";
         }
-
+      
+        /// <summary>
+        /// returns the unmodifed prop name
+        /// </summary>
+        /// <returns>sName</returns>
+        public string getRName()
+        {
+   
+            return this.sName;
+        }
+        /// <summary>
+        /// returns the color code in property group
+        /// </summary>
+        /// <returns>ConsoleColor</returns>
         public ConsoleColor getColor()
         {
             //Pass color of prop for group
             return (ConsoleColor)(int)this.getGroup();
         }
-
+        /// <summary>
+        /// Gets the group this property belongs too
+        /// </summary>
+        /// <returns></returns>
         public virtual Game.PropertyGroup getGroup()
         {
             //Returns the current group as string
@@ -88,7 +108,12 @@ namespace MonopolyGame_9901623
            return (returnGroupProperties(theProperty) != null);
         }
 
-
+        /// <summary>
+        /// Returns the array list of the properties
+        /// </summary>
+        /// <param name="theProperty"></param>
+        /// <param name="checkOwnsAll"></param>
+        /// <returns></returns>
         public virtual ArrayList returnGroupProperties(Property theProperty, bool checkOwnsAll = true)
         {
             ArrayList tmpProps = new ArrayList();
@@ -101,12 +126,31 @@ namespace MonopolyGame_9901623
             return this.mortgaged;
         }
 
-
-        public virtual decimal mortgageProperty()
+        public virtual void setIsMortgaged(bool mortgaged)
         {
-            return this.dMortgageValue / 2;
+            this.mortgaged = mortgaged;
         }
+        public virtual void mortgageProperty()
+        {
+            this.getOwner().pay(this.dMortgageValue);
+            Banker.access().pay(this.dMortgageValue);
+            this.mortgaged = true;
 
+            //return this.dMortgageValue;
+        }
+        public virtual decimal unMortgagePropertyPrice()
+        {
+            return (this.dMortgageValue  * 10 / 100) + this.dMortgageValue;
+        }
+        public virtual decimal mortgagePropertyPrice()
+        {
+            return this.dMortgageValue;
+        }
+        /// <summary>
+        /// Returns int of how many are owned of a property group from a Property
+        /// </summary>
+        /// <param name="theProperty">Property</param>
+        /// <returns>int</returns>
         public virtual int ownsHowMany(Property theProperty)
         {
             //@todo need to test if the array is null what will it return;

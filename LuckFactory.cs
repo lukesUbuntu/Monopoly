@@ -4,6 +4,9 @@ using System.Text;
 
 namespace MonopolyGame_9901623
 {
+    /// <summary>
+    /// Handles the creating a luck
+    /// </summary>
     public class LuckFactory : PropertyFactory
     {
         public Luck create(string sName, bool isPenalty, decimal dAmount, Game.CardType luckType = Game.CardType.None)
@@ -11,5 +14,8 @@ namespace MonopolyGame_9901623
             
             return new Luck(sName, isPenalty, dAmount, luckType);
         }
+
+
+
     }
 }

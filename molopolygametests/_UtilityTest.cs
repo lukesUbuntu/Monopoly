@@ -10,10 +10,14 @@ namespace MonopolyGame_9901623
     {
         [Test]
         public void testPayRent()
+        
         {
+            Board.access().resetBoard(true);
             Utility u = new Utility();
 
             Player p = new Player("John", 1500);
+            Board.access().addPlayer(p);
+            Board.access().addProperty(u);
 
             //move p so that utility rent can be calculated
             p.move();
@@ -30,12 +34,15 @@ namespace MonopolyGame_9901623
         [Test]
         public void testLandOn()
         {
+            Board.access().resetBoard(true);
             Utility util = new Utility();
 
             //Create two players
             Player p1 = new Player("Bill");
             Player p2 = new Player("Fred", 1500);
-
+            Board.access().addPlayer(p1);
+            Board.access().addPlayer(p2);
+            Board.access().addProperty(util);
             string msg;
 
             //test landon normally with no rent payable

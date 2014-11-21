@@ -16,8 +16,10 @@ namespace MonopolyGame_9901623
         {
             this.sName = sName;
             this.isJail = isJail;
-            
+        }
 
+        public bool isJailProp(){
+            return this.isJail;
         }
         public override string ToString()
         {

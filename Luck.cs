@@ -32,16 +32,29 @@ namespace MonopolyGame_9901623
         public override string landOn(ref Player player)
         {
            
-            //if is a benefit player receives amount else pay amount
-            if (this.luckType == Game.CardType.CommunityChest)
+            //we have landed on chance or community card
+            if (this.luckType != Game.CardType.None)
             {
+               // String cardDetails = "";
 
-                
+                switch (this.luckType)
+                {
+                    case Game.CardType.CommunityChest :
+                        //cardDetails = CommunityCards.access().draw_card(ref player);
+                        return base.landOn(ref player) + String.Format("\n{0} <color:White>Drawing Community Card...</color>\n<color:Yellow>Card Reads</color> : {1}", player.getName(), CommunityCards.access().draw_card(ref player));
+                    case Game.CardType.Chance:
+                        //cardDetails = ChanceCards.access().draw_card(ref player);
+                        return base.landOn(ref player) + String.Format("\n{0} <color:White>Drawing Chance Card...</color>\n<color:Yellow>Card Reads</color> : {1}", player.getName(), CommunityCards.access().draw_card(ref player));
+
+                    default :
+                   return base.landOn(ref player) + "Not implmented";
+                }
                 //@todo apply land on to community card
-                CommunityManager.access().draw_card(ref player);
-                return base.landOn(ref player) + String.Format("{0} has recieved {2}.", player.getName(), this.getName(), this.penaltyOrBenefitAmount);
+               
 
-            }else if (this.isBenefitNotPenalty)
+            }
+            
+            if (this.isBenefitNotPenalty)
             {
                 player.receive(this.penaltyOrBenefitAmount);
                 return base.landOn(ref player) + String.Format("{0} has recieved {2}.", player.getName(), this.getName(), this.penaltyOrBenefitAmount);
