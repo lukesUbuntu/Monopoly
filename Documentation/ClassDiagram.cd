@@ -94,14 +94,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="MonopolyGame_9901623.CommunityCards">
-    <Position X="24.5" Y="6.5" Width="1.5" />
+    <Position X="24.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gIABBAAARIgIAAAAEgAAOAAMgHCkAAAAAEgAEAACEkA=</HashCode>
       <FileName>CommunityCards.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MonopolyGame_9901623.ConsoleOveride">
-    <Position X="28" Y="5.75" Width="1.5" />
+    <Position X="27.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAEAggAAAIAAAAAEAAgAAAAAAAAQIAAAGAAAA=</HashCode>
       <FileName>ConsoleOveride.cs</FileName>
@@ -178,7 +178,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="MonopolyGame_9901623.PlayerSettings">
-    <Position X="26.25" Y="4.25" Width="1.5" />
+    <Position X="26" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAEAAAAAAAAAAAEAACAAAIAACAAAAAIAAAAAAAA=</HashCode>
       <FileName>Settings.cs</FileName>
